@@ -5,8 +5,8 @@
  * @todo Definition of the class file structure.
  */
 
-#ifndef _CLASSFILE_H
-#define _CLASSFILE_H
+#ifndef CLASSFILE_H
+#define CLASSFILE_H
 
 #include <stdio.h>
 #include <stdint.h>
@@ -19,13 +19,11 @@
 typedef uint8_t  u1;
 typedef uint16_t u2;
 typedef uint32_t u4;
-typedef uint64_t u8;
 
 /**
  * @brief ClassFile definition.
  *
  * Structure of the class file.
- * The type definition of the structure is ClassFile.
  */
 typedef struct ClassFile {
     /**
@@ -135,7 +133,7 @@ enum {
 
 /**
  * @brief Structure of the constant pool, separated by type.
- * The type definition of the structure is ConstPool.
+ * The type definition of the structure is cp_info.
  */
 typedef struct cp_info {
     /**
@@ -253,7 +251,6 @@ typedef struct cp_info {
  *
  * Contains the acess flags, name index, descriptor index,
  * attributtes count and a pointer type attribute_info.
- * The type definition of the structure is field_info.
  */
 typedef struct field_info {
     u2              access_flags;
@@ -267,13 +264,11 @@ typedef struct field_info {
  * @brief attribute_info structure.
  *
  * Contains the name index, lenght, info // and specific info.
- * The type definition of the structure is attribute_info.
  */
 typedef struct attribute_info {
     u2 attributeName_index;
     u4 attributeLength;
     u1 *info;
-    // void *specific_info;
 } attribute_info;
 
 /**
@@ -281,7 +276,6 @@ typedef struct attribute_info {
  *
  * Contains the acess flags, name index, descriptor index,
  * attributtes count and a pointer type attribute_info.
- * The type definition of the structure is method_info.
  */
 typedef struct method_info {
     u2              access_flags;
@@ -318,382 +312,48 @@ typedef struct Code_attribute {
     u4                      code_length;
     u1                      *code;
     u2                      exception_table_length;
-    exception_table_entry   *exception_table;
+    /**
+     * @brief exception_table entry structure.
+     *
+     * Describes exception handlers in the code array.
+     */
+    struct exception_table {
+        u2 start_pc;
+        u2 end_pc;
+        u2 handler_pc;
+        u2 catch_type;
+    }                       *exception_table;
     u2                      attributes_count;
     attribute_info          *attributes;
 } Code_attribute;
 
 /**
- * @brief exception_table entry structure.
+ * @brief Exceptions_attribute structure.
  *
- * Describes exception handlers in the code array.
- * The type definition of the structure is exception_table_entry.
+ * Indicates which checked exceptions a method may throw.
  */
-typedef struct exception_table_entry {
-    u2 start_pc;
-    u2 end_pc;
-    u2 handler_pc;
-    u2 catch_type;
-} exception_table_entry;
+typedef struct Exceptions_attribute {
+    u4 attribute_name_index;
+    u4 attribute_length;
+    u2 number_of_exceptions;
+    u2 *exception_index_table;
+} Exceptions_attribute;
 
 /**
- * @brief Exception Attribute type.
+ * @brief InnerClasses_attribute structure.
  *
- * Contains the number of exceptions and a pointer type U2 for the exception table index.
- * The type definition of the Inner Class structure is ExceptionAttribute.
+ * Represents classes or interfaces that are not members of a package.
  */
-typedef struct _exception_attribute {
-    u2 numberOfExceptions;
-    u2 *exception_indexTable;
-}ExceptionAttribute;
-
-/**
- * @brief Inner Class definition.
- *
- * Contains the index for inner and outer class, inner name index and inner class acess flags.
- * The type definition of the Inner Class structure is InnerClass.
- */
-typedef struct _inner_class {
-    u2 innerClassInfo_index;
-    u2 outerClassInfo_index;
-    u2 innerName_index;
-    u2 innerClassAccess_flags;
-}InnerClass;
-
-/**
- * @brief Inner Classes Attribute definition.
- *
- * Contains the number of classes and a pointer type InnerClass.
- * The type definition of the Inner Class structure is InnerClassesAttribute.
- */
-typedef struct _inner_classes_attribute {
-    u2 numberOfClasses;
-    InnerClass *classes;
-}InnerClassesAttribute;
-
-/**
- * @brief Liner Number Table Entry definition.
- *
- * Contains the start PC and the line number.
- * The type definition of the structure is LineNumberTableEntry.
- */
-typedef struct _line_number_table_entry {
-    u2 start_pc;
-    u2 lineNumber;
-}LineNumberTableEntry;
-
-/**
- * @brief Line Number Table Attribute definition.
- *
- * Contains the line number table lenght and a pointer type LineNumberTableEntry.
- * The type definition of the structure is LineNumberTableAttribute.
- */
-typedef struct _line_number_table_attribute {
-    u2 lineNumberTableLength;
-    LineNumberTableEntry *lineNumberTable;
-}LineNumberTableAttribute;
-
-/**
- * @brief Local Variable Table Entry definition.
- *
- * Contains the start PC, lenght, name and descriptor index, and the index.
- * The type definition of the structure is LocalVariableTableEntry.
- */
-typedef struct _local_variable_table_entry {
-    u2 start_pc;
-    u2 length;
-    u2 name_index;
-    u2 descriptor_index;
-    u2 index;
-}LocalVariableTableEntry;
-
-/**
- * @brief  Local Variable Table Attribute definition.
- *
- * Contains the local variable table lenght and a pointer type  LocalVariableTableEntry.
- * The type definition of the structure is LocalVariableTableAttribute.
- */
-typedef struct _local_variable_table_attribute {
-    u2 localVariableTableLength;
-    LocalVariableTableEntry *localVariableTable;
-}LocalVariableTableAttribute;
-
-/**
- * @brief Source File Attribute definition.
- *
- * Contains the source file index.
- * The type definition of the structure is SourceFileAttribute.
- */
-typedef struct _source_file_attribute {
-    u2 sourceFile_index;
-}SourceFileAttribute;
-
-typedef struct _verification_type_info{
-	u1 tag;
-
-	union{
-
-		struct {
-
-			//uint8_t tag; // possuira valor 0;
-
-		} top_variable_info;
-
-		struct {
-
-			//uint8_t tag; // possuira valor 1;
-
-		} integer_variable_info;
-
-		struct {
-
-			//uint8_t tag; // possuira valor 2;
-
-		} float_variable_info;
-
-		/**	 ATENCAo - Tanto para Long como Double (64bits ambas).
-		This structure gives the contents of two locations
-		in the operand stack or in the local variable array.
-		If the location is a local variable, then:
-		It must not be the local variable with the highest index.
-		The next higher numbered local variable contains the verification type top.
-		If the location is an operand stack entry, then:
-		The current location must not be the topmost location of the operand stack.
-		The next location closer to the top of the operand stack contains the verification type top.
-		*/
-
-		struct {
-
-			//uint8_t tag; // possuira valor 4;
-
-		} long_variable_info;
-
-		struct{
-
-			//uint8_t tag; // possuira valor 3;
-
-		} double_variable_info;
-
-		struct {
-
-			//uint8_t tag; // possuira valor 5;
-
-		} null_variable_info;
-
-		struct {
-
-			//uint8_t tag; // possuira valor 6;
-
-		} uninitializedThis_variable_info;
-
-		/**The Object_variable_info type indicates that the location
-		contains an instance of the class represented by the CONSTANT_Class_info*/
-
-		struct {
-
-			//uint8_t tag; // possuira valor 7;
-			u2 cpool_index; // index da classe na constant_pool
-
-		} object_variable_info;
-
-		struct {
-
-			//uint8_t tag; // possuira valor 8
-			u2 offset; /** The offset item indicates the offset, in the code array
-						of the Code attribute that contains this StackMapTable
-						attribute, of the new instruction (§new) that created the
-						object being stored in the location.*/
-
-		} uninitialized_variable_info;
-
-	} type_info;
-
-}VerificationTypeInfo;
-
-typedef struct _stack_map_frame {
-	u1 frame_type;
-	union{
-        /**
-         * @brief Same frame.
-         *
-         * If the frame type is same_frame, it means the frame has exactly
-         * the same locals as the previous stack map frame and
-         * that the number of stack items is zero. From 0-63.
-         */
-		struct{
-		} same_frame;
-        /**
-         * @brief same_locals_1_stack_item_frame.
-         *
-         * If the frame_type is same_locals_1_stack_item_frame,
-         * it means the frame has exactly the same
-         * locals as the previous stack map frame and that the number
-         * of stack items is 1*. From 64-127.
-         */
-		struct{
-			VerificationTypeInfo *stack;
-
-		} same_locals_1_stack_item_frame;
-        /**
-         * @brief same_locals_1_stack_item_frame_extended.
-         *
-         * The frame type same_locals_1_stack_item_frame_extended indicates
-         * that the frame has exactly the same locals as the previous
-         * stack map frame and that the number of stack items is 1.
-         * The offset_delta value for the frame is given explicitly.
-         * frame_type == 247.
-         */
-		struct{
-			u2 offset_delta;
-    	    VerificationTypeInfo *stack;
-		} same_locals_1_stack_item_frame_extended;
-
-		struct{
-
-			/**f the frame_type is chop_frame, it means that the operand stack
-			is empty and the current locals are the same as the locals in the
-			previous frame, except that the k last locals are absent.
-			The value of k is given by the formula 251 - frame_type.*/
-
-			//uint8_t frame_type; //= 248 a 250
-			u2 offset_delta;
-		} chop_frame;
-
-		struct{
-
-			/**If the frame type is same_frame_extended,
-			it means the frame has exactly the same locals as
-			the previous stack map frame and that the number of stack items is zero.*/
-
-			//uint8_t frame_type; // == 251
-			u2 offset_delta;
-
-		} same_frame_extended;
-
-		struct{
-
-			/**If the frame_type is append_frame, it means that the
-			operand stack is empty and the current locals are the same
-			as the locals in the previous frame, except that k
-			additional locals are defined. The value of k is given by
-			the formula frame_type - 251*/
-
-
-			//uint8_t frame_type;// == 252 a 254
-			u2 offset_delta;
-			VerificationTypeInfo *locals;
-
-		} append_frame;
-
-		struct{
-			/**The frame type full_frame is represented by the tag value 255.*/
-			//frame_type == 255
-        	u2 offset_delta;
-        	u2 number_of_locals;
-        	VerificationTypeInfo *locals; // Vetor alocar com number_of_locals
-        	u2 number_of_stack_items;
-        	VerificationTypeInfo *stack; // Vetor alocar com number_of_stack_items
-		} full_frame;
-
-    } map_frame_type;
-}StackMapFrame;
-
-/**
- * @brief StackMapTable Attribute definition.
- *
- * Contains the StackMapTable attribute.
- * The type definition of the structure is StackMapTable.
- */
-typedef struct _stackmaptable_attribute {
-    u2 number_of_entries;
-    StackMapFrame *entries;
-}StackMapTable;
-
-typedef struct _enclosing_method {
-    u2 class_index;
-    u2 method_index;
-}EnclosingMethod;
-
-typedef struct _signature_attribute {
-    u2 signature_index;
-}Signature_attribute;
-
-typedef struct _sourceDebugExtension_attribute {
-    u1 *debug_extension;
-}SourceDebugExtension_attribute;
-
-struct _annotation;
-struct _element_value;
-
-typedef struct _element_value{
-    u1 tag;
-    union {
-        u2 const_value_index;
-
-        struct{
-            u2 type_name_index;
-            u2 const_name_index;
-        } enum_const_value;
-
-        u2 class_info_index;
-
-        struct _annotation *annotation_value;
-
-        struct{
-            u2 num_values;
-            struct element_value* values;
-        } array_value;
-    } value;
-}Element_value;
-
-
-typedef struct _element_value_pairs{
-    u2 element_name_index;
-    Element_value *value;
-}Element_value_pairs;
-
-typedef struct _annotation {
-    u2 type_index;
-    u2 num_element_value_pairs;
-    Element_value_pairs* value_pairs;
-}Annotation;
-
-typedef struct _parameter_annotations {
-    u2 num_annotations;
-    Annotation *annotations;
-}Parameter_annotations;
-
-typedef struct _runtimeVisibleAnnotations_attribute {
-    Parameter_annotations *parameters_annotations;
-}RuntimeVisibleAnnotations_attribute;
-
-typedef struct _runtimeInvisibleAnnotations_attribute {
-    Parameter_annotations *parameters_annotations;
-}RuntimeInvisibleAnnotations_attribute;
-
-typedef struct _runtimeVisibleParameterAnnotations_attribute {
-    u1 num_parameters;
-    Parameter_annotations *parameters_annotations;
-}RuntimeVisibleParameterAnnotations_attribute;
-
-typedef struct _runtimeInvisibleParameterAnnotations_attribute {
-    u1 num_parameters;
-    Parameter_annotations *parameters_annotations;
-}RuntimeInvisibleParameterAnnotations_attribute;
-
-typedef struct _annotationDefault_attribute {
-    Element_value *default_value;
-}AnnotationDefault_attribute;
-
-typedef struct _bootstrap_methods{
-    u2 bootstrap_method_ref;
-    u2 num_bootstrap_arguments;
-    u2 *bootstrap_arguments;
-}Bootstrap_methods;
-
-typedef struct _BootstrapMethods_attribute {
-    u2 num_bootstrap_methods;
-    Bootstrap_methods * bootstrap_methods;
-}BootstrapMethods_attribute;
+typedef struct InnerClasses_attribute {
+    u2 attribute_name_index;
+    u4 attribute_length;
+    u2 number_of_classes;
+    struct classes {
+        u2 inner_class_info_index;
+        u2 outer_class_info_index;
+        u2 inner_name_index;
+        u2 inner_class_access_flags;
+    } *classes;
+} InnerClasses_attribute;
 
 #endif
