@@ -46,7 +46,7 @@ typedef struct ClassFile {
     u2 constant_pool_count;
     /**
      * @brief Table of structures representing various string constants, class and interface names, field names,
-     and other constants that are referred to within the ClassFile structure and its substructures
+     * and other constants that are referred to within the ClassFile structure and its substructures
      */
     cp_info *constant_pool;
    /**
@@ -249,13 +249,13 @@ typedef struct cp_info {
 } cp_info;
 
 /**
- * @brief Field info structure.
+ * @brief field_info structure.
  *
  * Contains the acess flags, name index, descriptor index,
  * attributtes count and a pointer type attribute_info.
  * The type definition of the structure is field_info.
  */
-typedef struct _field_info {
+typedef struct field_info {
     u2              access_flags;
     u2              name_index;
     u2              descriptor_index;
@@ -264,73 +264,77 @@ typedef struct _field_info {
 } field_info;
 
 /**
- * @brief Attribute info structure.
+ * @brief attribute_info structure.
  *
- * Contains the name index, lenght, info and specific info.
- * The type definition of the structure is Attribute.
+ * Contains the name index, lenght, info // and specific info.
+ * The type definition of the structure is attribute_info.
  */
-typedef struct _attribute_info {
+typedef struct attribute_info {
     u2 attributeName_index;
     u4 attributeLength;
     u1 *info;
-    void *specific_info;
-}Attribute;
+    // void *specific_info;
+} attribute_info;
 
 /**
- * @brief Method info definition.
+ * @brief method_info strucuture.
  *
  * Contains the acess flags, name index, descriptor index,
- * attributtes count and a pointer type Attribute Info.
- * The type definition of the structure is Method.
+ * attributtes count and a pointer type attribute_info.
+ * The type definition of the structure is method_info.
  */
-typedef struct _method_info {
-    u2 access_flags;
-    u2 name_index;
-    u2 descriptor_index;
-    u2 attributes_count;
-    Attribute *attributes;
-}Method;
+typedef struct method_info {
+    u2              access_flags;
+    u2              name_index;
+    u2              descriptor_index;
+    u2              attributes_count;
+    attribute_info *attributes;
+} method_info;
 
 /**
- * @brief Constant value index definition.
+ * @brief ConstantValue attribute structure.
  *
- * Contains the constant value index.
- * The type definition of the structure is ExceptionTableEntry.
+ * Represents the value of a constant expression.
+ * The type definition of the structure is ConstantValue_attribute.
  */
-typedef struct _constant_value_attribute {
-    u2 constantValue_index;
-}ConstantValueAttribute;
+typedef struct ConstantValue_attribute {
+    u2 attribute_name_index;
+    u4 attribute_length;
+    u2 constantvalue_index;
+} ConstantValue_attribute;
 
 /**
- * @brief Exception table entry definition.
+ * @brief Code attribute structure.
  *
- * Contains the start PC, end PC, handler PC and catch type.
- * The type definition of the structure is ExceptionTableEntry.
+ * Contains the Java Virtual Machine instructions and auxiliary information for a method,
+ * including an instance initialization method or a class or interface initialization method.
+ * The type definition of the structure is Code_attribute.
  */
-typedef struct _exception_table_entry {
+typedef struct Code_attribute {
+    u2                      attribute_name_index;
+    u4                      attribute_length;
+    u2                      max_stack;
+    u2                      max_locals;
+    u4                      code_length;
+    u1                      *code;
+    u2                      exception_table_length;
+    exception_table_entry   *exception_table;
+    u2                      attributes_count;
+    attribute_info          *attributes;
+} Code_attribute;
+
+/**
+ * @brief exception_table entry structure.
+ *
+ * Describes exception handlers in the code array.
+ * The type definition of the structure is exception_table_entry.
+ */
+typedef struct exception_table_entry {
     u2 start_pc;
     u2 end_pc;
     u2 handler_pc;
     u2 catch_type;
-}ExceptionTableEntry;
-
-/**
- * @brief Code Attribute definition.
- *
- * Contains the max stack, max locals, code lenght, pointer for code, exception table lenght,
- * a pointer type ExceptionTableEntry, attribute count and a pointer type Attribute.
- * The type definition of the structure is CodeAttribute.
- */
-typedef struct _code_attribute {
-    u2 max_stack;
-    u2 max_locals;
-    u4 codeLength;
-    u1 *code;
-    u2 exceptionTableLength;
-    ExceptionTableEntry *exceptionTable;
-    u2 attributes_count;
-    Attribute *attributes;
-}CodeAttribute;
+} exception_table_entry;
 
 /**
  * @brief Exception Attribute type.
