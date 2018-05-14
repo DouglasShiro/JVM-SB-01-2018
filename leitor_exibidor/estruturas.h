@@ -1,5 +1,5 @@
 
-
+typedef uint16_t u1; //unsigned 1 byte
 typedef uint16_t u2; //unsigned 2 bytes
 typedef uint32_t u4; //unsigned 4 bytes
 
