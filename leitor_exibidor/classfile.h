@@ -66,7 +66,7 @@ typedef struct ClassFile {
      */
     u2 interfaces_count;
     /**
-     * @brief Array of the interfaces that are a direct superinterface of the class or interfacesce type.
+     * @brief Array of the interfaces that are a direct superinterface of the class or interface type.
      */
     u2 *interfaces;
     /**
@@ -161,7 +161,7 @@ typedef struct cp_info {
         /**
          * @brief Fieldref structure.
          *
-         * Represents the fields of the class.
+         * Represents the fields of the class or interface.
          */
         struct CONSTANT_Fieldref_info {
             u2 class_index;
@@ -186,60 +186,60 @@ typedef struct cp_info {
             u1 *bytes;
         };
         /**
-         * @brief MethodRef type.
+         * @brief Methodref structure.
          *
-         * Contains the class index and name and type index.
+         * Represents the methods of the class.
          */
         struct CONSTANT_Methodref_info{
             u2 class_index;
             u2 name_and_type_index;
         };
         /**
-         * @brief InterfaceMethodRef type.
+         * @brief InterfaceMethodref structure.
          *
-         * Contains the class index and name and type index.
+         * Represents the interface methods of the interface.
          */
         struct CONSTANT_InterfaceMethodref_info{
             u2 class_index;
             u2 name_and_type_index;
         };
         /**
-         * @brief String type.
+         * @brief String structure.
          *
-         * Contains the string index.
+         * Represents constant objects of the type String.
          */
         struct CONSTANT_String_info{
             u2 string_index;
         };
         /**
-         * @brief Inteiro type.
+         * @brief Integer structure.
          *
-         * Contains the bytes.
+         * Represents 4-byte numeric int constants.
          */
         struct CONSTANT_Integer_info{
             u4 bytes;
         };
         /**
-         * @brief Float type.
+         * @brief Float structure.
          *
-         * Contains the bytes.
+         * Represents 4-byte numeric float constants.
          */
         struct CONSTANT_Float_info{
             u4 bytes;
         };
         /**
-         * @brief Long type.
+         * @brief Long structure.
          *
-         * Containing a sub-structure bytes, for high and low bytes.
+         * Represents 8-byte numeric long constants.
          */
         struct CONSTANT_Long_info{
             u4 high_bytes;
             u4 low_bytes;
         };
          /**
-         * @brief Double type.
+         * @brief Double structure.
          *
-         * Containing a sub-structure bytes, for high and low bytes.
+         * Represents 8-byte numeric double constants.
          */
         struct CONSTANT_Double_info{
             u4 high_bytes;
@@ -247,6 +247,21 @@ typedef struct cp_info {
         };
     };
 } cp_info;
+
+/**
+ * @brief Field info structure.
+ *
+ * Contains the acess flags, name index, descriptor index,
+ * attributtes count and a pointer type attribute_info.
+ * The type definition of the structure is field_info.
+ */
+typedef struct _field_info {
+    u2              access_flags;
+    u2              name_index;
+    u2              descriptor_index;
+    u2              attributes_count;
+    attribute_info *attributes;
+} field_info;
 
 /**
  * @brief Attribute info structure.
@@ -262,21 +277,6 @@ typedef struct _attribute_info {
 }Attribute;
 
 /**
- * @brief Field info structure.
- *
- * Contains the acess flags, name index, descriptor index,
- * attributtes count and a pointer type Attribute Info.
- * The type definition of the structure is Field.
- */
-typedef struct _field_info {
-    u2 access_flags;
-    u2 name_index;
-    u2 descriptor_index;
-    u2 attributes_count;
-    Attribute *attributes;
-}Field;
-
- /**
  * @brief Method info definition.
  *
  * Contains the acess flags, name index, descriptor index,
