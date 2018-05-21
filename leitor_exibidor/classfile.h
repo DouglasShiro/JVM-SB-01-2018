@@ -138,15 +138,6 @@ typedef struct attribute_info {
             u2 number_of_exceptions;
             u2 *exception_index_table;
         } exceptions;
-        struct InnerClasses_attribute {
-            u2 number_of_classes;
-            struct {
-                u2 inner_class_info_index;
-                u2 outer_class_info_index;
-                u2 inner_name_index;
-                u2 inner_class_access_flags;
-            } *classes;
-        } innerClasses;
     };
 } attribute_info;
 
