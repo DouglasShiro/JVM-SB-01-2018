@@ -22,7 +22,7 @@ typedef uint32_t u4;
  *  @brief Enum with a type name assignment with the access flag's name.
  *  Contains the flag names matching with its value.
  */
-enum {
+enum ACC_FLAGS {
     ACC_PUBLIC       = 0x0001,
     ACC_FINAL        = 0x0010,
     ACC_SUPER        = 0x0020,
@@ -36,14 +36,14 @@ enum {
     ACC_SYNCHRONIZED = 0x0020,
     ACC_NATIVE       = 0x0100,
     ACC_STRICT       = 0x0800,
-} ACC_FLAGS;
+};
 
 /**
  *  @enum CONSTANT_Tags
  *  @brief Enum with a type name assignment with the bytecode number that represents that name.
  *  Contains the constant types matching with its tag value.
  */
-enum {
+enum CONSTANT_Tags {
     CONSTANT_Class              = 7,
     CONSTANT_Fieldref           = 9,
     CONSTANT_Methodref          = 10,
@@ -55,7 +55,7 @@ enum {
     CONSTANT_Double             = 6,
     CONSTANT_NameAndType        = 12,
     CONSTANT_Utf8               = 1,
-} CONSTANT_Tags;
+};
 
 /**
  * @brief Structure of the constant pool, separated by type.
@@ -110,7 +110,7 @@ typedef struct cp_info {
 /**
  * @brief attribute_info structure.
  *
- * Contains the name index, lenght, info // and specific info.
+ * Contains the name index, length, info // and specific info.
  */
 typedef struct attribute_info {
     u2 attributeName_index;
@@ -120,18 +120,18 @@ typedef struct attribute_info {
             u2 constantvalue_index;
         } constantValue;
         struct Code_attribute {
-            u2              max_stack;
-            u2              max_locals;
-            u4              code_length;
-            u1             *code;
-            u2              exception_table_length;
+            u2                     max_stack;
+            u2                     max_locals;
+            u4                     code_length;
+            u1                    *code;
+            u2                     exception_table_length;
             struct {
                 u2 start_pc;
                 u2 end_pc;
                 u2 handler_pc;
                 u2 catch_type;
-            }              *exception_table;
-            u2              attributes_count;
+            }                     *exception_table;
+            u2                     attributes_count;
             struct attribute_info *attributes;
         } code;
         struct Exceptions_attribute {
@@ -144,8 +144,8 @@ typedef struct attribute_info {
 /**
  * @brief field_info structure.
  *
- * Contains the acess flags, name index, descriptor index,
- * attributtes count and a pointer type attribute_info.
+ * Contains the access flags, name index, descriptor index,
+ * attributes count and a pointer type attribute_info.
  */
 typedef struct field_info {
     u2              access_flags;
@@ -157,10 +157,10 @@ typedef struct field_info {
 
 
 /**
- * @brief method_info strucuture.
+ * @brief method_info structure.
  *
- * Contains the acess flags, name index, descriptor index,
- * attributtes count and a pointer type attribute_info.
+ * Contains the access flags, name index, descriptor index,
+ * attributes count and a pointer type attribute_info.
  */
 typedef struct method_info {
     u2              access_flags;
