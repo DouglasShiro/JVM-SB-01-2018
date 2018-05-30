@@ -125,7 +125,7 @@ typedef struct attribute_info {
             u4                     code_length;
             u1                    *code;
             u2                     exception_table_length;
-            struct {
+            struct exception_table {
                 u2 start_pc;
                 u2 end_pc;
                 u2 handler_pc;
