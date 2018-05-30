@@ -113,15 +113,15 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
         attributes = NULL;
 
     for (u2 i = 0; i < attributes_count; i++) {
-        attributes[i].attributeName_index = u2Read(file);
-        attributes[i].attributeLength = u4Read(file);
+        attributes[i].attribute_name_index = u2Read(file);
+        attributes[i].attribute_length = u4Read(file);
 
-        char *attributeName = (char *) malloc((constant_pool[attributes[i].attributeName_index - 1].utf8_info.length + 1) * sizeof(char));
+        char *attributeName = (char *) malloc((constant_pool[attributes[i].attribute_name_index - 1].utf8_info.length + 1) * sizeof(char));
 
-        for (u2 j = 0; j < constant_pool[attributes[i].attributeName_index - 1].utf8_info.length; j++)
-            attributeName[j] = constant_pool[attributes[i].attributeName_index - 1].utf8_info.bytes[j];
+        for (u2 j = 0; j < constant_pool[attributes[i].attribute_name_index - 1].utf8_info.length; j++)
+            attributeName[j] = constant_pool[attributes[i].attribute_name_index - 1].utf8_info.bytes[j];
 
-        attributeName[constant_pool[attributes[i].attributeName_index - 1].utf8_info.length] = '\0';
+        attributeName[constant_pool[attributes[i].attribute_name_index - 1].utf8_info.length] = '\0';
 
         if (!strcmp(attributeName, "ConstantValue"))
             attributes[i].constantValue.constantvalue_index = u2Read(file);
@@ -152,7 +152,7 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             attributes[i].code.attributes = attributesRead(file, constant_pool, attributes[i].code.attributes_count);
         } else if (!strcmp(attributeName, "Exceptions")) {
             attributes[i].exceptions.number_of_exceptions = u2Read(file);
-            attributes[i].exceptions.exception_index_table = (u2 *) malloc(attributes[i].exceptions.number_of_exceptions *sizeof(u2));
+            attributes[i].exceptions.exception_index_table = (u2 *) malloc(attributes[i].exceptions.number_of_exceptions * sizeof(u2));
 
             for (int j = 0; j < attributes[i].exceptions.number_of_exceptions; j++)
                 attributes[i].exceptions.exception_index_table[j] = u2Read(file);

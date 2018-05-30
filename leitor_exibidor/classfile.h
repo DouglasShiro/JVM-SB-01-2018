@@ -113,8 +113,8 @@ typedef struct cp_info {
  * Contains the name index, length, info // and specific info.
  */
 typedef struct attribute_info {
-    u2 attributeName_index;
-    u4 attributeLength;
+    u2 attribute_name_index;
+    u4 attribute_length;
     union {
         struct ConstantValue_attribute {
             u2 constantvalue_index;
