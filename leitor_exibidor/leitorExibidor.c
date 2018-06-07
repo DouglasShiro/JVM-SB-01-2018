@@ -5,7 +5,9 @@
 
 int main(int argc, char* argv[]) {
     
-    ClassFile* fp_class_info = classFileRead("double_aritmetica.class");
+    ClassFile *fp_class_info;
+
+    fp_class_info = classFileRead("double_aritmetica.class");
     
     classFileExib(fp_class_info);
     

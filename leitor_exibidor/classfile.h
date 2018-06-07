@@ -4,8 +4,8 @@
  *  @brief Definition of the class file structure.
  */
 
-#ifndef classfile_h
-#define classfile_h
+#ifndef CLASSFILE_H
+#define CLASSFILE_H
 
 #include <stdint.h>
 
@@ -138,13 +138,6 @@ typedef struct attribute_info {
             u2 number_of_exceptions;
             u2 *exception_index_table;
         } exceptions;
-        struct Line_number_table_attribute {
-            u2 line_number_table_length;
-            struct line_number_table {
-                u2 start_pc;
-                u2 line_number;
-            } *line_number_table;
-        } lineNumberTable;
     };
 } attribute_info;
 
@@ -161,7 +154,6 @@ typedef struct field_info {
     u2              attributes_count;
     attribute_info *attributes;
 } field_info;
-
 
 /**
  * @brief method_info structure.
@@ -201,4 +193,4 @@ typedef struct ClassFile {
     attribute_info *attributes;
 } ClassFile;
 
-#endif /* classfile_h */
+#endif

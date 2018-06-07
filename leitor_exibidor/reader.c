@@ -1,39 +1,36 @@
 #include "reader.h"
 
 /**
- *    @fn u1 u1Read(FILE *file)
- *    @brief Reads a u1 from a file.
- *    @param file Pointer to the file it will be read from.
- *    @return Read u1.
+ *  @fn u1 u1Read(FILE *file)
+ *  @brief Reads a u1 from a file.
+ *  @param file Pointer to the file it will be read from.
+ *  @return Read u1.
  */
-static u1 u1Read(FILE *file) {
+u1 u1Read(FILE *file) {
     u1 toReturn = getc(file);
-    
-    //u1Exib(toReturn);
-    
+
     return toReturn;
 }
 
 /**
- *    @fn u2 u2Read(FILE *file)
- *    @brief Reads a u2 from a file.
- *    @param file Pointer to the file it will be read from.
- *    @return Read u2.
+ *  @fn u2 u2Read(FILE *file)
+ *  @brief Reads a u2 from a file.
+ *  @param file Pointer to the file it will be read from.
+ *  @return Read u2.
  */
-static u2 u2Read(FILE *file) {
+u2 u2Read(FILE *file) {
     u2 toReturn = getc(file) << 8 | getc(file);
     
     return toReturn;
 }
 
 /**
- *    @fn u4 u4Read(FILE *file)
- *    @brief Reads a u4 from a file.
- *    @param file Pointer to the file it will be read from.
- *    @return Read u4.
+ *  @fn u4 u4Read(FILE *file)
+ *  @brief Reads a u4 from a file.
+ *  @param file Pointer to the file it will be read from.
+ *  @return Read u4.
  */
-static u4 u4Read(FILE *file) {
-    
+u4 u4Read(FILE *file) {
     u4 toReturn = getc(file) << 24 | getc(file) << 16 | getc(file) << 8 | getc(file);
     
     return toReturn;
@@ -65,10 +62,11 @@ void constantPoolRead(FILE *file, ClassFile *classFile) {
             case CONSTANT_Utf8:
                 classFile->constant_pool[i].utf8_info.length = u2Read(file);
                 classFile->constant_pool[i].utf8_info.bytes = (u1 *) malloc(classFile->constant_pool[i].utf8_info.length * sizeof(u1));
+
                 for (u2 j = 0; j < classFile->constant_pool[i].utf8_info.length; j++)
                     classFile->constant_pool[i].utf8_info.bytes[j] = u1Read(file);
+
                 classFile->constant_pool[i].utf8_info.bytes[classFile->constant_pool[i].utf8_info.length] = '\0';
-                
                 break;
             case CONSTANT_Methodref:
                 classFile->constant_pool[i].methodref_info.class_index = u2Read(file);
@@ -120,7 +118,6 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             attributeName[j] = constant_pool[attributes[i].attribute_name_index].utf8_info.bytes[j];
         }
         
-        
         attributeName[constant_pool[attributes[i].attribute_name_index].utf8_info.length] = '\0';
         
         if (!strcmp(attributeName, "ConstantValue"))
@@ -152,22 +149,13 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             attributes[i].code.attributes = attributesRead(file, constant_pool, attributes[i].code.attributes_count);
         } else if (!strcmp(attributeName, "Exceptions")) {
             attributes[i].exceptions.number_of_exceptions = u2Read(file);
-            attributes[i].exceptions.exception_index_table = (u2 *) malloc(attributes[i].exceptions.number_of_exceptions * sizeof(u2));
-            
+            attributes[i].exceptions.exception_index_table = (u2 *) malloc(
+                    attributes[i].exceptions.number_of_exceptions * sizeof(u2));
+
             for (int j = 0; j < attributes[i].exceptions.number_of_exceptions; j++)
                 attributes[i].exceptions.exception_index_table[j] = u2Read(file);
-        } else if (!strcmp(attributeName, "LineNumberTable")) {
-            attributes[i].lineNumberTable.line_number_table_length = u2Read(file);
-            if (attributes[i].lineNumberTable.line_number_table_length > 0) {
-                attributes[i].lineNumberTable.line_number_table = (struct line_number_table *) malloc(attributes[i].lineNumberTable.line_number_table_length * sizeof(struct line_number_table));
-            }
-            else {
-                attributes[i].lineNumberTable.line_number_table = NULL;
-            }
-            for (int j = 0; j < attributes[i].lineNumberTable.line_number_table_length; j++) {
-                attributes[i].lineNumberTable.line_number_table[j].start_pc = u2Read(file);
-                attributes[i].lineNumberTable.line_number_table[j].line_number = u2Read(file);
-            }
+        } else {
+            fseek(file, attributes[i].attribute_length, SEEK_CUR);
         }
     }
     
@@ -210,7 +198,7 @@ void methodsRead(FILE *file, ClassFile *classFile) {
     }
 }
 
-ClassFile* classFileRead(char *fileName) {
+ClassFile *classFileRead(char *fileName) {
     FILE *file = fopen(fileName, "rb");
     ClassFile *classFile = (ClassFile *) malloc(sizeof(ClassFile));
     
@@ -232,6 +220,8 @@ ClassFile* classFileRead(char *fileName) {
     methodsRead(file, classFile);
     classFile->attributes_count = u2Read(file);
     classFile->attributes = attributesRead(file, classFile->constant_pool, classFile->attributes_count);
+
+    fclose(file);
     
     return classFile;
 }

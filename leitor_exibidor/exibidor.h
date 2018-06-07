@@ -4,8 +4,8 @@
  *  @brief Definition of the class file structure.
  */
 
-#ifndef exibidor_h
-#define exibidor_h
+#ifndef EXIBIDOR_H
+#define EXIBIDOR_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,4 +21,4 @@ void fieldsExib(field_info *, u2);
 void methodsExib(method_info *, u2, cp_info *);
 void classFileExib(ClassFile *);
 
-#endif /* exibidor_h */
+#endif

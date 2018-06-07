@@ -6,15 +6,16 @@
 
 #include "exibidor.h"
 
-void u1Exib(u1 param){
+void u1Exib(u1 param) {
     printf("u1: ");
     printf("%01x / %d. ",param, param);
 }
-void u2Exib(u2 param){
+
+void u2Exib(u2 param) {
     printf("u2: ");
     printf("%02x / %d. ",param, param);
 }
-void u4Exib(u4 param){
+void u4Exib(u4 param) {
     printf("u4: ");
     printf("%04x. ",param);
 }
@@ -37,16 +38,6 @@ void attributesExib(attribute_info * param, u2 size, cp_info * cp){
             
             if (!strcmp(attributeName, "ConstantValue")) {
                 printf("ConstantValue %d. ", param[i].constantValue.constantvalue_index);
-            }
-            else if (!strcmp(attributeName, "Code")) {
-                printf("Code. ");
-                //attributesExib(param[i].code.attributes, param[i].code.attributes_count, cp);
-            }
-            else if (!strcmp(attributeName, "Exceptions")) {
-                printf("Exception. ");
-            }
-            else if (!strcmp(attributeName, "LineNumberTable")) {
-                printf("LineNumberTable. ");
             }
             else printf("%s. ", attributeName);
         }
