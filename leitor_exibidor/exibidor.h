@@ -17,7 +17,7 @@ void u2Exib(u2);
 void u4Exib(u4);
 void constantPoolExib(cp_info *, u2);
 void attributesExib(attribute_info *, u2, cp_info *);
-void fieldsExib(field_info *, u2);
+void fieldsExib(field_info *, u2, cp_info *);
 void methodsExib(method_info *, u2, cp_info *);
 void classFileExib(ClassFile *);
 

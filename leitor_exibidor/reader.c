@@ -8,7 +8,7 @@
  */
 u1 u1Read(FILE *file) {
     u1 toReturn = getc(file);
-
+    
     return toReturn;
 }
 
@@ -62,10 +62,10 @@ void constantPoolRead(FILE *file, ClassFile *classFile) {
             case CONSTANT_Utf8:
                 classFile->constant_pool[i].utf8_info.length = u2Read(file);
                 classFile->constant_pool[i].utf8_info.bytes = (u1 *) malloc(classFile->constant_pool[i].utf8_info.length * sizeof(u1));
-
+                
                 for (u2 j = 0; j < classFile->constant_pool[i].utf8_info.length; j++)
                     classFile->constant_pool[i].utf8_info.bytes[j] = u1Read(file);
-
+                
                 classFile->constant_pool[i].utf8_info.bytes[classFile->constant_pool[i].utf8_info.length] = '\0';
                 break;
             case CONSTANT_Methodref:
@@ -149,14 +149,15 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             attributes[i].code.attributes = attributesRead(file, constant_pool, attributes[i].code.attributes_count);
         } else if (!strcmp(attributeName, "Exceptions")) {
             attributes[i].exceptions.number_of_exceptions = u2Read(file);
-            attributes[i].exceptions.exception_index_table = (u2 *) malloc(
-                    attributes[i].exceptions.number_of_exceptions * sizeof(u2));
-
+            attributes[i].exceptions.exception_index_table = (u2 *) malloc(attributes[i].exceptions.number_of_exceptions * sizeof(u2));
+            
             for (int j = 0; j < attributes[i].exceptions.number_of_exceptions; j++)
                 attributes[i].exceptions.exception_index_table[j] = u2Read(file);
         } else {
             fseek(file, attributes[i].attribute_length, SEEK_CUR);
         }
+        
+        free(attributeName);
     }
     
     return attributes;
@@ -220,7 +221,7 @@ ClassFile *classFileRead(char *fileName) {
     methodsRead(file, classFile);
     classFile->attributes_count = u2Read(file);
     classFile->attributes = attributesRead(file, classFile->constant_pool, classFile->attributes_count);
-
+    
     fclose(file);
     
     return classFile;
