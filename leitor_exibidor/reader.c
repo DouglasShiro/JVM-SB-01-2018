@@ -1,57 +1,55 @@
 #include "reader.h"
 
-int main()
-{
-    return 0;
-}
-
 /**
- *	@fn u1 u1Read(FILE *file)
- *	@brief Reads a u1 from a file.
- *	@param file Pointer to the file it will be read from.
- *	@return Read u1.
+ *    @fn u1 u1Read(FILE *file)
+ *    @brief Reads a u1 from a file.
+ *    @param file Pointer to the file it will be read from.
+ *    @return Read u1.
  */
 static u1 u1Read(FILE *file) {
-	u1 toReturn = getc(file);
-
-	return toReturn;
+    u1 toReturn = getc(file);
+    
+    //u1Exib(toReturn);
+    
+    return toReturn;
 }
 
 /**
- *	@fn u2 u2Read(FILE *file)
- *	@brief Reads a u2 from a file.
- *	@param file Pointer to the file it will be read from.
- *	@return Read u2.
+ *    @fn u2 u2Read(FILE *file)
+ *    @brief Reads a u2 from a file.
+ *    @param file Pointer to the file it will be read from.
+ *    @return Read u2.
  */
 static u2 u2Read(FILE *file) {
-	u2 toReturn = getc(file) << 8 | getc(file);
-	
-	return toReturn;
+    u2 toReturn = getc(file) << 8 | getc(file);
+    
+    return toReturn;
 }
 
 /**
- *	@fn u4 u4Read(FILE *file)
- *	@brief Reads a u4 from a file.
- *	@param file Pointer to the file it will be read from.
- *	@return Read u4.
+ *    @fn u4 u4Read(FILE *file)
+ *    @brief Reads a u4 from a file.
+ *    @param file Pointer to the file it will be read from.
+ *    @return Read u4.
  */
 static u4 u4Read(FILE *file) {
-	u4 toReturn = getc(file) << 24 | getc(file) << 16 | getc(file) << 8 | getc(file);
-
-	return toReturn;
+    
+    u4 toReturn = getc(file) << 24 | getc(file) << 16 | getc(file) << 8 | getc(file);
+    
+    return toReturn;
 }
 
 void constantPoolRead(FILE *file, ClassFile *classFile) {
     classFile->constant_pool_count = u2Read(file);
-
+    
     if (classFile->constant_pool_count > 0)
         classFile->constant_pool = (cp_info *) malloc((classFile->constant_pool_count - 1) * sizeof(cp_info));
     else
         classFile->constant_pool = NULL;
-
+    
     for (u2 i = 1; i < classFile->constant_pool_count; i++) {
         classFile->constant_pool[i].tag = u1Read(file);
-
+        
         switch (classFile->constant_pool[i].tag) {
             case CONSTANT_Class:
                 classFile->constant_pool[i].class_info.name_index = u2Read(file);
@@ -67,10 +65,10 @@ void constantPoolRead(FILE *file, ClassFile *classFile) {
             case CONSTANT_Utf8:
                 classFile->constant_pool[i].utf8_info.length = u2Read(file);
                 classFile->constant_pool[i].utf8_info.bytes = (u1 *) malloc(classFile->constant_pool[i].utf8_info.length * sizeof(u1));
-
                 for (u2 j = 0; j < classFile->constant_pool[i].utf8_info.length; j++)
                     classFile->constant_pool[i].utf8_info.bytes[j] = u1Read(file);
-
+                classFile->constant_pool[i].utf8_info.bytes[classFile->constant_pool[i].utf8_info.length] = '\0';
+                
                 break;
             case CONSTANT_Methodref:
                 classFile->constant_pool[i].methodref_info.class_index = u2Read(file);
@@ -106,23 +104,25 @@ void constantPoolRead(FILE *file, ClassFile *classFile) {
 
 attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes_count) {
     attribute_info *attributes;
-
+    
     if (attributes_count > 0)
         attributes = (attribute_info *) malloc(attributes_count * sizeof(attribute_info));
     else
         attributes = NULL;
-
+    
     for (u2 i = 0; i < attributes_count; i++) {
         attributes[i].attribute_name_index = u2Read(file);
         attributes[i].attribute_length = u4Read(file);
-
-        char *attributeName = (char *) malloc((constant_pool[attributes[i].attribute_name_index - 1].utf8_info.length + 1) * sizeof(char));
-
-        for (u2 j = 0; j < constant_pool[attributes[i].attribute_name_index - 1].utf8_info.length; j++)
-            attributeName[j] = constant_pool[attributes[i].attribute_name_index - 1].utf8_info.bytes[j];
-
-        attributeName[constant_pool[attributes[i].attribute_name_index - 1].utf8_info.length] = '\0';
-
+        
+        char *attributeName = (char *) malloc((constant_pool[attributes[i].attribute_name_index].utf8_info.length + 1) * sizeof(char));
+        
+        for (u2 j = 0; j < constant_pool[attributes[i].attribute_name_index].utf8_info.length; j++) {
+            attributeName[j] = constant_pool[attributes[i].attribute_name_index].utf8_info.bytes[j];
+        }
+        
+        
+        attributeName[constant_pool[attributes[i].attribute_name_index].utf8_info.length] = '\0';
+        
         if (!strcmp(attributeName, "ConstantValue"))
             attributes[i].constantValue.constantvalue_index = u2Read(file);
         else if (!strcmp(attributeName, "Code")) {
@@ -130,78 +130,90 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             attributes[i].code.max_locals = u2Read(file);
             attributes[i].code.code_length = u4Read(file);
             attributes[i].code.code = (u1 *) malloc(attributes[i].code.code_length * sizeof(u1));
-
+            
             for (int j = 0; j < attributes[i].code.code_length; j++)
                 attributes[i].code.code[j] = u1Read(file);
-
+            
             attributes[i].code.exception_table_length = u2Read(file);
-
+            
             if (attributes[i].code.exception_table_length > 0)
                 attributes[i].code.exception_table = (struct exception_table *) malloc(attributes[i].code.exception_table_length * sizeof(struct exception_table));
             else
                 attributes[i].code.exception_table = NULL;
-
+            
             for (int j = 0; j < attributes[i].code.exception_table_length; j++) {
                 attributes[i].code.exception_table[j].start_pc = u2Read(file);
                 attributes[i].code.exception_table[j].end_pc = u2Read(file);
                 attributes[i].code.exception_table[j].handler_pc = u2Read(file);
                 attributes[i].code.exception_table[j].catch_type = u2Read(file);
             }
-
+            
             attributes[i].code.attributes_count = u2Read(file);
             attributes[i].code.attributes = attributesRead(file, constant_pool, attributes[i].code.attributes_count);
         } else if (!strcmp(attributeName, "Exceptions")) {
             attributes[i].exceptions.number_of_exceptions = u2Read(file);
             attributes[i].exceptions.exception_index_table = (u2 *) malloc(attributes[i].exceptions.number_of_exceptions * sizeof(u2));
-
+            
             for (int j = 0; j < attributes[i].exceptions.number_of_exceptions; j++)
                 attributes[i].exceptions.exception_index_table[j] = u2Read(file);
+        } else if (!strcmp(attributeName, "LineNumberTable")) {
+            attributes[i].lineNumberTable.line_number_table_length = u2Read(file);
+            if (attributes[i].lineNumberTable.line_number_table_length > 0) {
+                attributes[i].lineNumberTable.line_number_table = (struct line_number_table *) malloc(attributes[i].lineNumberTable.line_number_table_length * sizeof(struct line_number_table));
+            }
+            else {
+                attributes[i].lineNumberTable.line_number_table = NULL;
+            }
+            for (int j = 0; j < attributes[i].lineNumberTable.line_number_table_length; j++) {
+                attributes[i].lineNumberTable.line_number_table[j].start_pc = u2Read(file);
+                attributes[i].lineNumberTable.line_number_table[j].line_number = u2Read(file);
+            }
         }
     }
-
+    
     return attributes;
 }
 
 void fieldsRead(FILE *file, ClassFile *classFile) {
     classFile->fields_count = u2Read(file);
-
+    
     if (classFile->fields_count > 0)
         classFile->fields = (field_info *) malloc(classFile->fields_count * sizeof(field_info));
     else
         classFile->fields = NULL;
-
+    
     for (u2 i = 0; i < classFile->fields_count; i++) {
         classFile->fields[i].access_flags = u2Read(file);
         classFile->fields[i].name_index = u2Read(file);
         classFile->fields[i].descriptor_index = u2Read(file);
         classFile->fields[i].attributes_count = u2Read(file);
         classFile->fields[i].attributes = attributesRead(file, classFile->constant_pool, classFile->fields[i].attributes_count);
-
+        
     }
 }
 
 void methodsRead(FILE *file, ClassFile *classFile) {
     classFile->methods_count = u2Read(file);
-
+    
     if (classFile->methods_count > 0)
         classFile->methods = (method_info *) malloc(classFile->methods_count * sizeof(method_info));
     else
         classFile->methods = NULL;
-
+    
     for (u2 i = 0; i < classFile->methods_count; i++) {
         classFile->methods[i].access_flags = u2Read(file);
         classFile->methods[i].name_index = u2Read(file);
         classFile->methods[i].descriptor_index = u2Read(file);
         classFile->methods[i].attributes_count = u2Read(file);
         classFile->methods[i].attributes = attributesRead(file, classFile->constant_pool, classFile->methods[i].attributes_count);
-
+        
     }
 }
 
-void classFileRead(char *fileName) {
+ClassFile* classFileRead(char *fileName) {
     FILE *file = fopen(fileName, "rb");
     ClassFile *classFile = (ClassFile *) malloc(sizeof(ClassFile));
-
+    
     classFile->magic = u4Read(file);
     classFile->minor_version = u2Read(file);
     classFile->major_version = u2Read(file);
@@ -211,12 +223,15 @@ void classFileRead(char *fileName) {
     classFile->super_class = u2Read(file);
     classFile->interfaces_count = u2Read(file);
     classFile->interfaces = (u2 *) malloc(classFile->interfaces_count * sizeof(u2));
-
+    
+    
     for (int i = 0; i < classFile->interfaces_count; i++)
         classFile->interfaces[i] = u2Read(file);
-
+    
     fieldsRead(file, classFile);
     methodsRead(file, classFile);
     classFile->attributes_count = u2Read(file);
     classFile->attributes = attributesRead(file, classFile->constant_pool, classFile->attributes_count);
+    
+    return classFile;
 }
