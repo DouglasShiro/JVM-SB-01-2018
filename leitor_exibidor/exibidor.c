@@ -7,7 +7,7 @@
 #include "exibidor.h"
 
 /**
- *  @fn void u1Read(u1 *param)
+ *  @fn void u1Read(u1 param)
  *  @brief Imprime valor u1.
  *  @param param Variavel a ser impressa.
  */
@@ -17,7 +17,7 @@ void u1Exib(u1 param) {
 }
 
 /**
- *  @fn void u2Read(u2 *param)
+ *  @fn void u2Read(u2 param)
  *  @brief Imprime valor u2.
  *  @param param Variavel a ser impressa.
  */
@@ -27,7 +27,7 @@ void u2Exib(u2 param) {
 }
 
 /**
- *  @fn void u4Read(u4 *param)
+ *  @fn void u4Read(u4 param)
  *  @brief Imprime valor u4.
  *  @param param Variavel a ser impressa.
  */
