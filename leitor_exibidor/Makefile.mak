@@ -6,7 +6,7 @@ DEPS = classfile.h exibidor.h reader.h
 OBJ = exibidor.c reader.c leitorExibidor.c
 
 %.c: $(DEPS)
-	$(CC) -c -g -Wall -std=c99 -O0 $@ $<
+	$(CC) -g -Wall -std=c99 -O0 $@ $<
 
 output: $(OBJ)
 	$(CC) $(OBJ) -g -Wall -std=c99 -O0
