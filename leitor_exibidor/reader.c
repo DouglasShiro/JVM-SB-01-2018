@@ -44,7 +44,8 @@ void constantPoolRead(FILE *file, ClassFile *classFile) {
     else
         classFile->constant_pool = NULL;
     
-    for (u2 i = 1; i < classFile->constant_pool_count; i++) {
+    u2 i;
+    for (i = 1; i < classFile->constant_pool_count; i++) {
         classFile->constant_pool[i].tag = u1Read(file);
         
         switch (classFile->constant_pool[i].tag) {
@@ -63,7 +64,8 @@ void constantPoolRead(FILE *file, ClassFile *classFile) {
                 classFile->constant_pool[i].utf8_info.length = u2Read(file);
                 classFile->constant_pool[i].utf8_info.bytes = (u1 *) malloc(classFile->constant_pool[i].utf8_info.length * sizeof(u1));
                 
-                for (u2 j = 0; j < classFile->constant_pool[i].utf8_info.length; j++)
+                u2 j;
+                for (j = 0; j < classFile->constant_pool[i].utf8_info.length; j++)
                     classFile->constant_pool[i].utf8_info.bytes[j] = u1Read(file);
                 
                 classFile->constant_pool[i].utf8_info.bytes[classFile->constant_pool[i].utf8_info.length] = '\0';
@@ -108,13 +110,15 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
     else
         attributes = NULL;
     
-    for (u2 i = 0; i < attributes_count; i++) {
+    u2 i;
+    for (i = 0; i < attributes_count; i++) {
         attributes[i].attribute_name_index = u2Read(file);
         attributes[i].attribute_length = u4Read(file);
         
         char *attributeName = (char *) malloc((constant_pool[attributes[i].attribute_name_index].utf8_info.length + 1) * sizeof(char));
         
-        for (u2 j = 0; j < constant_pool[attributes[i].attribute_name_index].utf8_info.length; j++) {
+        u2 j;
+        for (j = 0; j < constant_pool[attributes[i].attribute_name_index].utf8_info.length; j++) {
             attributeName[j] = constant_pool[attributes[i].attribute_name_index].utf8_info.bytes[j];
         }
         
@@ -128,8 +132,9 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             attributes[i].code.code_length = u4Read(file);
             attributes[i].code.code = (u1 *) malloc(attributes[i].code.code_length * sizeof(u1));
             
-            for (int j = 0; j < attributes[i].code.code_length; j++)
-                attributes[i].code.code[j] = u1Read(file);
+            int j1;
+            for (j1 = 0; j1 < attributes[i].code.code_length; j1++)
+                attributes[i].code.code[j1] = u1Read(file);
             
             attributes[i].code.exception_table_length = u2Read(file);
             
@@ -138,11 +143,12 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             else
                 attributes[i].code.exception_table = NULL;
             
-            for (int j = 0; j < attributes[i].code.exception_table_length; j++) {
-                attributes[i].code.exception_table[j].start_pc = u2Read(file);
-                attributes[i].code.exception_table[j].end_pc = u2Read(file);
-                attributes[i].code.exception_table[j].handler_pc = u2Read(file);
-                attributes[i].code.exception_table[j].catch_type = u2Read(file);
+            int j2;
+            for (j2 = 0; j2 < attributes[i].code.exception_table_length; j2++) {
+                attributes[i].code.exception_table[j2].start_pc = u2Read(file);
+                attributes[i].code.exception_table[j2].end_pc = u2Read(file);
+                attributes[i].code.exception_table[j2].handler_pc = u2Read(file);
+                attributes[i].code.exception_table[j2].catch_type = u2Read(file);
             }
             
             attributes[i].code.attributes_count = u2Read(file);
@@ -151,8 +157,9 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             attributes[i].exceptions.number_of_exceptions = u2Read(file);
             attributes[i].exceptions.exception_index_table = (u2 *) malloc(attributes[i].exceptions.number_of_exceptions * sizeof(u2));
             
-            for (int j = 0; j < attributes[i].exceptions.number_of_exceptions; j++)
-                attributes[i].exceptions.exception_index_table[j] = u2Read(file);
+            int j3;
+            for (j3 = 0; j3 < attributes[i].exceptions.number_of_exceptions; j3++)
+                attributes[i].exceptions.exception_index_table[j3] = u2Read(file);
         } else {
             fseek(file, attributes[i].attribute_length, SEEK_CUR);
         }
@@ -171,7 +178,8 @@ void fieldsRead(FILE *file, ClassFile *classFile) {
     else
         classFile->fields = NULL;
     
-    for (u2 i = 0; i < classFile->fields_count; i++) {
+    u2 i;
+    for (i = 0; i < classFile->fields_count; i++) {
         classFile->fields[i].access_flags = u2Read(file);
         classFile->fields[i].name_index = u2Read(file);
         classFile->fields[i].descriptor_index = u2Read(file);
@@ -189,7 +197,8 @@ void methodsRead(FILE *file, ClassFile *classFile) {
     else
         classFile->methods = NULL;
     
-    for (u2 i = 0; i < classFile->methods_count; i++) {
+    u2 i;
+    for (i = 0; i < classFile->methods_count; i++) {
         classFile->methods[i].access_flags = u2Read(file);
         classFile->methods[i].name_index = u2Read(file);
         classFile->methods[i].descriptor_index = u2Read(file);
@@ -213,8 +222,8 @@ ClassFile *classFileRead(char *fileName) {
     classFile->interfaces_count = u2Read(file);
     classFile->interfaces = (u2 *) malloc(classFile->interfaces_count * sizeof(u2));
     
-    
-    for (int i = 0; i < classFile->interfaces_count; i++)
+    int i;
+    for (i = 0; i < classFile->interfaces_count; i++)
         classFile->interfaces[i] = u2Read(file);
     
     fieldsRead(file, classFile);

@@ -43,7 +43,8 @@ void u4Exib(u4 param) {
  *  @param size Tamanho do array do Constant Pool a ser impresso.
  */
 void constantPoolExib(cp_info * param, u2 size){
-    for (u2 i = 1; i < size; i++) {
+    u2 i;
+    for (i = 1; i < size; i++) {
         printf("\nCP item %d. ", i);
         switch (param[i].tag) {
             case CONSTANT_Class:
@@ -62,7 +63,8 @@ void constantPoolExib(cp_info * param, u2 size){
             case CONSTANT_Utf8:
                 printf("CONSTANT_Utf8. Length: %d. ", param[i].utf8_info.length);
                 printf("Value: ");
-                for (u2 j = 0; j < param[i].utf8_info.length; j++)
+                u2 j;
+                for (j = 0; j < param[i].utf8_info.length; j++)
                     printf("%c", param[i].utf8_info.bytes[j]);
                 printf(". ");
                 break;
@@ -112,14 +114,17 @@ void constantPoolExib(cp_info * param, u2 size){
  *  @param cp Tabela Constant Pool usada somente para consulta.
  */
 void attributesExib(attribute_info * param, u2 size, cp_info * cp){
-    for (u2 i = 0; i < size; i++) {
+    u2 i;
+    for (i = 0; i < size; i++) {
         printf("\nAttribute %d. ", i);
         printf("Name index cp[%d], ", param[i].attribute_name_index); printf("value: %s. ", cp[param[i].attribute_name_index].utf8_info.bytes);
         printf("Length: %d. ", param[i].attribute_length);
-        for (u1 j = 0; j < param[i].attribute_length; j++) {
+        u1 j;
+        for (j = 0; j < param[i].attribute_length; j++) {
             printf("info[%d]: ", j);
             char *attributeName = (char *) malloc((cp[param[i].attribute_name_index].utf8_info.length + 1) * sizeof(char));
-            for (u2 k = 0; k < cp[param[i].attribute_name_index].utf8_info.length; k++) {
+            u2 k;
+            for (k = 0; k < cp[param[i].attribute_name_index].utf8_info.length; k++) {
                 attributeName[k] = cp[param[i].attribute_name_index].utf8_info.bytes[k];
             }
             attributeName[cp[param[i].attribute_name_index].utf8_info.length] = '\0';
@@ -141,7 +146,8 @@ void attributesExib(attribute_info * param, u2 size, cp_info * cp){
  *  @param cp Tabela Constant Pool usada somente para consulta.
  */
 void fieldsExib(field_info * param, u2 size, cp_info * cp){
-    for (u2 i = 0; i < size; i++) {
+    u2 i;
+    for (i = 0; i < size; i++) {
         printf("\nField %d. ", i);
         //imprimir param[i].access_flags = u2Read(file);
         printf("Name index: cp[%d], ", param[i].name_index); printf("value: %s. ", cp[param[i].name_index].utf8_info.bytes);
@@ -159,7 +165,8 @@ void fieldsExib(field_info * param, u2 size, cp_info * cp){
  *  @param cp Tabela Constant Pool usada somente para consulta.
  */
 void methodsExib(method_info * param, u2 size, cp_info * cp){
-    for (u2 i = 0; i < size; i++) {
+    u2 i;
+    for (i = 0; i < size; i++) {
         printf("\nMethod %d. ", i);
         printf("Access flag: "); u2Exib(param[i].access_flags);
         printf("Name index cp[%d], ", param[i].name_index); printf("value: %s. ", cp[param[i].name_index].utf8_info.bytes);
@@ -196,7 +203,8 @@ void classFileExib(ClassFile * classFile){
     printf("\ninterfaces count: ");
     u2Exib(classFile->interfaces_count);
     //imprimir interfaces
-    for (int i = 0; i < classFile->interfaces_count; i++) {
+    int i;
+    for (i = 0; i < classFile->interfaces_count; i++) {
         printf("Interface %d: ", i);
         u2Exib(classFile->interfaces[i]);
     }
