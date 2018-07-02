@@ -15,7 +15,7 @@ void desaloca_pilha_operandos(pilha_operandos **pilha) {
 
     while (*pilha != NULL) {
         op = *pilha;
-        *pilha = *pilha->prox;
+        *pilha = op->prox;
         free(op);
     }
 }

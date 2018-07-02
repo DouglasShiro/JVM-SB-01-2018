@@ -7,10 +7,11 @@
 #ifndef PILHAFRAMES_H
 #define PILHAFRAMES_H
 
+#include <stdio.h>      /* printf, scanf, NULL */
+#include <stdlib.h>     /* malloc, free, rand */
 #include "classfile.h"
 
-typedef struct pilha_operandos
-{
+typedef struct pilha_operandos {
     u4 op;
     struct pilha_operandos *prox;
 } pilha_operandos;
