@@ -14,37 +14,85 @@
 typedef struct pilha_operandos {
     u4 op;
     struct pilha_operandos *prox;
-} pilha_operandos;
+} Pilha_operandos;
+
+typedef struct frame {
+	u4                      tamanho_variaveis_locais;
+	u4                      *variaveis_locais;
+	Pilha_operandos        	*pilha_operandos;
+	u4                      pc;
+} Frame;
+
+typedef struct pilha_frames {
+    Frame *frame;
+    struct pilha_frames *prox;
+} Pilha_frames;
 
 /**
- *  @fn void init_pilha_operandos(pilha_operandos **pilha)
+ *  @fn void init_pilha_operandos(Pilha_operandos **pilha)
  *  @brief Inicializa pilha de operandos setando a pilha para NULL.
- *  @param pilha_operandos Ponteiro para ponteiro de pilha de operandos.
+ *  @param Pilha_operandos Ponteiro para ponteiro de pilha de operandos.
  */
- void init_pilha_operandos(pilha_operandos**);
+ void init_pilha_operandos(Pilha_operandos**);
 
  /**
- *  @fn void desaloca_pilha_operandos(pilha_operandos **pilha)
+ *  @fn void desaloca_pilha_operandos(Pilha_operandos **pilha)
  *  @brief Desaloca pilha de operandos e seta cabecao da pilha para NULL.
- *  @param pilha_operandos Ponteiro para ponteiro de pilha de operandos.
+ *  @param Pilha_operandos Ponteiro para ponteiro de pilha de operandos.
  */
- void desaloca_pilha_operandos(pilha_operandos**);
+ void desaloca_pilha_operandos(Pilha_operandos**);
 
   /**
- *  @fn void empilha_operando(pilha_operandos **pilha, u4 op)
+ *  @fn void empilha_operando(Pilha_operandos **pilha, u4 op)
  *  @brief Empilha operando na pilha com base em modelo last-in-first-out.
- *  @param pilha_operandos Ponteiro para ponteiro de pilha de operandos.
- *  @param op Operando a ser empilhado.
+ *  @param Pilha_operandos Ponteiro para ponteiro de pilha de operandos.
+ *  @param u4 Operando a ser empilhado.
  */
- void empilha_operando(pilha_operandos**, u4);
+ void empilha_operando(Pilha_operandos**, u4);
 
    /**
- *  @fn u4 desempilha_operando(pilha_operandos **pilha)
+ *  @fn u4 desempilha_operando(Pilha_operandos **pilha)
  *  @brief Desempilha operando da pilha com base em modelo last-in-first-out.
- *  @param pilha_operandos Ponteiro para ponteiro de pilha de operandos.
- *  @param op Operando a ser empilhado.
+ *  @param Pilha_operandos Ponteiro para ponteiro de pilha de operandos.
  *  @return Operando desempilhado com base em modelo last-in-first-out.
  */
- u4 desempilha_operando(pilha_operandos**);
+ u4 desempilha_operando(Pilha_operandos**);
+
+ /**
+ *  @fn void init_pilha_frames(Pilha_frames **pilha)
+ *  @brief Inicializa pilha de frames setando a pilha para NULL.
+ *  @param Pilha_frames Ponteiro para ponteiro de pilha de frames.
+ */
+ void init_pilha_frames(Pilha_frames**);
+
+ /**
+ *  @fn void desaloca_pilha_frames(Pilha_frames **pilha)
+ *  @brief Desaloca pilha de frames e seta cabecao da pilha para NULL.
+ *  @param Pilha_frames Ponteiro para ponteiro de pilha de frames.
+ */
+ void desaloca_pilha_frames(Pilha_frames**);
+
+  /**
+ *  @fn void empilha_frame(Pilha_frames**, frame*)
+ *  @brief Empilha frame na pilha com base em modelo last-in-first-out.
+ *  @param Pilha_frames Ponteiro para ponteiro de pilha de frames.
+ *  @param op Frame a ser empilhado.
+ */
+ void empilha_frame(Pilha_frames**, Frame*);
+
+   /**
+ *  @fn u4 desempilha_frame(Pilha_frames**)
+ *  @brief Desempilha frame da pilha com base em modelo last-in-first-out. Nao libera memoria do frame.
+ *  @param Pilha_frames Ponteiro para ponteiro de pilha de frames.
+ *  @return Frame desempilhado com base em modelo last-in-first-out.
+ */
+ Frame* desempilha_frame(Pilha_frames**);
+
+   /**
+ *  @fn u4 desaloca_frame(Frame*)
+ *  @brief Libera espaco de memoria do frame e o destroi.
+ *  @param Frame* Ponteiro para frame a ser desalocado.
+ */
+ void desaloca_frame(Frame*);
 
 #endif
