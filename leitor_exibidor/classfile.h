@@ -57,6 +57,13 @@ enum CONSTANT_Tags {
     CONSTANT_Utf8               = 1,
 };
 
+enum ATTRIBUTE_Tags {
+    ATTRIBUTE_Constantvalue       = 0,
+    ATTRIBUTE_Code                = 1,
+    ATTRIBUTE_Exception           = 2,
+    ATTRIBUTE_Other               = 3,
+};
+
 /**
  * @brief Structure of the constant pool, separated by type.
  * The type definition of the structure is cp_info.
@@ -115,6 +122,7 @@ typedef struct cp_info {
 typedef struct attribute_info {
     u2 attribute_name_index;
     u4 attribute_length;
+    u1 tag;
     union {
         struct ConstantValue_attribute {
             u2 constantvalue_index;

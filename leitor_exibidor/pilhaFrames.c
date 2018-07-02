@@ -6,6 +6,24 @@
 
 #include "pilhaFrames.h"
 
+Frame* init_frame(method_info* method, cp_info* constant_pool) {
+    Frame *frame;
+
+    frame = (Frame*)malloc(sizeof(Frame));
+
+    frame->tamanho_variaveis_locais = method->attributes->code.max_locals;
+    frame->variaveis_locais = (u4*)malloc(frame->tamanho_variaveis_locais*sizeof(u4));
+
+    for (int i = 0; i < method->attributes_count; i++) {
+        if (method->attributes[i].tag == ATTRIBUTE_Code) {
+            frame->codigo = &(method->attributes[i]);
+            break;
+        }
+    }
+
+    return frame;
+}
+
 void init_pilha_operandos(Pilha_operandos **pilha) {
     *pilha = NULL;
 }

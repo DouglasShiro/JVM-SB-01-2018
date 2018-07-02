@@ -21,12 +21,22 @@ typedef struct frame {
 	u4                      *variaveis_locais;
 	Pilha_operandos        	*pilha_operandos;
 	u4                      pc;
+	attribute_info			*codigo;
 } Frame;
 
 typedef struct pilha_frames {
     Frame *frame;
     struct pilha_frames *prox;
 } Pilha_frames;
+
+/**
+ *  @fn void init_frame(method_info*, cp_info*)
+ *  @brief Inicializa o frame.
+ *  @param method_info* Ponteiro para method_info com informacoes sobre vetor de variaveis locais.
+ *  @param cp_info* Ponteiro para o constant pool
+ *  @return Frame inicializado
+ */
+ Frame* init_frame(method_info*, cp_info*);
 
 /**
  *  @fn void init_pilha_operandos(Pilha_operandos **pilha)

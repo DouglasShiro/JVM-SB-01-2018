@@ -120,9 +120,12 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
         
         attributeName[constant_pool[attributes[i].attribute_name_index].utf8_info.length] = '\0';
         
-        if (!strcmp(attributeName, "ConstantValue"))
+        if (!strcmp(attributeName, "ConstantValue")) {
             attributes[i].constantValue.constantvalue_index = u2Read(file);
+            attributes[i].tag = ATTRIBUTE_Constantvalue;
+        }
         else if (!strcmp(attributeName, "Code")) {
+            attributes[i].tag = ATTRIBUTE_Code;
             attributes[i].code.max_stack = u2Read(file);
             attributes[i].code.max_locals = u2Read(file);
             attributes[i].code.code_length = u4Read(file);
@@ -148,12 +151,14 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             attributes[i].code.attributes_count = u2Read(file);
             attributes[i].code.attributes = attributesRead(file, constant_pool, attributes[i].code.attributes_count);
         } else if (!strcmp(attributeName, "Exceptions")) {
+            attributes[i].tag = ATTRIBUTE_Exception;
             attributes[i].exceptions.number_of_exceptions = u2Read(file);
             attributes[i].exceptions.exception_index_table = (u2 *) malloc(attributes[i].exceptions.number_of_exceptions * sizeof(u2));
             
             for (int j = 0; j < attributes[i].exceptions.number_of_exceptions; j++)
                 attributes[i].exceptions.exception_index_table[j] = u2Read(file);
         } else {
+            attributes[i].tag = ATTRIBUTE_Other;
             fseek(file, attributes[i].attribute_length, SEEK_CUR);
         }
         
