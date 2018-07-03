@@ -8,6 +8,7 @@
 #define CLASSFILE_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
 /**
  *  Definition of data types
@@ -15,6 +16,7 @@
 typedef uint8_t  u1;
 typedef uint16_t u2;
 typedef uint32_t u4;
+typedef uint64_t u8;
 
 
 /**
