@@ -10,6 +10,13 @@ int main(int argc, char* argv[]) {
     fp_class_info = classFileRead("double_aritmetica.class");
     
     classFileExib(fp_class_info);
+
+
     
     return 0;
+}
+
+void executar(ClassFile* classFile) {
+
+	
 }
