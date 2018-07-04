@@ -86,11 +86,11 @@ void freeFieldList(StaticFieldList *field_list) {
 /* u1 loadedClass(ClassList **class_list, char *className32) {} */
 
 ClassFile *getClass(ClassList **class_list, int index) {
-
+	return NULL;
 }
 
 ClassFile *getClassByName(ClassList **class_list, char *className) {
-
+	return NULL;
 }
 
 Heap* initHeap() {
