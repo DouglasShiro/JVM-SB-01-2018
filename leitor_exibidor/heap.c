@@ -62,14 +62,14 @@ void freeClassList(ClassList *class_list) {
 
 void addFieldList(StaticFieldList **field_list, staticField *data) {
 	StaticFieldList *field_list_new;
-	field_list_new = (StaticFieldList*)malloc(sizeof(StaticFieldList))
+	field_list_new = (StaticFieldList*)malloc(sizeof(StaticFieldList));
 
 	field_list_new->data = data;
 
 	if(*field_list == NULL)
 		field_list_new->next = NULL;
 	else
-		field_list_new->next = field_list;
+		field_list_new->next = *field_list;
 
 	*field_list = field_list_new;
 }
@@ -86,26 +86,26 @@ void freeFieldList(StaticFieldList *field_list) {
 /* u1 loadedClass(ClassList **class_list, char *className32) {} */
 
 ClassFile *getClass(ClassList **class_list, int index) {
-
+	return NULL;
 }
 
 ClassFile *getClassByName(ClassList **class_list, char *className) {
-
+	return NULL;
 }
 
 Heap* initHeap() {
 	Heap* heap = (Heap*)malloc(sizeof(Heap));
 
-	heap->array_list = NULL;
-	heap->object_list = NULL;
-	heap->field_list = NULL;
-	heap->class_list = NULL;
+	heap->arrayList = NULL;
+	heap->objectList = NULL;
+	heap->fieldList = NULL;
+	heap->classList = NULL;
 
 	return heap;
 }
 
 void freeHeap(Heap *heap) {
-	freeClassList(heap->class_list);
-	freeFieldsList(heap->field_list);
+	freeClassList(heap->classList);
+	freeFieldList(heap->fieldList);
 	free(heap);
 }
