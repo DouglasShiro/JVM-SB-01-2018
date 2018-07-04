@@ -21,4 +21,6 @@ void fieldsExib(field_info *, u2, cp_info *);
 void methodsExib(method_info *, u2, cp_info *);
 void classFileExib(ClassFile *);
 
+char* getConstantUTF8CP(cp_info *, u2);
+
 #endif
