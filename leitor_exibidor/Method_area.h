@@ -52,8 +52,9 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha);
 
 /**
 *@fn executarInstrucoes (method_info *metodo, frame *frame)
-*
-*
+*@brief funcao que executa os comandos bytecode
+*@param Metodo carregado
+*@param Frame carregado
 */
 
 int executarInstrucoes (method_info *metodo, Frame *frame);

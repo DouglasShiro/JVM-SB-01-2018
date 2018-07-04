@@ -32,10 +32,18 @@ void executar(ClassFile* classFile) {
 	{
 		method_init = acharMetodo("init", classFile);
 		printf("ACHOU MAIN\n");
-		if (method_init == NULL)
+		if (method_init != NULL)
 		{
-			method_init = acharMetodo("clinit", classFile);
+      printf("ACHOU INIT\n");
+      Pilha_frames *pilha;
+      init_pilha_frames(&pilha);
+      inicializa(classFile, pilha);
+			ready(method_init, classFile, &pilha);
+      executarMetodo(method_init, classFile, pilha);
 		}
+    else {
+      	method_init = acharMetodo("clinit", classFile);
+    }
 		if (method_init != NULL)
 		{
       Pilha_frames *pilha;
