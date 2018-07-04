@@ -71,7 +71,7 @@ typedef struct heap {
  *  @brief Inicializa lista de arrays carregados na heap.
  *  @param array_list Estrutura array_list que conterá a lista.
  */
- void initArrayList(ArrayList **array_list);
+void initArrayList(ArrayList **array_list);
 
  /**
   *  @fn void addArrayList(ArrayList **array_list, aType *data)
@@ -79,21 +79,21 @@ typedef struct heap {
   *  @param array_list Estrutura array_list que conterá a lista.
   *  @param data Elemento a ser inserido.
   */
- void addArrayList(ArrayList **array_list, aType *data);
+ArrayList* addArrayList(ArrayList **array_list, aType *data);
 
  /**
   *  @fn void freeArrayList(ArrayList **array_list)
   *  @brief Desaloca a lista de arrays.
   *  @param array_list Lista de arrays a ser desalocada.
   */
- void freeArrayList(ArrayList **array_list);
+void freeArrayList(ArrayList **array_list);
 
  /**
   *  @fn void initObjectList(ObjectList **object_list)
   *  @brief Inicializa lista de objetos carregados na heap.
   *  @param object_list Estrutura object_list que conterá a lista.
   */
- void initObjectList(ObjectList **object_list);
+void initObjectList(ObjectList **object_list);
 
  /**
   *  @fn void addObjectList(ObjectList **object_list, Object *data)
@@ -101,21 +101,21 @@ typedef struct heap {
   *  @param object_list Estrutura object_list que conterá a lista.
   *  @param data Elemento a ser inserido.
   */
- void addObjectList(ObjectList **object_list, Object *data);
+void addObjectList(ObjectList **object_list, Object *data);
 
  /**
   *  @fn void freeObjectList(ObjectList **object_list)
   *  @brief Desaloca a lista de objetos.
   *  @param object_list Lista de objetos a ser desalocada.
   */
- void freeObjectList(ObjectList **object_list);
+void freeObjectList(ObjectList **object_list);
 
  /**
   *  @fn void initClassList(ClassList **class_list)
   *  @brief Inicializa lista de classes carregados na heap.
   *  @param class_list Estrutura class_list que conterá a lista.
   */
- void initClassList(ClassList **class_list);
+void initClassList(ClassList **class_list);
 
  /**
   *  @fn ClassList addClassList(ClassList **class_list, ClassFile *data)
@@ -124,36 +124,36 @@ typedef struct heap {
   *  @param data Elemento a ser inserido.
   *	 @return Lista atualizada com elemento inserido.
   */
- ClassList* addClassList(ClassList **class_list, ClassFile *data);
+ClassList* addClassList(ClassList **class_list, ClassFile *data);
 
  /**
   *  @fn void freeClassList(ClassList **class_list)
   *  @brief Desaloca a lista de classes.
   *  @param class_list Lista de classes a ser desalocada.
   */
- void freeClassList(ClassList *class_list);
+void freeClassList(ClassList *class_list);
 
  /**
   *  @fn void initFieldList(FieldList **field_list)
   *  @brief Inicializa lista de fields carregados na heap.
   *  @param field_list Estrutura filed_list que conterá a lista.
   */
- void initFieldList(StaticFieldList *field_list);
+void initFieldList(StaticFieldList *field_list);
 
  /**
-  *  @fn void addFieldList(StaFieldList **field_list, staticField *data)
+  *  @fn void addFieldList(StaticFieldList **field_list, staticField *data)
   *  @brief Insere um elemento na lista de fields.
   *  @param field_list Estrutura field_list que conterá a lista.
   *  @param data Elemento a ser inserido.
   */
- void addFieldList(StaticFieldList **field_list, staticField *data);
+void addFieldList(StaticFieldList **field_list, staticField *data);
 
  /**
-  *  @fn void freeFieldList(StaFieldList **field_list)
+  *  @fn void freeFieldList(StaticFieldList **field_list)
   *  @brief Desaloca a lista de fields.
   *  @param field_list Lista de fields a ser desalocada.
   */
- void freeFieldList(StaticFieldList *field_list);
+void freeFieldList(StaticFieldList *field_list);
 
  /**
   *  @fn u1 loadedClass(ClassList **class_list, char *className)
@@ -162,7 +162,7 @@ typedef struct heap {
   *  @param className Nome da classe a ser buscada na lista de classes.
   *  @return u1 lido, 1 se carregada ou 0 caso contrário.
   */
- u1 loadedClass(ClassList **class_list, char *className);
+u1 loadedClass(ClassList **class_list, char *className);
 
  /**
   *  @fn ClassFile getClass(ClassList **class_list, int index)
@@ -171,7 +171,7 @@ typedef struct heap {
   *  @param index Índice da classe a ser buscada na lista de classes.
   *  @return Classe com o índice buscado.
   */
- ClassFile *getClass(ClassList **class_list, int index);
+ClassFile *getClass(ClassList **class_list, int index);
 
  /**
   *  @fn ClassFile getClassByName(ClassList **class_list, char *className)
@@ -180,20 +180,20 @@ typedef struct heap {
   *  @param className Nome da classe a ser buscada na lista de classes.
   *  @return Classe com o nome buscado.
   */
- ClassFile *getClassByName(ClassList **class_list, char *className);
+ClassFile *getClassByName(ClassList **class_list, char *className);
 
  /**
   *  @fn void initHeap()
   *  @brief Inicializa heap do programa.
   *  @return Estrutura Heap alocada.
   */
- Heap* initHeap();
+Heap* initHeap();
 
  /**
   *  @fn void freeHeap(Heap **heap)
   *  @brief Desaloca a heap.
   *  @param heap Heap a ser desalocada.
   */
- void freeHeap(Heap *heap);
+void freeHeap(Heap *heap);
 
- #endif // HEAP_H
+#endif // HEAP_H
