@@ -37,3 +37,13 @@ method_info* acessoMethod(ClassFile *classe, char *metodo);
 */
 
 void ready(method_info *method, ClassFile *classe, Pilha_frames *pilha);
+
+/**
+*@fn int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha)
+*@brief Funcao de execucao do metodo
+*@param metodo carregado
+*@ param classe carregada
+*@ indicacao da pilha de frames
+*/
+
+int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha);

@@ -54,3 +54,24 @@ void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha){
   printf("Erro ao verificar Attribute code.\n");
   return;
 }
+/**
+int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) {
+    int execucao = 0;
+
+    while(!execucao) {
+        Frame *metodoAtual = desempilha_frame(&pilha);
+        execucao = executarInstrucoes(metodo, metodoAtual); // TODO: Função que executa intruções
+        /*if(execucao == ERRO_INSTRUCAO) { // Definir o que é ERRO_INSTRUCAO
+            printf("ERRO: Instru%c%co n%co pode ser executada.\n", 135, 227, 227);
+            desaloca_frame(metodoAtual);
+            return ERRO_INSTRUCAO;
+        }*/
+/**        if(!execucao) {
+            pilha = empilha_frame(pilha, metodoAtual);
+        }
+        else {
+            desaloca_frame(metodoAtual);
+        }
+    }
+    return 0; // 0 indica que todas as instruções do método atual foram executadas sem erro.
+*/
