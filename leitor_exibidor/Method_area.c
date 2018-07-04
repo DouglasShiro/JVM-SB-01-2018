@@ -38,8 +38,19 @@ void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha){
     if (method->attributes[i].tag == ATTRIBUTE_Code) {
       if (method->attributes_count > 0) {
         Frame *frame = init_frame(*method, classe->*constant_pool); //Ver isso!!!
-        *pilha = empilha_frame()
+        *pilha = empilha_frame(**pilha, *frame);
+        return;
+      }
+      else{
+        method->attributes_count++;
+        method->attributes = (attribute *) malloc(sizeof(attribute_info));
+        method->attributes[0].Code_attribute.code_length = 0;
+        Frame *frame = init_frame(*method, classe->*constant_pool);
+        *pilha = empilha_frame(**pilha, *frame);
+        return;
       }
     }
   }
+  printf("Erro ao verificar Attribute code.\n");
+  return;
 }
