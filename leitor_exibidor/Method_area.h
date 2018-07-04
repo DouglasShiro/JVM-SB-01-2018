@@ -7,6 +7,8 @@
 
 #include "classfile.h"
 #include "pilhaFrames.h"
+#include "string.h"
+#include "exibidor.h"
 
 #ifndef METHOD_AREA_H
 #define METHOD_AREA_H
@@ -47,5 +49,13 @@ void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha);
 */
 
 int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha);
+
+/**
+*@fn executarInstrucoes (method_info *metodo, frame *frame)
+*
+*
+*/
+
+int executarInstrucoes (method_info *metodo, Frame *frame);
 
 #endif

@@ -11,21 +11,24 @@ int inicializa(ClassFile *classe, Pilha_frames *pilha) {
   int result = 0;
   for(int i = 0; i<classe->methods_count; i++) {
     char *nome;
-    int local_nome = classe->constant_pool[i].utf8_info; //Ver esse indicacao de nome!!!
-    nome = getConstantUTF8CP(local_nome, classe);
+    int local_nome = classe->constant_pool[i].utf8_info.length; //Ver esse indicacao de nome!!!
+    nome = getConstantUTF8CP(classe->constant_pool, local_nome);
     if (!strcmp("<clinit>", nome) || !strcmp("<init>", nome)) { //verifica se e comeco do metodo
       method_info *init = &classe->methods[i];
-
+      ready (init, classe, &pilha);
+      executarMetodo (init, classe, pilha);
+      result = 1;
     }
   }
+  return result;
 }
 
 method_info* acessoMethod(ClassFile *classe, char *metodo) {
 
   for (int i = 0; i < classe->methods_count; i++) {
-    int local_nome = classe->constant_pool[i].utf8_info; //Ver esse indicacao de nome!!!
+    int local_nome = classe->constant_pool[i].utf8_info.length; //Ver esse indicacao de nome!!!
     u1 *nome;
-    nome  = (u1*) getConstantUTF8CP(local_nome, classe);
+    nome  = (u1*) getConstantUTF8CP(classe->constant_pool, local_nome);
     if(!strcmp(metodo, (char *) nome)){
       return &classe->methods[i];
     }
@@ -37,16 +40,16 @@ void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha){
   for(int i = 0; i<method->attributes_count; i++) {
     if (method->attributes[i].tag == ATTRIBUTE_Code) {
       if (method->attributes_count > 0) {
-        Frame *frame = init_frame(*method, classe->*constant_pool); //Ver isso!!!
-        *pilha = empilha_frame(**pilha, *frame);
+        Frame *frame = init_frame(method, classe->constant_pool); //Ver isso!!!
+        empilha_frame(pilha, frame);
         return;
       }
       else{
         method->attributes_count++;
-        method->attributes = (attribute *) malloc(sizeof(attribute_info));
-        method->attributes[0].Code_attribute.code_length = 0;
-        Frame *frame = init_frame(*method, classe->*constant_pool);
-        *pilha = empilha_frame(**pilha, *frame);
+        method->attributes = (attribute_info *) malloc(sizeof(attribute_info));
+        method->attributes[0].code.code_length = 0;
+        Frame *frame = init_frame(method, classe->constant_pool);
+        empilha_frame(pilha, frame);
         return;
       }
     }
@@ -67,10 +70,15 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) 
             return 45 ;
         }
         if(!execucao) {
-            pilha = empilha_frame(pilha, metodoAtual);
+            empilha_frame(&pilha, metodoAtual);
         }
         else {
             desaloca_frame(metodoAtual);
         }
     }
     return 0; // 0 indica que todas as instruções do método atual foram executadas sem erro.
+}
+
+int executarInstrucoes (method_info *metodo, Frame *frame){
+  	return 45;
+}

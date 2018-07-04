@@ -4,6 +4,7 @@
 #include "exibidor.h"
 #include "classfile.h"
 #include "Method_area.h"
+#include "pilhaFrames.h"
 
 void executar(ClassFile *);
 method_info* acharMetodo(char *, ClassFile *);
