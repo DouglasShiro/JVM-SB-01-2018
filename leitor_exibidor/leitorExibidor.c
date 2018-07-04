@@ -3,16 +3,17 @@
 #include "reader.h"
 #include "exibidor.h"
 #include "classfile.h"
+#include "Method_area.h"
 
 void executar(ClassFile *);
 method_info* acharMetodo(char *, ClassFile *);
 
 int main(int argc, char* argv[]) {
-    
+
     ClassFile *fp_class_info;
 
     fp_class_info = classFileRead("double_aritmetica.class");
-    
+
     classFileExib(fp_class_info);
 
 
@@ -36,7 +37,11 @@ void executar(ClassFile* classFile) {
 		}
 		if (method_init != NULL)
 		{
-			//EXECUTAR METODO
+      Pilha_frames *pilha;
+      init_pilha_frames(&pilha);
+      inicializa(classFile, pilha);
+			ready(method_init, classFile, &pilha);
+      executarMetodo(method_init, classFile, pilha);
 		}
 		else
 		{
@@ -46,6 +51,8 @@ void executar(ClassFile* classFile) {
 	else {
 		printf("ERRO! NAO ACHOU MAIN.\n");
 	}
+
+
 
 }
 

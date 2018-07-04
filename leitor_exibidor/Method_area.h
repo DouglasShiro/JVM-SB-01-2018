@@ -36,7 +36,7 @@ method_info* acessoMethod(ClassFile *classe, char *metodo);
 *@param Pilha_frames que contem e armazena o frame
 */
 
-void ready(method_info *method, ClassFile *classe, Pilha_frames *pilha);
+void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha);
 
 /**
 *@fn int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha)
@@ -47,3 +47,5 @@ void ready(method_info *method, ClassFile *classe, Pilha_frames *pilha);
 */
 
 int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha);
+
+#endif
