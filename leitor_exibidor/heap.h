@@ -61,7 +61,7 @@ typedef struct class_list {
 typedef struct heap {
 	struct array_list *arrayList;
 	struct object_list *objectList;
-	struct field_list *staticFieldList;
+	struct field_list *fieldList;
 	struct class_list *classList;
 	struct pilha_frames *pilhaFrames;
 } Heap;
