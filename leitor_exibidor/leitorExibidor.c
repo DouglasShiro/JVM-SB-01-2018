@@ -23,12 +23,28 @@ int main(int argc, char* argv[]) {
 }
 
 void executar(ClassFile* classFile) {
-	if (acharMetodo("main", classFile) != NULL)
+	method_info *method_main, *method_init;
+
+	method_main = acharMetodo("main", classFile);
+	if (method_main != NULL)
 	{
+		method_init = acharMetodo("init", classFile);
 		printf("ACHOU MAIN\n");
+		if (method_init == NULL)
+		{
+			method_init = acharMetodo("clinit", classFile);
+		}
+		if (method_init != NULL)
+		{
+			//EXECUTAR METODO
+		}
+		else
+		{
+			printf("ERRO! NAO ACHOU INIT.\n");
+		}
 	}
 	else {
-		printf("NAO ACHOU MAIN\n");
+		printf("ERRO! NAO ACHOU MAIN.\n");
 	}
 
 }
