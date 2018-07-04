@@ -25,43 +25,28 @@ int main(int argc, char* argv[]) {
 }
 
 void executar(ClassFile* classFile) {
-	method_info *method_main, *method_init;
+	method_info *method_main;
 
 	method_main = acharMetodo("main", classFile);
-	if (method_main != NULL)
-	{
-		method_init = acharMetodo("init", classFile);
+	if (method_main != NULL){
+
 		printf("ACHOU MAIN\n");
-		if (method_init != NULL)
-		{
-      printf("ACHOU INIT\n");
-      Pilha_frames *pilha;
-      init_pilha_frames(&pilha);
-      inicializa(classFile, pilha);
-			ready(method_init, classFile, &pilha);
-      executarMetodo(method_init, classFile, pilha);
+		Pilha_frames *pilha;
+
+		if (inicializa(classFile, pilha)==1){
+			printf("ACHOU INIT\n");
+			init_pilha_frames(&pilha);
+			ready(method_main, classFile, &pilha);
+			executarMetodo(method_main, classFile, pilha);
 		}
-    else {
-      	method_init = acharMetodo("clinit", classFile);
-    }
-		if (method_init != NULL)
-		{
-      Pilha_frames *pilha;
-      init_pilha_frames(&pilha);
-      inicializa(classFile, pilha);
-			ready(method_init, classFile, &pilha);
-      executarMetodo(method_init, classFile, pilha);
-		}
-		else
-		{
-			printf("ERRO! NAO ACHOU INIT.\n");
+
+		else{
+			printf("ERRO: NAO ACHOU INIT.\n");
 		}
 	}
 	else {
-		printf("ERRO! NAO ACHOU MAIN.\n");
+		printf("ERRO: NAO ACHOU MAIN.\n");
 	}
-
-
 
 }
 
