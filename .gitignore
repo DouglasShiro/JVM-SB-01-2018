@@ -78,3 +78,5 @@ cmake-build-debug/Makefile
 CMakeLists\.txt
 
 leitor_exibidor/Makefile
+
+a.out
