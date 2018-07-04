@@ -13,7 +13,11 @@ int main(int argc, char* argv[]) {
 
     ClassFile *fp_class_info;
 
-    fp_class_info = classFileRead("double_aritmetica.class");
+    printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
+
+    char *nome_arq = argv[1];
+
+    fp_class_info = classFileRead(nome_arq);
 
     classFileExib(fp_class_info);
 
