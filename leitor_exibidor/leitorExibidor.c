@@ -14,10 +14,13 @@ int main(int argc, char* argv[]) {
     char *nome_arq;
 	ClassFile *fp_class_info;
 
-	if (argv[1])
+	if (argv[1]) {
 		nome_arq = argv[1];
-	else
-    	printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
+	}
+	else {
+		printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
+		return 0;
+	}
 
     fp_class_info = classFileRead(nome_arq);
 

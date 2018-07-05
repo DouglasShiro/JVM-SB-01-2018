@@ -43,7 +43,7 @@ void u4Exib(u4 param) {
  *  @param size Tamanho do array do Constant Pool a ser impresso.
  */
 void constantPoolExib(cp_info * param, u2 size){
-    for (u2 i = 1; i < size; i++) {
+    for (u2 i = 0; i < size; i++) {
         printf("\nCP item %d. ", i);
         switch (param[i].tag) {
             case CONSTANT_Class:
