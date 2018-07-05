@@ -44,7 +44,7 @@ void u4Exib(u4 param) {
  */
 void constantPoolExib(cp_info * param, u2 size){
     for (u2 i = 0; i < size; i++) {
-        printf("\nCP item %d. ", i+1);
+        printf("\nCP[%d]. ", i+1);
         switch (param[i].tag) {
             case CONSTANT_Class:
                 printf("CONSTANT_Class. Name index: cp[%d]. ", param[i].class_info.name_index);
