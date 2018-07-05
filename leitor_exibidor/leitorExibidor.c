@@ -11,9 +11,11 @@ method_info* acharMetodo(char *, ClassFile *);
 
 int main(int argc, char* argv[]) {
 
+	char* nome = argv[1];
+
     ClassFile *fp_class_info;
 
-    fp_class_info = classFileRead("double_aritmetica.class");
+    fp_class_info = classFileRead(nome);
 
     classFileExib(fp_class_info);
 
