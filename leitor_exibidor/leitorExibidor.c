@@ -13,11 +13,7 @@ int main(int argc, char* argv[]) {
 
     ClassFile *fp_class_info;
 
-    printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
-
-    char *nome_arq = argv[1];
-
-    fp_class_info = classFileRead(nome_arq);
+    fp_class_info = classFileRead("double_aritmetica.class");
 
     classFileExib(fp_class_info);
 
@@ -29,9 +25,10 @@ int main(int argc, char* argv[]) {
 }
 
 void executar(ClassFile* classFile) {
-	method_info *method_main;
+	method_info *method_main, *method_init;
 
 	method_main = acharMetodo("main", classFile);
+<<<<<<< HEAD
 	if (method_main != NULL){
 <<<<<<< HEAD
 		
@@ -46,32 +43,57 @@ void executar(ClassFile* classFile) {
 		}
 		
 		else{
+
+		printf("ACHOU MAIN\n");
+		Pilha_frames *pilha;
 =======
 
 		printf("ACHOU MAIN\n");
 		Pilha_frames *pilha;
+>>>>>>> 94d715e3cdddbc1b6ac683eccba20f99aa0cf6e8
 		method_info *method_init;
 		method_init = acharMetodo("<init>", classFile);
 		if (method_init == NULL)
+=======
+	if (method_main != NULL)
+	{
+		method_init = acharMetodo("init", classFile);
+		printf("ACHOU MAIN\n");
+		if (method_init != NULL)
+>>>>>>> parent of 45a7f04... Andrei
 		{
-			method_init = acharMetodo("<clinit>", classFile);
+      printf("ACHOU INIT\n");
+      Pilha_frames *pilha;
+      init_pilha_frames(&pilha);
+      inicializa(classFile, pilha);
+			ready(method_init, classFile, &pilha);
+      executarMetodo(method_init, classFile, pilha);
 		}
+    else {
+      	method_init = acharMetodo("clinit", classFile);
+    }
 		if (method_init != NULL)
 		{
-			printf("ACHOU INIT\n");
-			init_pilha_frames(&pilha);
+      Pilha_frames *pilha;
+      init_pilha_frames(&pilha);
+      inicializa(classFile, pilha);
 			ready(method_init, classFile, &pilha);
-			executarMetodo(method_init, classFile, pilha);
+      executarMetodo(method_init, classFile, pilha);
 		}
 		else
 		{
->>>>>>> 94d715e3cdddbc1b6ac683eccba20f99aa0cf6e8
+<<<<<<< HEAD
 			printf("ERRO: NAO ACHOU INIT.\n");
+=======
+			printf("ERRO! NAO ACHOU INIT.\n");
+>>>>>>> parent of 45a7f04... Andrei
 		}
 	}
 	else {
-		printf("ERRO: NAO ACHOU MAIN.\n");
+		printf("ERRO! NAO ACHOU MAIN.\n");
 	}
+
+
 
 }
 

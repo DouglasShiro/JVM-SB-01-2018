@@ -9,7 +9,6 @@
 #include "pilhaFrames.h"
 #include "string.h"
 #include "exibidor.h"
-#include "Conjunto_de_instrucoes.h"
 
 #ifndef METHOD_AREA_H
 #define METHOD_AREA_H
