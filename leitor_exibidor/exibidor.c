@@ -44,7 +44,7 @@ void u4Exib(u4 param) {
  */
 void constantPoolExib(cp_info * param, u2 size){
     for (u2 i = 0; i < size; i++) {
-        printf("\nCP item %d. ", i);
+        printf("\nCP item %d. ", i+1);
         switch (param[i].tag) {
             case CONSTANT_Class:
                 printf("CONSTANT_Class. Name index: cp[%d]. ", param[i].class_info.name_index);
@@ -186,7 +186,7 @@ void classFileExib(ClassFile * classFile){
     u2Exib(classFile->constant_pool_count);
     if (classFile->constant_pool_count > 0) {
         //imprimir contant pool
-        constantPoolExib(classFile->constant_pool, classFile->constant_pool_count);
+        constantPoolExib(classFile->constant_pool, classFile->constant_pool_count -1);
     }
     printf("\naccess flags: ");
     u2Exib(classFile->access_flags);

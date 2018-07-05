@@ -38,25 +38,25 @@ method_info* acessoMethod(char *metodo, ClassFile *classe) {
 }
 
 void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha){
-  for(int i = 0; i<method->attributes_count; i++) {
-    if (method->attributes[i].tag == ATTRIBUTE_Code) {
-      if (method->attributes_count > 0) {
-        Frame *frame = init_frame(method, classe->constant_pool); //Ver isso!!!
-        empilha_frame(pilha, frame);
-        return;
-      }
-      else{
-        method->attributes_count++;
-        method->attributes = (attribute_info *) malloc(sizeof(attribute_info));
-        method->attributes[0].code.code_length = 0;
-        Frame *frame = init_frame(method, classe->constant_pool);
-        empilha_frame(pilha, frame);
-        return;
-      }
-    }
-  }
-  printf("Erro ao verificar Attribute code.\n");
-  return;
+  	for(int i = 0; i < method->attributes_count; i++) {
+	    if (method->attributes[i].tag == ATTRIBUTE_Code) {
+			if (method->attributes_count > 0) {
+				Frame *frame = init_frame(method, classe->constant_pool); //Ver isso!!!
+				empilha_frame(pilha, frame);
+				return;
+			}
+			else{
+				method->attributes_count++;
+				method->attributes = (attribute_info *) malloc(sizeof(attribute_info));
+				method->attributes[0].code.code_length = 0;
+				Frame *frame = init_frame(method, classe->constant_pool);
+				empilha_frame(pilha, frame);
+				return;
+			}
+	    }
+  	}
+	printf("Erro metodo sem Attribute code.\n");
+	return;
 }
 
 int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) {
