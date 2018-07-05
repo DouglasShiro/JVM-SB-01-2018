@@ -11,6 +11,7 @@ method_info* acharMetodo(char *, ClassFile *);
 
 int main(int argc, char* argv[]) {
 
+<<<<<<< HEAD
     char *nome_arq;
 	ClassFile *fp_class_info;
 
@@ -18,6 +19,18 @@ int main(int argc, char* argv[]) {
 		nome_arq = argv[1];
 	else
     	printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
+=======
+	char* nome = argv[1];
+
+    ClassFile *fp_class_info;
+
+
+    fp_class_info = classFileRead(nome);
+
+    printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
+
+    char *nome_arq = argv[1];
+>>>>>>> 2f115bebb25eba41e9394249841f91c2fce553d0
 
     fp_class_info = classFileRead(nome_arq);
 
