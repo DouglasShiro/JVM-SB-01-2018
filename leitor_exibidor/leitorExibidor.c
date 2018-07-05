@@ -32,41 +32,6 @@ void executar(ClassFile* classFile) {
 	method_info *method_main;
 
 	method_main = acharMetodo("main", classFile);
-<<<<<<< HEAD
-<<<<<<< HEAD
-	if (method_main != NULL){
-<<<<<<< HEAD
-		
-		printf("ACHOU MAIN\n");
-		Pilha_frames *pilha;
-		
-		if (inicializa(classFile, pilha)){
-			printf("ACHOU INIT\n");
-			init_pilha_frames(&pilha);
-			ready(method_init, classFile, &pilha);
-			executarMetodo(method_init, classFile, pilha);
-		}
-		
-		else{
-
-		printf("ACHOU MAIN\n");
-		Pilha_frames *pilha;
-=======
-
-		printf("ACHOU MAIN\n");
-		Pilha_frames *pilha;
->>>>>>> 94d715e3cdddbc1b6ac683eccba20f99aa0cf6e8
-		method_info *method_init;
-		method_init = acharMetodo("<init>", classFile);
-		if (method_init == NULL)
-=======
-	if (method_main != NULL)
-	{
-		method_init = acharMetodo("init", classFile);
-		printf("ACHOU MAIN\n");
-		if (method_init != NULL)
->>>>>>> parent of 45a7f04... Andrei
-=======
 	if (method_main != NULL){
 
 		printf("ACHOU MAIN\n");
@@ -74,7 +39,6 @@ void executar(ClassFile* classFile) {
 		method_info *method_init;
 		method_init = acharMetodo("<init>", classFile);
 		if (method_init == NULL)
->>>>>>> 94d715e3cdddbc1b6ac683eccba20f99aa0cf6e8
 		{
 			method_init = acharMetodo("<clinit>", classFile);
 		}
@@ -87,15 +51,7 @@ void executar(ClassFile* classFile) {
 		}
 		else
 		{
-<<<<<<< HEAD
-<<<<<<< HEAD
 			printf("ERRO: NAO ACHOU INIT.\n");
-=======
-			printf("ERRO! NAO ACHOU INIT.\n");
->>>>>>> parent of 45a7f04... Andrei
-=======
-			printf("ERRO: NAO ACHOU INIT.\n");
->>>>>>> 94d715e3cdddbc1b6ac683eccba20f99aa0cf6e8
 		}
 	}
 	else {
