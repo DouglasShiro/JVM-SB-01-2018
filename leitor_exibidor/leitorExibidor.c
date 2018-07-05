@@ -13,7 +13,11 @@ int main(int argc, char* argv[]) {
 
     ClassFile *fp_class_info;
 
-    fp_class_info = classFileRead("double_aritmetica.class");
+    printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
+
+    char *nome_arq = argv[1];
+
+    fp_class_info = classFileRead(nome_arq);
 
     classFileExib(fp_class_info);
 
@@ -25,9 +29,10 @@ int main(int argc, char* argv[]) {
 }
 
 void executar(ClassFile* classFile) {
-	method_info *method_main, *method_init;
+	method_info *method_main;
 
 	method_main = acharMetodo("main", classFile);
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if (method_main != NULL){
 <<<<<<< HEAD
@@ -61,39 +66,41 @@ void executar(ClassFile* classFile) {
 		printf("ACHOU MAIN\n");
 		if (method_init != NULL)
 >>>>>>> parent of 45a7f04... Andrei
+=======
+	if (method_main != NULL){
+
+		printf("ACHOU MAIN\n");
+		Pilha_frames *pilha;
+		method_info *method_init;
+		method_init = acharMetodo("<init>", classFile);
+		if (method_init == NULL)
+>>>>>>> 94d715e3cdddbc1b6ac683eccba20f99aa0cf6e8
 		{
-      printf("ACHOU INIT\n");
-      Pilha_frames *pilha;
-      init_pilha_frames(&pilha);
-      inicializa(classFile, pilha);
-			ready(method_init, classFile, &pilha);
-      executarMetodo(method_init, classFile, pilha);
+			method_init = acharMetodo("<clinit>", classFile);
 		}
-    else {
-      	method_init = acharMetodo("clinit", classFile);
-    }
 		if (method_init != NULL)
 		{
-      Pilha_frames *pilha;
-      init_pilha_frames(&pilha);
-      inicializa(classFile, pilha);
+			printf("ACHOU INIT\n");
+			init_pilha_frames(&pilha);
 			ready(method_init, classFile, &pilha);
-      executarMetodo(method_init, classFile, pilha);
+			executarMetodo(method_init, classFile, pilha);
 		}
 		else
 		{
+<<<<<<< HEAD
 <<<<<<< HEAD
 			printf("ERRO: NAO ACHOU INIT.\n");
 =======
 			printf("ERRO! NAO ACHOU INIT.\n");
 >>>>>>> parent of 45a7f04... Andrei
+=======
+			printf("ERRO: NAO ACHOU INIT.\n");
+>>>>>>> 94d715e3cdddbc1b6ac683eccba20f99aa0cf6e8
 		}
 	}
 	else {
-		printf("ERRO! NAO ACHOU MAIN.\n");
+		printf("ERRO: NAO ACHOU MAIN.\n");
 	}
-
-
 
 }
 
