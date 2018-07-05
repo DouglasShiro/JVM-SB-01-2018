@@ -114,18 +114,19 @@ void constantPoolExib(cp_info * param, u2 size){
 void attributesExib(attribute_info * param, u2 size, cp_info * cp){
     for (u2 i = 0; i < size; i++) {
         printf("\nAttribute %d. ", i);
-        printf("Name index cp[%d], ", param[i].attribute_name_index); printf("value: %s. ", cp[param[i].attribute_name_index].utf8_info.bytes);
-        printf("Length: %d. ", param[i].attribute_length);
+        printf("\nName index cp[%d], ", param[i].attribute_name_index);
+		printf("\nvalue: %s. ", cp[param[i].attribute_name_index].utf8_info.bytes);
+        printf("\nLength: %d. ", param[i].attribute_length);
         for (u1 j = 0; j < param[i].attribute_length; j++) {
-            printf("info[%d]: ", j);
+            printf("\ninfo[%d]: ", j);
             char *attributeName = (char *) malloc((cp[param[i].attribute_name_index].utf8_info.length + 1) * sizeof(char));
             for (u2 k = 0; k < cp[param[i].attribute_name_index].utf8_info.length; k++) {
                 attributeName[k] = cp[param[i].attribute_name_index].utf8_info.bytes[k];
             }
             attributeName[cp[param[i].attribute_name_index].utf8_info.length] = '\0';
-            
+
             if (!strcmp(attributeName, "ConstantValue")) {
-                printf("ConstantValue %d. ", param[i].constantValue.constantvalue_index);
+                printf("\nConstantValue %d. ", param[i].constantValue.constantvalue_index);
             }
             else printf("%s. ", attributeName);
             free(attributeName);
@@ -218,8 +219,8 @@ void classFileExib(ClassFile * classFile){
         //imprimir attributes
         attributesExib(classFile->attributes, classFile->attributes_count, classFile->constant_pool);
     }
-    
-    
+
+
 }
 
 char* getConstantUTF8CP(cp_info * cp, u2 index) {

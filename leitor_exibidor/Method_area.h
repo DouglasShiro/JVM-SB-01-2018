@@ -28,7 +28,7 @@ int inicializa(ClassFile *classe, Pilha_frames *pilha);
 *@param Nome do metodo desejado
 */
 
-method_info* acessoMethod(ClassFile *classe, char *metodo);
+method_info* acessoMethod(char *metodo, ClassFile *classe);
 
 /**
 *@fn void ready(method_info *metodo, ClassFile *classe, Pilha_frames *pilha)

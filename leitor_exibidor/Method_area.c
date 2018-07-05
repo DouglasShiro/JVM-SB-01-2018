@@ -24,7 +24,7 @@ int inicializa(ClassFile *classe, Pilha_frames *pilha) {
   return result;
 }
 
-method_info* acessoMethod(ClassFile *classe, char *metodo) {
+method_info* acessoMethod(char *metodo, ClassFile *classe) {
 
   for (int i = 0; i < classe->methods_count; i++) {
     int local_nome = classe->constant_pool[i].utf8_info.length; //Ver esse indicacao de nome!!!

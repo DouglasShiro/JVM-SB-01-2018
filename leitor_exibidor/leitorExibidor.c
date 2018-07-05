@@ -11,11 +11,13 @@ method_info* acharMetodo(char *, ClassFile *);
 
 int main(int argc, char* argv[]) {
 
-    ClassFile *fp_class_info;
+    char *nome_arq;
+	ClassFile *fp_class_info;
 
-    printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
-
-    char *nome_arq = argv[1];
+	if (argv[1])
+		nome_arq = argv[1];
+	else
+    	printf("Indicar qual arquivo deseja ler e executar (*.class):\n");
 
     fp_class_info = classFileRead(nome_arq);
 
@@ -63,7 +65,7 @@ void executar(ClassFile* classFile) {
 method_info* acharMetodo(char *nome, ClassFile *classFile) {
     for(int i = 0; i < classFile->methods_count; i++) {
         char *nomeTeste;
-        int index_nome = classFile->methods[i].name_index;
+        int index_nome = classFile->methods[i].name_index -1;
         nomeTeste = getConstantUTF8CP(classFile->constant_pool, index_nome);
         printf("Nome: %s, index: %d\n", nomeTeste, index_nome);
         if(nomeTeste != NULL && !strcmp(nomeTeste, nome)) {
