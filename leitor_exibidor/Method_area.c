@@ -189,7 +189,7 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0x5E] = dup2_x2;
 	instrucao[0x5F] = swap;
 	
-	// Math
+	// Logic_Arit
 	instrucao[0x60] = iadd;
 	instrucao[0x61] = ladd;
 	instrucao[0x62] = fadd;

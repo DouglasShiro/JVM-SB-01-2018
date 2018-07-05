@@ -7,5 +7,6 @@
 # ifndef COMPARISION.H
 # define COMPARISION.H
 
+# include "Conjunto_de_Instrucoes.h"
 
 # endif

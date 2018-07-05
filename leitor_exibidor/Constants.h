@@ -1,13 +1,13 @@
 /**
 * @file   Constants.h
 * @author Andrei Buslik
-* @brief  Arquivo com as estruturas das instruções do tipo constantes.
+* @brief  Arquivo com as estruturas das instruções que utilizam constantes.
 **/
 
 # ifndef CONSTANTS.H
 # define CONSTANTS.H
 
-# include Conjunto_de_instrucoes.h
+# include Conjunto_de_Instrucoes.h
 # include pilhaFrames.h
 # include Method_area.h
 # include classfile.h
