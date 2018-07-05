@@ -4,13 +4,13 @@
 * @brief  Arquivo com as estruturas das instruções que utilizam constantes.
 **/
 
-# ifndef CONSTANTS.H
-# define CONSTANTS.H
+# ifndef CONSTANTS_H
+# define CONSTANTS_H
 
-# include Conjunto_de_Instrucoes.h
-# include pilhaFrames.h
-# include Method_area.h
-# include classfile.h
+# include "Conjunto_de_Instrucoes.h"
+# include "pilhaFrames.h"
+# include "Method_area.h"
+# include "classfile.h"
 
 void nop();
 

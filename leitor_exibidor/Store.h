@@ -4,8 +4,8 @@
 * @brief  Arquivo com as estruturas das instruções de carregamento.
 **/
 
-# ifndef STORE.H
-# define STORE.H
+# ifndef STORE_H
+# define STORE_H
 
 # include "Conjunto_de_Instrucoes.h"
 

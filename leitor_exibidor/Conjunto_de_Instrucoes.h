@@ -4,11 +4,11 @@
 * @brief  Arquivo que agrupa os headers de todo o conjunto de instruções.
 **/
 
-# ifndef CONJUNTO_DE_INSTRUCOES.H
-# define CONJUNTO_DE_INSTRUCOES.H
+# ifndef CONJUNTO_DE_INSTRUCOES_H
+# define CONJUNTO_DE_INSTRUCOES_H
 
 # include "classfile.h"
-# include "Contants.h"
+# include "Constants.h"
 # include "Load.h"
 # include "Store.h"
 # include "Stack.h"

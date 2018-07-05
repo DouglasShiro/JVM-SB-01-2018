@@ -4,8 +4,8 @@
 * @brief  Arquivo com as estruturas das instruções de conversão de tipos.
 **/
 
-# ifndef CONVERSION.H
-# define CONVERSION.H
+# ifndef CONVERSION_H
+# define CONVERSION_H
 
 # include "Conjunto_de_Instrucoes.h"
 
