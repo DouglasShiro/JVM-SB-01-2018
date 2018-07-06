@@ -158,6 +158,7 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             for (int j = 0; j < attributes[i].exceptions.number_of_exceptions; j++)
                 attributes[i].exceptions.exception_index_table[j] = u2Read(file);
         } else {
+            printf("Attribute other: %s\n", attributeName);
             attributes[i].tag = ATTRIBUTE_Other;
             fseek(file, attributes[i].attribute_length, SEEK_CUR);
         }

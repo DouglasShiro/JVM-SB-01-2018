@@ -67,7 +67,7 @@ void executar(ClassFile* classFile) {
 method_info* acharMetodo(char *nome, ClassFile *classFile) {
     for(int i = 0; i < classFile->methods_count; i++) {
         char *nomeTeste;
-        int index_nome = classFile->methods[i].name_index -1;
+        int index_nome = classFile->methods[i].name_index - 1;
         nomeTeste = getConstantUTF8CP(classFile->constant_pool, index_nome);
         printf("Nome: %s, index: %d\n", nomeTeste, index_nome);
         if(nomeTeste != NULL && !strcmp(nomeTeste, nome)) {
