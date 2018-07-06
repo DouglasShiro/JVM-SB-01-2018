@@ -115,25 +115,6 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0x0D] = fconst_2;
 	instrucao[0x0E] = dconst_0;
 	instrucao[0x0F] = dconst_1;
-=======
-	// // Constants
-	instrucao[0x00] = nop; 					// 0
-	instrucao[0x01] = aconst_null; 			// 1
-	// instrucao[0x02] = iconst_m1;
-	// instrucao[0x03] = iconst_0;
-	// instrucao[0x04] = iconst_1;
-	// instrucao[0x05] = iconst_2;
-	// instrucao[0x06] = iconst_3;
-	// instrucao[0x07] = iconst_4;
-	// instrucao[0x08] = iconst_5;
-	// instrucao[0x09] = lconst_0;
-	// instrucao[0x0A] = lconst_1;
-	// instrucao[0x0B] = fconst_0;
-	// instrucao[0x0C] = fconst_1;
-	// instrucao[0x0D] = fconst_2;
-	// instrucao[0x0E] = dconst_0;
-	// instrucao[0x0F] = lconst_1;
->>>>>>> e6018343f3dc0e768c77813ca417918c276257aa
 	// instrucao[0x10] = bipush;
 	// instrucao[0x11] = sipush;
 	// instrucao[0x12] = ldc;
