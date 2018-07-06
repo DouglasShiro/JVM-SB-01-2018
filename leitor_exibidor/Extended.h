@@ -9,4 +9,11 @@
 
 # include "Conjunto_de_Instrucoes.h"
 
+// void wide(Frame *);
+// void multianewarray(Frame *);
+// void ifnull(Frame *);
+// void ifnonull(Frame *);
+// void goto_w(Frame *);
+// void jsr_w(Frame *);
+
 # endif

@@ -302,7 +302,7 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xB8] = invokestatic;
 	// instrucao[0xB9] = invokeinterface;
 	// instrucao[0xBA] = invokedynamic;
-	// instrucao[0xBB] = new;
+	// instrucao[0xBB] = new_;
 	// instrucao[0xBC] = newarray;
 	// instrucao[0xBD] = anewarray;
 	// instrucao[0xBE] = arraylength;

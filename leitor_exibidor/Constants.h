@@ -44,11 +44,10 @@ void dconst_0(Frame *);
 
 void dconst_1(Frame *);
 
-
-void iadd(Frame *);
-
-
-void aload_0(Frame *);
-
+// void bipush(Frame *);
+// void sipush(Frame *);
+// void ldc(Frame *);
+// void ldc_w(Frame *);
+// void ldc2_2(Frame *);
 
 # endif

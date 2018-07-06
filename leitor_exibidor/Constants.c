@@ -126,9 +126,6 @@ void fconst_2(Frame *frame){
 
 	memcpy(&operando_Inferior, &cpyI, sizeof(u4));
 	memcpy(&operando_Superior, &cpyS, sizeof(u4));
-	
-	empilha_operando(&(frame->pilha_operandos), operando_Inferior);
-	empilha_operando(&(frame->pilha_operandos), operando_Superior);
 
 	return;
 }
@@ -151,38 +148,6 @@ void dconst_1(Frame *frame){
 
 	memcpy(&operando_Inferior, &cpyI, sizeof(u4));
 	memcpy(&operando_Superior, &cpyS, sizeof(u4));
-	
-	empilha_operando(&(frame->pilha_operandos), operando_Inferior);
-	empilha_operando(&(frame->pilha_operandos), operando_Superior);
-
-	return;
-}
-
-
-void iadd(Frame *frame){
-	int32_t operando1, operando2, temp;
-	u4 resultado;
-	
-	operando2 = desempilha_operando(&(frame->pilha_operandos));
-	operando2 = desempilha_operando(&(frame->pilha_operandos));
-	
-	temp = operando1 + operando2;
-	
-	memcpy(&resultado, &temp, sizeof(u4));
-	
-	empilha_operando(&(frame->pilha_operandos), resultado);
-	
-	return;
-}
-
-
- void aload_0(Frame *frame){
-	u4 operando;
-
-	operando = frame->*(variaveis_locais);
-	operando = frame->variaveis_locais[0];
-	empilha_operando(&(frame->pilha_operandos), operando);
-
 
 	return;
 }

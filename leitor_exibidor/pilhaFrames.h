@@ -17,10 +17,12 @@ typedef struct pilha_operandos {
 } Pilha_operandos;
 
 typedef struct frame {
+	u4                      pc;
 	u4                      tamanho_variaveis_locais;
 	u4                      *variaveis_locais;
 	Pilha_operandos        	*pilha_operandos;
-	u4                      pc;
+	u2						constant_pool_count;
+	cp_info 				*constant_pool;
 	attribute_info			*codigo;
 } Frame;
 

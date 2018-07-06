@@ -12,6 +12,17 @@
 # include "Method_area.h"
 # include "classfile.h"
 
-void return_(Frame* frame);
+// void goto_(Frame *);
+// void jsr(Frame *);
+// void ret(Frame *);
+// void tableswtich(Frame *);
+// void lookupswitch(Frame *);
+// void ireturn(Frame *);
+// void lreturn(Frame *);
+// void freturn(Frame *);
+// void dreturn(Frame *);
+// void areturn(Frame *);
+
+void return_(Frame *);
 
 # endif
