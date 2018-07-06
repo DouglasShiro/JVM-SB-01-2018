@@ -341,3 +341,9 @@ void inicializa_Conj_Instrucoes(){
 }
 
 void getInvokeSpecial(Frame* frame) {
+	invokespecial(
+		frame,
+		global_pilha,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]);
+}

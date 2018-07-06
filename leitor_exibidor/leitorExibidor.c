@@ -77,14 +77,3 @@ method_info* acharMetodo(char *nome, ClassFile *classFile) {
     }
     return NULL;
 }
-
- void aload_0(Frame *frame){
-	u4 operando;
-
-	operando = frame->*(variaveis_locais);
-	operando = frame->variaveis_locais[0];
-	empilha_operando(&(frame->pilha_operandos), operando);
-	
-
-	return;
-}
