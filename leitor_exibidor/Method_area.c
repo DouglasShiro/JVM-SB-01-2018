@@ -88,12 +88,8 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) 
 int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha){
 	printf("Executando instrucoes metodo\n");
 	while(frame->pc < frame->codigo->code.code_length) {
-<<<<<<< HEAD
         u1 opcode = frame->codigo->code.code[frame->pc];
 		printf("opcode: %x\n", opcode);
-=======
-		u1 opcode = frame->codigo->code.code[frame->pc];
->>>>>>> 2bde5c9257ff669e2c3a3e9c88b5e6b3a1f8b8ca
 		global_pilha = pilha;
 		instrucao[opcode](frame);
 		frame->pc++;
@@ -102,7 +98,6 @@ int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha){
 }
 
 void inicializa_Conj_Instrucoes(){
-<<<<<<< HEAD
 	// Constants
 	instrucao[0x00] = nop; 					// 0
 	instrucao[0x01] = aconst_null; 			// 1

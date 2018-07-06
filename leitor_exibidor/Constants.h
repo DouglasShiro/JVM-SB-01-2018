@@ -45,6 +45,9 @@ void dconst_0(Frame *);
 void dconst_1(Frame *);
 
 
+void iadd(Frame *);
+
+
 void aload_0(Frame *);
 
 
