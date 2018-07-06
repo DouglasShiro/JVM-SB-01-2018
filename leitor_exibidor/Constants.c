@@ -154,11 +154,20 @@ void dconst_1(Frame *frame){
 
 void aload_0(Frame *frame){
 	u4 operando;
+<<<<<<< HEAD
 	
 	operando = frame->*(variaveis_locais);
 	
+=======
+
+	operando = frame->variaveis_locais[0];
+
+>>>>>>> e6018343f3dc0e768c77813ca417918c276257aa
 	empilha_operando(&(frame->pilha_operandos), operando);
-	
+
 	return;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> e6018343f3dc0e768c77813ca417918c276257aa

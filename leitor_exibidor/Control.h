@@ -8,5 +8,10 @@
 # define CONTROL_H
 
 # include "Conjunto_de_Instrucoes.h"
+# include "pilhaFrames.h"
+# include "Method_area.h"
+# include "classfile.h"
+
+void return_(Frame* frame);
 
 # endif

@@ -203,4 +203,11 @@ typedef struct ClassFile {
     attribute_info *attributes;
 } ClassFile;
 
+typedef struct instrucao
+{
+    char            mnemonico[20];
+    int             operandos;
+    int             req_cp;
+} Instrucao;
+
 #endif

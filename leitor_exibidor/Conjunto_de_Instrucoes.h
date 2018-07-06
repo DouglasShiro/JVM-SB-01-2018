@@ -7,7 +7,12 @@
 # ifndef CONJUNTO_DE_INSTRUCOES_H
 # define CONJUNTO_DE_INSTRUCOES_H
 
+# include <stdlib.h>
+# include <stdint.h>
+# include <stdio.h>
+
 # include "classfile.h"
+# include "Method_area.h"
 # include "Constants.h"
 # include "Load.h"
 # include "Store.h"
