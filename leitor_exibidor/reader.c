@@ -213,8 +213,23 @@ ClassFile *classFileRead(char *fileName) {
     ClassFile *classFile = (ClassFile *) malloc(sizeof(ClassFile));
 
     classFile->magic = u4Read(file);
+	if (classFile->magic != -889275714) {
+		printf("ERRO: arquivo .class com magic invalido\n");
+		return NULL;
+	}
+
     classFile->minor_version = u2Read(file);
+	if (classFile->minor_version < 0) {
+		printf("ERRO: arquivo .class com minor_version invalido\n");
+		return NULL;
+	}
+
     classFile->major_version = u2Read(file);
+	if (classFile->major_version > 51) {
+		printf("ERRO: arquivo .class com major_version invalido\n");
+		return NULL;
+	}
+
     constantPoolRead(file, classFile);
     classFile->access_flags = u2Read(file);
     classFile->this_class = u2Read(file);

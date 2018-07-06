@@ -24,10 +24,13 @@ int main(int argc, char* argv[]) {
 
     fp_class_info = classFileRead(nome_arq);
 
-    classFileExib(fp_class_info);
+	if (fp_class_info == NULL)
+		return 0;
 
+	classFileExib(fp_class_info);
 
-    executar(fp_class_info);
+	if (!argv[2])
+    	executar(fp_class_info);
 
 
     return 0;

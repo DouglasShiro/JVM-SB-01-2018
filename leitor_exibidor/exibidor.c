@@ -116,9 +116,9 @@ void attributesExib(attribute_info * param, u2 size, cp_info * cp){
         printf("\nAttribute %d. ", i);
         printf("\nName index cp[%d], ", param[i].attribute_name_index);
 		printf("\nvalue: %s. ", cp[param[i].attribute_name_index-1].utf8_info.bytes);
-        printf("\nLength: %d. ", param[i].attribute_length);
+        printf("\nLength: %d. \n", param[i].attribute_length);
         for (u1 j = 0; j < param[i].attribute_length; j++) {
-            printf("\ninfo[%d]: ", j);
+            printf("info[%d]: ", j);
             char *attributeName = (char *) malloc((cp[param[i].attribute_name_index-1].utf8_info.length + 1) * sizeof(char));
             for (u2 k = 0; k < cp[param[i].attribute_name_index-1].utf8_info.length; k++) {
                 attributeName[k] = cp[param[i].attribute_name_index-1].utf8_info.bytes[k];
@@ -126,7 +126,7 @@ void attributesExib(attribute_info * param, u2 size, cp_info * cp){
             attributeName[cp[param[i].attribute_name_index-1].utf8_info.length] = '\0';
 
             if (!strcmp(attributeName, "ConstantValue")) {
-                printf("\nConstantValue %d. ", param[i].constantValue.constantvalue_index);
+                printf("ConstantValue %d. ", param[i].constantValue.constantvalue_index);
             }
             else printf("%s. ", attributeName);
             free(attributeName);
@@ -145,9 +145,9 @@ void fieldsExib(field_info * param, u2 size, cp_info * cp){
     for (u2 i = 0; i < size; i++) {
         printf("\nField %d. ", i);
         //imprimir param[i].access_flags = u2Read(file);
-        printf("Name index: cp[%d], ", param[i].name_index); printf("value: %s. ", cp[param[i].name_index].utf8_info.bytes);
-        printf("Descriptor index: cp[%d]. ", param[i].descriptor_index);
-        printf("Attributes count: %d. ", param[i].attributes_count);
+        printf("\nName index: cp[%d], ", param[i].name_index); printf("value: %s. ", cp[param[i].name_index].utf8_info.bytes);
+        printf("\nDescriptor index: cp[%d]. ", param[i].descriptor_index);
+        printf("\nAttributes count: %d. ", param[i].attributes_count);
         //imprimir param[i].attributes
     }
 }
@@ -162,10 +162,10 @@ void fieldsExib(field_info * param, u2 size, cp_info * cp){
 void methodsExib(method_info * param, u2 size, cp_info * cp){
     for (u2 i = 0; i < size; i++) {
         printf("\nMethod %d. ", i);
-        printf("Access flag: "); u2Exib(param[i].access_flags);
-        printf("Name index cp[%d], ", param[i].name_index); printf("value: %s. ", cp[param[i].name_index-1].utf8_info.bytes);
-        printf("Descriptor index cp[%d]. ", param[i].descriptor_index);
-        printf("Attributes count: %d. ", param[i].attributes_count);
+        printf("\nAccess flag: "); u2Exib(param[i].access_flags);
+        printf("\nName index cp[%d], ", param[i].name_index); printf("value: %s. ", cp[param[i].name_index-1].utf8_info.bytes);
+        printf("\nDescriptor index cp[%d]. ", param[i].descriptor_index);
+        printf("\nAttributes count: %d. ", param[i].attributes_count);
         attributesExib(param[i].attributes, param[i].attributes_count, cp);
     }
 }
@@ -186,6 +186,7 @@ void classFileExib(ClassFile * classFile){
     u2Exib(classFile->constant_pool_count);
     if (classFile->constant_pool_count > 0) {
         //imprimir contant pool
+		printf("\n\n--------------------------------------------------------------------\n");
         constantPoolExib(classFile->constant_pool, classFile->constant_pool_count -1);
     }
     printf("\naccess flags: ");
@@ -198,6 +199,7 @@ void classFileExib(ClassFile * classFile){
     u2Exib(classFile->interfaces_count);
     //imprimir interfaces
     for (int i = 0; i < classFile->interfaces_count; i++) {
+		printf("\n\n--------------------------------------------------------------------\n");
         printf("Interface %d: ", i);
         u2Exib(classFile->interfaces[i]);
     }
@@ -205,22 +207,24 @@ void classFileExib(ClassFile * classFile){
     u2Exib(classFile->fields_count);
     if (classFile->fields_count > 0) {
         //imprimir fields
+		printf("\n\n--------------------------------------------------------------------\n");
         fieldsExib(classFile->fields, classFile->fields_count, classFile->constant_pool);
     }
     printf("\nmethods count: ");
     u2Exib(classFile->methods_count);
     if (classFile->methods_count > 0) {
         //imprimir methods
+		printf("\n\n--------------------------------------------------------------------\n");
         methodsExib(classFile->methods, classFile->methods_count, classFile->constant_pool);
     }
     printf("\nattributes count: ");
     u2Exib(classFile->attributes_count);
     if (classFile->attributes_count > 0) {
         //imprimir attributes
+		printf("\n\n--------------------------------------------------------------------\n");
         attributesExib(classFile->attributes, classFile->attributes_count, classFile->constant_pool);
     }
-
-
+	printf("\n");
 }
 
 char* getConstantUTF8CP(cp_info * cp, u2 index) {
