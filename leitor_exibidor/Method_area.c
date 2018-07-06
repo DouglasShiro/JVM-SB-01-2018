@@ -322,6 +322,9 @@ void inicializa_Conj_Instrucoes(){
 }
 
 void getInvokeSpecial(Frame* frame) {
+  //
+  //TER CERTEZA QUE FRAME EXAMINADO FOI CRIADO COM init_frame DE pilhaFrames.c
+  //
 	invokespecial(
 		frame,
 		global_pilha,

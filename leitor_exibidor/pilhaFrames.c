@@ -11,6 +11,8 @@ Frame* init_frame(method_info* method, cp_info* constant_pool) {
 
     frame = (Frame*)malloc(sizeof(Frame));
 
+    frame->pc = 0;
+
     frame->tamanho_variaveis_locais = method->attributes->code.max_locals;
     frame->variaveis_locais = (u4*)malloc(frame->tamanho_variaveis_locais*sizeof(u4));
 
