@@ -225,6 +225,7 @@ void classFileExib(ClassFile * classFile){
 
 char* getConstantUTF8CP(cp_info * cp, u2 index) {
     char* str = NULL;
+    index -= 1;
     if (cp[index].tag == CONSTANT_Utf8) {
         str = (char *) malloc((cp[index].utf8_info.length + 1) * sizeof(char));
         for (u2 j = 0; j < cp[index].utf8_info.length; j++)

@@ -39,7 +39,7 @@ method_info* acessoMethod(char *metodo, ClassFile *classe) {
 
 void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha){
   	for(int i = 0; i < method->attributes_count; i++) {
-      printf("Attribute tag: %d\n", method->attributes[i].tag);
+      printf("Attribute nane index: %d\n", method->attributes[i].attribute_name_index);
 	    if (method->attributes[i].tag == ATTRIBUTE_Code) {
 			if (method->attributes_count > 0) {
 				Frame *frame = init_frame(method, classe->constant_pool); //Ver isso!!!

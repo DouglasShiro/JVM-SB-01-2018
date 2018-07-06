@@ -111,14 +111,15 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
     for (u2 i = 0; i < attributes_count; i++) {
         attributes[i].attribute_name_index = u2Read(file);
         attributes[i].attribute_length = u4Read(file);
+        printf("New attribute name index: %d; ", attributes[i].attribute_name_index);
 
-        char *attributeName = (char *) malloc((constant_pool[attributes[i].attribute_name_index].utf8_info.length + 1) * sizeof(char));
+        char *attributeName = (char *) malloc((constant_pool[attributes[i].attribute_name_index-1].utf8_info.length + 1) * sizeof(char));
 
-        for (u2 j = 0; j < constant_pool[attributes[i].attribute_name_index].utf8_info.length; j++) {
-            attributeName[j] = constant_pool[attributes[i].attribute_name_index].utf8_info.bytes[j];
+        for (u2 j = 0; j < constant_pool[attributes[i].attribute_name_index-1].utf8_info.length; j++) {
+            attributeName[j] = constant_pool[attributes[i].attribute_name_index-1].utf8_info.bytes[j];
         }
 
-        attributeName[constant_pool[attributes[i].attribute_name_index].utf8_info.length] = '\0';
+        attributeName[constant_pool[attributes[i].attribute_name_index-1].utf8_info.length] = '\0';
 
         if (!strcmp(attributeName, "ConstantValue")) {
             attributes[i].constantValue.constantvalue_index = u2Read(file);
@@ -164,6 +165,8 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
         }
 
         free(attributeName);
+
+        printf("tag: %d\n", attributes[i].tag);
     }
 
     return attributes;
