@@ -83,11 +83,12 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) 
 }
 
 int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha){
+	printf("Executando instrucoes metodo\n");
 	while(frame->pc < frame->codigo->code.code_length) {
         u1 opcode = frame->codigo->code.code[frame->pc];
+		printf("opcode: %x\n", opcode);
 		global_pilha = pilha;
-		printf("\tInstrucao: %d\n", opcode);
-		// instrucao[opcode](frame);
+		instrucao[opcode](frame);
 		frame->pc++;
     }
     return 1;

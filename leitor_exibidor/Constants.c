@@ -95,7 +95,6 @@ void lconst_1(Frame *frame){
 
 void aload_0(Frame *frame){
 	u4 operando;
-
 	operando = frame->variaveis_locais[0];
 
 	empilha_operando(&(frame->pilha_operandos), operando);

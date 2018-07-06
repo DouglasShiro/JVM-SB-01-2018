@@ -43,7 +43,7 @@ void executar(ClassFile* classFile) {
 		Pilha_frames *pilha;
 		method_info *method_init;
 		method_init = acharMetodo("<init>", classFile);
-		// inicializa_Conj_Instrucoes();
+		inicializa_Conj_Instrucoes();
 		if (method_init == NULL)
 		{
 			method_init = acharMetodo("<clinit>", classFile);
