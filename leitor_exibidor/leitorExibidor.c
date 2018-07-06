@@ -43,6 +43,7 @@ void executar(ClassFile* classFile) {
 		Pilha_frames *pilha;
 		method_info *method_init;
 		method_init = acharMetodo("<init>", classFile);
+		// inicializa_Conj_Instrucoes();
 		if (method_init == NULL)
 		{
 			method_init = acharMetodo("<clinit>", classFile);
@@ -67,7 +68,7 @@ void executar(ClassFile* classFile) {
 method_info* acharMetodo(char *nome, ClassFile *classFile) {
     for(int i = 0; i < classFile->methods_count; i++) {
         char *nomeTeste;
-        int index_nome = classFile->methods[i].name_index;
+        int index_nome = classFile->methods[i].name_index ;
         nomeTeste = getConstantUTF8CP(classFile->constant_pool, index_nome);
         printf("Nome: %s, index: %d\n", nomeTeste, index_nome);
         if(nomeTeste != NULL && !strcmp(nomeTeste, nome)) {

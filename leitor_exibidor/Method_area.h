@@ -9,6 +9,7 @@
 #include "pilhaFrames.h"
 #include "string.h"
 #include "exibidor.h"
+#include "Conjunto_de_Instrucoes.h"
 
 #ifndef METHOD_AREA_H
 #define METHOD_AREA_H
@@ -56,7 +57,10 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha);
 *@param Metodo carregado
 *@param Frame carregado
 */
+int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha);
 
-int executarInstrucoes (method_info *metodo, Frame *frame);
+void inicializa_Conj_Instrucoes();
+
+void getInvokeSpecial(Frame* frame);
 
 #endif

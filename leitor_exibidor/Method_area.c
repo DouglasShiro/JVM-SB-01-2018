@@ -6,9 +6,9 @@
 */
 
 #include "Method_area.h"
-#include "Conjunto_de_Instrucoes.h"
 
-u1 opcode;
+void (*instrucao[0xCA])(Frame *frame);
+Pilha_frames *global_pilha;
 
 int inicializa(ClassFile *classe, Pilha_frames *pilha) {
   int result = 0;
@@ -66,7 +66,7 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) 
 
     while(!execucao) {
         Frame *metodoAtual = desempilha_frame(&pilha);
-        execucao = executarInstrucoes(metodo, metodoAtual); // TODO: Função que executa intruções
+        execucao = executarInstrucoes(metodo, metodoAtual, pilha); // TODO: Função que executa intruções
         if(execucao == 45) { // Definir o que é ERRO_INSTRUCAO
             printf("ERRO: Instrucao nao pode ser executada.\n");
             desaloca_frame(metodoAtual);
@@ -82,9 +82,10 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) 
     return 0; // 0 indica que todas as instruções do método atual foram executadas sem erro.
 }
 
-int executarInstrucoes (method_info *metodo, Frame *frame){
+int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha){
 	while(frame->pc < frame->codigo->code.code_length) {
-        opcode = frame->codigo->code.code[frame->pc];
+        u1 opcode = frame->codigo->code.code[frame->pc];
+		global_pilha = pilha;
 		printf("\tInstrucao: %d\n", opcode);
 		// instrucao[opcode](frame);
 		frame->pc++;
@@ -93,7 +94,6 @@ int executarInstrucoes (method_info *metodo, Frame *frame){
 }
 
 void inicializa_Conj_Instrucoes(){
-<<<<<<< HEAD
 	// // Constants
 	instrucao[0x00] = nop; 					// 0
 	instrucao[0x01] = aconst_null; 			// 1
@@ -108,25 +108,9 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x0A] = lconst_1;
 	// instrucao[0x0B] = fconst_0;
 	// instrucao[0x0C] = fconst_1;
-=======
-	// Constants
-	 instrucao[0x00] = nop;
-	 instrucao[0x01] = aconst_null;
-	 instrucao[0x02] = iconst_m1;
-	 instrucao[0x03] = iconst_0;
-	 instrucao[0x04] = iconst_1;
-	 instrucao[0x05] = iconst_2;
-	 instrucao[0x06] = iconst_3;
-	 instrucao[0x07] = iconst_4;
-	 instrucao[0x08] = iconst_5;
-	 instrucao[0x09] = lconst_0;
-	 instrucao[0x0A] = lconst_1;
-	 //instrucao[0x0B] = fconst_0;
-	 //instrucao[0x0C] = fconst_1;
->>>>>>> cfa9fd46515beecd14df1c294dff29fc2fa77f10
 	// instrucao[0x0D] = fconst_2;
-	 //instrucao[0x0E] = dconst_0;
-	 //instrucao[0x0F] = lconst_1;
+	// instrucao[0x0E] = dconst_0;
+	// instrucao[0x0F] = lconst_1;
 	// instrucao[0x10] = bipush;
 	// instrucao[0x11] = sipush;
 	// instrucao[0x12] = ldc;
@@ -155,11 +139,7 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x27] = dload_1;
 	// instrucao[0x28] = dload_2;
 	// instrucao[0x29] = dload_3;
-<<<<<<< HEAD
 	instrucao[0x2A] = aload_0; 				// 42
-=======
-	 instrucao[0x2A] = aload_0;
->>>>>>> cfa9fd46515beecd14df1c294dff29fc2fa77f10
 	// instrucao[0x2B] = aload_1;
 	// instrucao[0x2C] = aload_2;
 	// instrucao[0x2D] = aload_3;
@@ -314,7 +294,7 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xB4] = getfield;
 	// instrucao[0xB5] = putfield;
 	// instrucao[0xB6] = invokevirtual;
-	instrucao[0xB7] = invokespecial; 		// 183
+	instrucao[0xB7] = getInvokeSpecial; 		// 183
 	// instrucao[0xB8] = invokestatic;
 	// instrucao[0xB9] = invokeinterface;
 	// instrucao[0xBA] = invokedynamic;
@@ -335,4 +315,12 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xC7] = ifnonull;
 	// instrucao[0xC8] = goto_w;
 	// instrucao[0xC9] = jsr_w;
+}
+
+void getInvokeSpecial(Frame* frame) {
+	invokespecial(
+		frame,
+		global_pilha,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]);
 }
