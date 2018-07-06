@@ -30,5 +30,17 @@ void iconst_4(Frame *);
 
 void iconst_5(Frame *);
 
+void lconst_0(Frame *);
+
+void lconst_1(Frame *);
+
+//void fconst_0(Frame *);
+
+//void fconst_1(Frame *);
+
+//void fconst_2(Frame *);
+
+void aload_0(Frame *);
+
 
 # endif

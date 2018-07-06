@@ -73,3 +73,32 @@ void iconst_5(Frame *frame){
 
 	return;
 }
+
+void lconst_0(Frame *frame){
+	u4 operando = 0;
+
+	empilha_operando(&(frame->pilha_operandos), operando);
+	empilha_operando(&(frame->pilha_operandos), operando);
+
+	return;
+}
+
+void lconst_1(Frame *frame){
+	u4 operando_Inferior = 1;
+	u4 operando_Superior = 0;
+
+	empilha_operando(&(frame->pilha_operandos), operando_Inferior);
+	empilha_operando(&(frame->pilha_operandos), operando_Superior);
+
+	return;
+}
+
+void aload_0(Frame *frame){
+	u4 operando;
+	
+	operando = frame->variaveis_locais;
+	
+	empilha_operando(&(frame->pilha_operandos), operando);
+	
+	return;
+}
