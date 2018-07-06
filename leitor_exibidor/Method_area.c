@@ -203,8 +203,8 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x5F] = swap;
 	//
 	// // Logic_Arit
-	// instrucao[0x60] = iadd;
-	// instrucao[0x61] = ladd;
+	instrucao[0x60] = iadd;
+	instrucao[0x61] = ladd;
 	// instrucao[0x62] = fadd;
 	// instrucao[0x63] = dadd;
 	// instrucao[0x64] = isub;

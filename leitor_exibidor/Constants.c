@@ -5,8 +5,7 @@
 **/
 
 # include "Constants.h"
-# include <stdint.h>
-# include <math.h>
+
 
 void nop (){
 	return;
@@ -126,6 +125,9 @@ void fconst_2(Frame *frame){
 
 	memcpy(&operando_Inferior, &cpyI, sizeof(u4));
 	memcpy(&operando_Superior, &cpyS, sizeof(u4));
+	
+	empilha_operando(&(frame->pilha_operandos), operando_Inferior);
+	empilha_operando(&(frame->pilha_operandos), operando_Superior);
 
 	return;
 }
@@ -148,6 +150,9 @@ void dconst_1(Frame *frame){
 
 	memcpy(&operando_Inferior, &cpyI, sizeof(u4));
 	memcpy(&operando_Superior, &cpyS, sizeof(u4));
+	
+	empilha_operando(&(frame->pilha_operandos), operando_Inferior);
+	empilha_operando(&(frame->pilha_operandos), operando_Superior);
 
 	return;
 }

@@ -11,6 +11,8 @@
 # include "pilhaFrames.h"
 # include "Method_area.h"
 # include "classfile.h"
+# include <stdint.h>
+# include <math.h>
 
 void nop();
 

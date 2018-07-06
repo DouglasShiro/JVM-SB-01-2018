@@ -7,12 +7,18 @@
 # ifndef LOGIC_ARIT_H
 # define LOGIC_ARIT_H
 
-# include "Conjunto_de_Instrucoes.h"
+#include "Conjunto_de_Instrucoes.h"
+#include "pilhaFrames.h"
+#include "Method_area.h"
+#include "classfile.h"
+#include <math.h>
+#include <stdint.h>
 
 void iadd(Frame *);
 
-// void ladd(Frame *);
-// void fadd(Frame *);
+void ladd(Frame *);
+
+void fadd(Frame *);
 // void dadd(Frame *);
 // void isub(Frame *);
 // void lsub(Frame *);
