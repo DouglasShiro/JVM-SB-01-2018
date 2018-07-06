@@ -23,8 +23,7 @@ void iadd(Frame *frame){
 }
 
 void ladd(Frame *frame){
-	int32_t operando1_Superior, operando1_Inferior, operando2_Superior, operando2_Inferior;
-	int64_t operando1, operando2, temp;
+	int64_t operando1_Superior, operando1_Inferior, operando2_Superior, operando2_Inferior, operando1, operando2, temp;
 	u4 resultado_Superior, resultado_Inferior, temp_Superior, temp_Inferior;
 	
 	operando2_Superior = desempilha_operando(&(frame->pilha_operandos));
@@ -33,8 +32,8 @@ void ladd(Frame *frame){
 	operando1_Superior = desempilha_operando(&(frame->pilha_operandos));
 	operando1_Inferior = desempilha_operando(&(frame->pilha_operandos));
 	
-	operando2 = (u8)(operando2_Superior << 32) | operando2_Inferior; 
-	operando1 = (u8)(operando1_Superior << 32) | operando1_Inferior;
+	operando2 = (operando2_Superior << 32) | operando2_Inferior; 
+	operando1 = (operando1_Superior << 32) | operando1_Inferior;
 	
 	temp = operando1 + operando2;
 	
@@ -50,8 +49,8 @@ void ladd(Frame *frame){
 	return;
 }
 
-void fadd(Frame *){
+/*void fadd(Frame *){
 	
 	
 	return;
-}
+}*/

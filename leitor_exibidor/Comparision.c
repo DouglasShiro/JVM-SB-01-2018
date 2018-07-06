@@ -4,4 +4,4 @@
 * @brief  Arquivo com os códigos das funções declaradas no arquivo Comparisions.h.
 **/
 
-#include "Comparisions.h"
+#include "Comparision.h"
