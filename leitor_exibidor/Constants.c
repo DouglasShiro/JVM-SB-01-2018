@@ -6,6 +6,7 @@
 
 # include "Constants.h"
 # include <stdint.h>
+# include <math.h>
 
 void nop (){
 	return;
@@ -93,12 +94,71 @@ void lconst_1(Frame *frame){
 	return;
 }
 
-void aload_0(Frame *frame){
+void fconst_0(Frame *frame){
 	u4 operando;
+	float cpy = 0.0;
 	
-	operando = frame->variaveis_locais;
+	memcpy(&operando, &cpy, sizeof(u4));
 	
 	empilha_operando(&(frame->pilha_operandos), operando);
 	
 	return;
 }
+
+void fconst_1(Frame *frame){
+	u4 operando_Inferior;
+	u4 operando_Superior;
+	float cpyI = 1.0, cpyS = 0.0;
+	
+	memcpy(&operando_Inferior, &cpyI, sizeof(u4));
+	memcpy(&operando_Superior, &cpyS, sizeof(u4));
+
+	empilha_operando(&(frame->pilha_operandos), operando_Inferior);
+	empilha_operando(&(frame->pilha_operandos), operando_Superior);
+
+	return;
+}
+
+void fconst_2(Frame *frame){
+	u4 operando_Inferior;
+	u4 operando_Superior;
+	float cpyI = 2.0, cpyS = 0.0;
+	
+	memcpy(&operando_Inferior, &cpyI, sizeof(u4));
+	memcpy(&operando_Superior, &cpyS, sizeof(u4));
+
+	return;
+}
+
+void dconst_0(Frame *frame){
+	u4 operando;
+	double cpy = 0.0;
+	
+	memcpy(&operando, &cpy, sizeof(u4));
+	
+	empilha_operando(&(frame->pilha_operandos), operando);
+	
+	return;
+}
+
+void dconst_1(Frame *frame){
+	u4 operando_Inferior;
+	u4 operando_Superior;
+	double cpyI = 1.0, cpyS = 0.0;
+	
+	memcpy(&operando_Inferior, &cpyI, sizeof(u4));
+	memcpy(&operando_Superior, &cpyS, sizeof(u4));
+
+	return;
+}
+
+void aload_0(Frame *frame){
+	u4 operando;
+	
+	operando = frame->*(variaveis_locais);
+	
+	empilha_operando(&(frame->pilha_operandos), operando);
+	
+	return;
+}
+

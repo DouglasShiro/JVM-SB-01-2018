@@ -34,11 +34,16 @@ void lconst_0(Frame *);
 
 void lconst_1(Frame *);
 
-//void fconst_0(Frame *);
+void fconst_0(Frame *);
 
-//void fconst_1(Frame *);
+void fconst_1(Frame *);
 
-//void fconst_2(Frame *);
+void fconst_2(Frame *);
+
+void dconst_0(Frame *);
+
+void dconst_1(Frame *);
+
 
 void aload_0(Frame *);
 
