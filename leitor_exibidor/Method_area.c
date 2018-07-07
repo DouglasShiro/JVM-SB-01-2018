@@ -207,10 +207,10 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0x61] = ladd;
 	instrucao[0x62] = fadd;
 	instrucao[0x63] = dadd;
-	// instrucao[0x64] = isub;
-	// instrucao[0x65] = lsub;
-	// instrucao[0x66] = fsub;
-	// instrucao[0x67] = dsub;
+	instrucao[0x64] = isub;
+	instrucao[0x65] = lsub;
+	instrucao[0x66] = fsub;
+	instrucao[0x67] = dsub;
 	// instrucao[0x68] = imul;
 	// instrucao[0x69] = lmul;
 	// instrucao[0x6A] = fmul;

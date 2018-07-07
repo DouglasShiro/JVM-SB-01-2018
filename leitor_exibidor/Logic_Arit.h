@@ -21,10 +21,15 @@ void ladd(Frame *);
 void fadd(Frame *);
 
 void dadd(Frame *);
-// void isub(Frame *);
-// void lsub(Frame *);
-// void fsub(Frame *);
-// void dsub(Frame *);
+
+void isub(Frame *);
+
+void lsub(Frame *);
+
+void fsub(Frame *);
+
+void dsub(Frame *);
+
 // void imul(Frame *);
 // void lmul(Frame *);
 // void fmul(Frame *);
