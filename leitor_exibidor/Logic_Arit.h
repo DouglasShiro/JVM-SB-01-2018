@@ -19,7 +19,8 @@ void iadd(Frame *);
 void ladd(Frame *);
 
 void fadd(Frame *);
-// void dadd(Frame *);
+
+void dadd(Frame *);
 // void isub(Frame *);
 // void lsub(Frame *);
 // void fsub(Frame *);

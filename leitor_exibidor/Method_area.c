@@ -205,8 +205,8 @@ void inicializa_Conj_Instrucoes(){
 	// // Logic_Arit
 	instrucao[0x60] = iadd;
 	instrucao[0x61] = ladd;
-	// instrucao[0x62] = fadd;
-	// instrucao[0x63] = dadd;
+	instrucao[0x62] = fadd;
+	instrucao[0x63] = dadd;
 	// instrucao[0x64] = isub;
 	// instrucao[0x65] = lsub;
 	// instrucao[0x66] = fsub;

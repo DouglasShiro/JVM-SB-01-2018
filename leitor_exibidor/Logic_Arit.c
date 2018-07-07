@@ -49,8 +49,49 @@ void ladd(Frame *frame){
 	return;
 }
 
-/*void fadd(Frame *){
+void fadd(Frame *frame){
+	u4 operando1, operando2, resultado;
+	float temp1, temp2;
 	
+	operando2 = desempilha_operando(&(frame->pilha_operandos));
+	operando1 = desempilha_operando(&(frame->pilha_operandos));
+	
+	memcpy(&temp1, &operando1, sizeof(u4));
+	memcpy(&temp2, &operando2, sizeof(u4));
+	
+	resultado = temp1 + temp2;
+	
+	empilha_operando(&(frame->pilha_operandos), resultado);
 	
 	return;
-}*/
+}
+
+void dadd(Frame *frame){
+	u4 resultado_Superior, resultado_Inferior;
+	u8 operando1_Superior, operando1_Inferior, operando2_Superior, operando2_Inferior, temp1, temp2,resultado;
+	double operando1, operando2, d_resultado;
+	
+	operando2_Superior = desempilha_operando(&(frame->pilha_operandos));
+	operando2_Inferior = desempilha_operando(&(frame->pilha_operandos));
+	
+	operando1_Superior = desempilha_operando(&(frame->pilha_operandos));
+	operando1_Inferior = desempilha_operando(&(frame->pilha_operandos));
+	
+	temp1 = (operando1_Superior << 32) | operando1_Inferior;
+	temp2 = (operando2_Superior << 32) | operando2_Inferior;
+	
+	memcpy(&operando1, &temp1, sizeof(u8));
+	memcpy(&operando2, &temp2, sizeof(u8));
+	
+	d_resultado = operando1 + operando2;
+	
+	memcpy(&resultado, &d_reultado, sizeof(u8));
+	
+	resultado_Superior = 0xFFFF0000 & resultado;
+	resultado_Inferior = 0x0000FFFF & resultado;
+	
+	empilha_operando(&(frame->pilha_operandos), resultado_Inferior);
+	empilha_operando(&(frame->pilha_operandos), resultado_Superior);
+	
+	return;
+}
