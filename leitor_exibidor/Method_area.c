@@ -216,7 +216,7 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0x6A] = fmul;
 	instrucao[0x6B] = dmul;
 	instrucao[0x6C] = idiv;
-	instrucao[0x6D] = ldiv;
+	instrucao[0x6D] = l_div;
 	instrucao[0x6E] = fdiv;
 	instrucao[0x6F] = ddiv;
 	instrucao[0x70] = irem;

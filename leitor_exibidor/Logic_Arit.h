@@ -40,7 +40,7 @@ void dmul(Frame *);
 
 void idiv(Frame *);
 
-void ldiv(Frame *);
+void l_div(Frame *);
 
 void fdiv(Frame *);
 

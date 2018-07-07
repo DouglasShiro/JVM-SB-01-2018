@@ -85,7 +85,7 @@ void dadd(Frame *frame){
 	
 	d_resultado = operando1 + operando2;
 	
-	memcpy(&resultado, &d_reultado, sizeof(u8));
+	memcpy(&resultado, &d_resultado, sizeof(u8));
 	
 	resultado_Superior = 0xFFFF0000 & resultado;
 	resultado_Inferior = 0x0000FFFF & resultado;
@@ -108,33 +108,6 @@ void isub(Frame *frame){
 	memcpy(&resultado, &temp, sizeof(u4));
 	
 	empilha_operando(&(frame->pilha_operandos), resultado);
-	
-	return;
-}
-
-void ladd(Frame *frame){
-	int64_t operando1_Superior, operando1_Inferior, operando2_Superior, operando2_Inferior, operando1, operando2, temp;
-	u4 resultado_Superior, resultado_Inferior, temp_Superior, temp_Inferior;
-	
-	operando2_Superior = desempilha_operando(&(frame->pilha_operandos));
-	operando2_Inferior = desempilha_operando(&(frame->pilha_operandos));
-	
-	operando1_Superior = desempilha_operando(&(frame->pilha_operandos));
-	operando1_Inferior = desempilha_operando(&(frame->pilha_operandos));
-	
-	operando2 = (operando2_Superior << 32) | operando2_Inferior; 
-	operando1 = (operando1_Superior << 32) | operando1_Inferior;
-	
-	temp = operando1 + operando2;
-	
-	temp_Inferior = 0x0000FFFF & temp;
-	temp_Superior = 0xFFFF0000 & temp;
-	
-	memcpy(&resultado_Inferior, &temp_Inferior, sizeof(u4));
-	memcpy(&resultado_Superior, &temp_Superior, sizeof(u4));
-	
-	empilha_operando(&(frame->pilha_operandos), resultado_Inferior);
-	empilha_operando(&(frame->pilha_operandos), resultado_Superior);
 	
 	return;
 }
@@ -202,7 +175,7 @@ void dsub(Frame *frame){
 	
 	d_resultado = operando1 - operando2;
 	
-	memcpy(&resultado, &d_reultado, sizeof(u8));
+	memcpy(&resultado, &d_resultado, sizeof(u8));
 	
 	resultado_Superior = 0xFFFF0000 & resultado;
 	resultado_Inferior = 0x0000FFFF & resultado;
@@ -273,7 +246,7 @@ void fmul(Frame *frame){
 	return;
 }
 
-void dsub(Frame *frame){
+void dmul(Frame *frame){
 	u4 resultado_Superior, resultado_Inferior;
 	u8 operando1_Superior, operando1_Inferior, operando2_Superior, operando2_Inferior, temp1, temp2,resultado;
 	double operando1, operando2, d_resultado;
@@ -292,7 +265,7 @@ void dsub(Frame *frame){
 	
 	d_resultado = operando1 * operando2;
 	
-	memcpy(&resultado, &d_reultado, sizeof(u8));
+	memcpy(&resultado, &d_resultado, sizeof(u8));
 	
 	resultado_Superior = 0xFFFF0000 & resultado;
 	resultado_Inferior = 0x0000FFFF & resultado;
@@ -319,7 +292,7 @@ void idiv(Frame *frame){
 	return;
 }
 
-void ldiv(Frame *frame){
+void l_div(Frame *frame){
 	int64_t operando1_Superior, operando1_Inferior, operando2_Superior, operando2_Inferior, operando1, operando2, temp;
 	u4 resultado_Superior, resultado_Inferior, temp_Superior, temp_Inferior;
 	
@@ -346,7 +319,7 @@ void ldiv(Frame *frame){
 	return;
 }
 
-void fmul(Frame *frame){
+void fdiv(Frame *frame){
 	u4 operando1, operando2, resultado;
 	float temp1, temp2;
 	
@@ -382,7 +355,7 @@ void ddiv(Frame *frame){
 	
 	d_resultado = operando1 / operando2;
 	
-	memcpy(&resultado, &d_reultado, sizeof(u8));
+	memcpy(&resultado, &d_resultado, sizeof(u8));
 	
 	resultado_Superior = 0xFFFF0000 & resultado;
 	resultado_Inferior = 0x0000FFFF & resultado;
