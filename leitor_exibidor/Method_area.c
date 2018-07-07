@@ -298,7 +298,7 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xB4] = getfield;
 	// instrucao[0xB5] = putfield;
 	// instrucao[0xB6] = invokevirtual;
-	instrucao[0xB7] = getInvokeSpecial; 		// 183
+	// instrucao[0xB7] = getInvokeSpecial; 		// 183
 	// instrucao[0xB8] = invokestatic;
 	// instrucao[0xB9] = invokeinterface;
 	// instrucao[0xBA] = invokedynamic;
@@ -321,7 +321,7 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xC9] = jsr_w;
 }
 
-void getInvokeSpecial(Frame* frame) {
+/*void getInvokeSpecial(Frame* frame) {
   //
   //TER CERTEZA QUE FRAME EXAMINADO FOI CRIADO COM init_frame DE pilhaFrames.c
   //
@@ -330,4 +330,4 @@ void getInvokeSpecial(Frame* frame) {
 		global_pilha,
 		frame->codigo->code.code[++frame->pc],
 		frame->codigo->code.code[++frame->pc]);
-}
+}*/

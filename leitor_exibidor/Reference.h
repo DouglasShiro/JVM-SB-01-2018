@@ -15,7 +15,7 @@
 // void putfield(Frame *);
 // void invokevirtual(Frame *);
 
-void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index1, u1 index2);
+//void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index1, u1 index2);
 
 // void invokestatic(Frame *);
 // void invokeinterface(Frame *);

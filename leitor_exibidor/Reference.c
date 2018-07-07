@@ -6,7 +6,7 @@
 
 #include "Reference.h"
 
-void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index1, u1 index2) {
+/*void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index1, u1 index2) {
 
 	// u2 class_index =
 	//
@@ -16,4 +16,4 @@ void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index1, u1 index
 	// if (strcmp(method_hame, "<init>")) {
 	//
 	// }
-}
+}*/
