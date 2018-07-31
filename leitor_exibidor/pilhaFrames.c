@@ -15,6 +15,8 @@ Frame* init_frame(method_info* method, cp_info* constant_pool) {
 
     frame->tamanho_variaveis_locais = method->attributes->code.max_locals;
     frame->variaveis_locais = (u4*)malloc(frame->tamanho_variaveis_locais*sizeof(u4));
+	frame->pilha_operandos = NULL;
+	frame->constant_pool = constant_pool;
 
     for (int i = 0; i < method->attributes_count; i++) {
         if (method->attributes[i].tag == ATTRIBUTE_Code) {
@@ -44,11 +46,24 @@ void empilha_operando(Pilha_operandos **pilha, u4 op) {
     Pilha_operandos *operando;
 
     operando = (Pilha_operandos*)malloc(sizeof(Pilha_operandos));
-    
+
     operando->op = op;
     operando->prox = *pilha;
 
     *pilha = operando;
+}
+
+void empilha_operando_64(Pilha_operandos **pilha, u8 op) {
+	u4 op_4;
+	u8 op_8;
+	op_8 = op;
+
+	op_4 = (u4)(op_8 & 0x00000000FFFFFFFF);
+	empilha_operando(pilha, op_4);
+	op_4 = (u4)(op_8 >> 32);
+	empilha_operando(pilha ,op_4);
+
+	return;
 }
 
 u4 desempilha_operando(Pilha_operandos **pilha) {
@@ -63,6 +78,19 @@ u4 desempilha_operando(Pilha_operandos **pilha) {
     free(elemento);
 
     return op;
+}
+
+u8 desempilha_operando_64(Pilha_operandos **pilha) {
+    u4 op_4;
+    u8 op_8;
+
+    op_4 = desempilha_operando(pilha);
+	op_8 = op_4;
+	op_8 = (op_8 << 32);
+    op_4 = desempilha_operando(pilha);
+    op_8 += (u8) (op_4 & 0x00000000FFFFFFFF);
+
+    return op_8;
 }
 
 void init_pilha_frames(Pilha_frames** pilha) {

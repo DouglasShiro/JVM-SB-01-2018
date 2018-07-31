@@ -12,6 +12,5 @@ void aload_0(Frame *frame){
    operando = frame->variaveis_locais[0];
    empilha_operando(&(frame->pilha_operandos), operando);
 
-
    return;
 }

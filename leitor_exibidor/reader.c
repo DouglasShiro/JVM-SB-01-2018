@@ -40,11 +40,11 @@ void constantPoolRead(FILE *file, ClassFile *classFile) {
     classFile->constant_pool_count = u2Read(file);
 
     if (classFile->constant_pool_count > 0)
-        classFile->constant_pool = (cp_info *) malloc((classFile->constant_pool_count - 1) * sizeof(cp_info));
+        classFile->constant_pool = (cp_info *) malloc((classFile->constant_pool_count -1) * sizeof(cp_info));
     else
         classFile->constant_pool = NULL;
 
-    for (u2 i = 0; i < classFile->constant_pool_count - 1; i++) {
+    for (u2 i = 0; i < classFile->constant_pool_count -1; i++) {
         classFile->constant_pool[i].tag = u1Read(file);
 
         switch (classFile->constant_pool[i].tag) {
@@ -111,15 +111,14 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
     for (u2 i = 0; i < attributes_count; i++) {
         attributes[i].attribute_name_index = u2Read(file);
         attributes[i].attribute_length = u4Read(file);
-        printf("New attribute name index: %d; ", attributes[i].attribute_name_index);
 
-        char *attributeName = (char *) malloc((constant_pool[attributes[i].attribute_name_index-1].utf8_info.length + 1) * sizeof(char));
+        char *attributeName = (char *) malloc((constant_pool[attributes[i].attribute_name_index -1].utf8_info.length + 1) * sizeof(char));
 
-        for (u2 j = 0; j < constant_pool[attributes[i].attribute_name_index-1].utf8_info.length; j++) {
-            attributeName[j] = constant_pool[attributes[i].attribute_name_index-1].utf8_info.bytes[j];
+        for (u2 j = 0; j < constant_pool[attributes[i].attribute_name_index -1].utf8_info.length; j++) {
+            attributeName[j] = constant_pool[attributes[i].attribute_name_index -1].utf8_info.bytes[j];
         }
 
-        attributeName[constant_pool[attributes[i].attribute_name_index-1].utf8_info.length] = '\0';
+        attributeName[constant_pool[attributes[i].attribute_name_index -1].utf8_info.length] = '\0';
 
         if (!strcmp(attributeName, "ConstantValue")) {
             attributes[i].constantValue.constantvalue_index = u2Read(file);
@@ -159,14 +158,11 @@ attribute_info *attributesRead(FILE *file, cp_info *constant_pool, u2 attributes
             for (int j = 0; j < attributes[i].exceptions.number_of_exceptions; j++)
                 attributes[i].exceptions.exception_index_table[j] = u2Read(file);
         } else {
-            printf("Attribute other: %s\n", attributeName);
             attributes[i].tag = ATTRIBUTE_Other;
             fseek(file, attributes[i].attribute_length, SEEK_CUR);
         }
 
         free(attributeName);
-
-        printf("tag: %d\n", attributes[i].tag);
     }
 
     return attributes;
@@ -210,26 +206,14 @@ void methodsRead(FILE *file, ClassFile *classFile) {
 
 ClassFile *classFileRead(char *fileName) {
     FILE *file = fopen(fileName, "rb");
+	if (file == NULL) {
+		return NULL;
+	}
     ClassFile *classFile = (ClassFile *) malloc(sizeof(ClassFile));
 
     classFile->magic = u4Read(file);
-	if (classFile->magic != -889275714) {
-		printf("ERRO: arquivo .class com magic invalido\n");
-		return NULL;
-	}
-
     classFile->minor_version = u2Read(file);
-	if (classFile->minor_version < 0) {
-		printf("ERRO: arquivo .class com minor_version invalido\n");
-		return NULL;
-	}
-
     classFile->major_version = u2Read(file);
-	if (classFile->major_version > 51) {
-		printf("ERRO: arquivo .class com major_version invalido\n");
-		return NULL;
-	}
-
     constantPoolRead(file, classFile);
     classFile->access_flags = u2Read(file);
     classFile->this_class = u2Read(file);

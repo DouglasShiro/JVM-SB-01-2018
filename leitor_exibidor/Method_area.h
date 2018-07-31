@@ -61,6 +61,36 @@ int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha);
 
 void inicializa_Conj_Instrucoes();
 
-void getInvokeSpecial(Frame* frame);
+// constants
+// void getbipush(Frame* frame);
+// void getsipush(Frame* frame);
+// void getldc(Frame* frame);
+// void getldc_w(Frame* frame);
+// void getldc2_w(Frame* frame);
+// logic arit
+// void getiinc(Frame* frame);
+//conotrol
+// void getgoto(Frame* frame);
+// void getjsr(Frame* frame);
+// void getjsr_w(Frame* frame);
+// references
+// void getstatic(Frame* frame);
+// void getfield(Frame* frame);
+// void getputfield(Frame* frame);
+// void getinvokevirtual(Frame* frame);
+void getinvokeSpecial(Frame* frame);
+// void getinvokestatic(Frame* frame);
+// void getinvokeinterface(Frame* frame);
+// void getnew_(Frame* frame);
+// void getnewarray(Frame* frame);
+// void getcheckcast(Frame* frame);
+// void getinstanceof(Frame* frame);
+// extended
+// void getwide(Frame* frame);
+// void getmultianewarray(Frame* frame);
+// void getifnull(Frame* frame);
+// void getifnonull(Frame* frame);
+// void getgoto_w(Frame* frame);
+// void getjsr_w(Frame* frame);
 
 #endif

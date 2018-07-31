@@ -88,10 +88,10 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) 
 int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha){
 	printf("Executando instrucoes metodo\n");
 	while(frame->pc < frame->codigo->code.code_length) {
-        u1 opcode = frame->codigo->code.code[frame->pc];
+        opcode = frame->codigo->code.code[frame->pc];
 		printf("opcode: %x\n", opcode);
 		global_pilha = pilha;
-		instrucao[opcode](frame);
+		// instrucao[opcode](frame);
 		frame->pc++;
     }
     return 1;
@@ -115,11 +115,11 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0x0D] = fconst_2;
 	instrucao[0x0E] = dconst_0;
 	instrucao[0x0F] = dconst_1;
-	// instrucao[0x10] = bipush;
-	// instrucao[0x11] = sipush;
-	// instrucao[0x12] = ldc;
-	// instrucao[0x13] = ldc_w;
-	// instrucao[0x14] = ldc2_w;
+	// instrucao[0x10] = getbipush;
+	// instrucao[0x11] = getsipush;
+	// instrucao[0x12] = getldc;
+	// instrucao[0x13] = getldc_w;
+	// instrucao[0x14] = getldc2_w;
 
 	// // Loads
 	// instrucao[0x15] = iload;
@@ -239,7 +239,7 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x81] = lor;
 	// instrucao[0x82] = ixor;
 	// instrucao[0x83] = lxor;
-	// instrucao[0x84] = iinc;
+	// instrucao[0x84] = getiinc;
 	//
 	// // Conversion
 	// instrucao[0x85] = i2l;
@@ -280,9 +280,9 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xA6] = if_if_acmpne;
 	//
 	// // Control
-	// instrucao[0xA7] = goto_;
-	// instrucao[0xA8] = jsr;
-	// instrucao[0xA9] = ret;
+	// instrucao[0xA7] = getgoto_;
+	// instrucao[0xA8] = getjsr;
+	// instrucao[0xA9] = getret;
 	// instrucao[0xAA] = tableswtich;
 	// instrucao[0xAB] = lookupswitch;
 	// instrucao[0xAC] = ireturn;
@@ -296,38 +296,35 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xB2] = getstatic;
 	// instrucao[0xB3] = putstatic;
 	// instrucao[0xB4] = getfield;
-	// instrucao[0xB5] = putfield;
-	// instrucao[0xB6] = invokevirtual;
-	// instrucao[0xB7] = getInvokeSpecial; 		// 183
-	// instrucao[0xB8] = invokestatic;
-	// instrucao[0xB9] = invokeinterface;
+	// instrucao[0xB5] = getputfield;
+	// instrucao[0xB6] = getinvokevirtual;
+	instrucao[0xB7] = getinvokeSpecial; 		// 183
+	// instrucao[0xB8] = getinvokestatic;
+	// instrucao[0xB9] = getinvokeinterface;
 	// instrucao[0xBA] = invokedynamic;
-	// instrucao[0xBB] = new_;
-	// instrucao[0xBC] = newarray;
-	// instrucao[0xBD] = anewarray;
+	// instrucao[0xBB] = getnew_;
+	// instrucao[0xBC] = getnewarray;
+	// instrucao[0xBD] = getanewarray;
 	// instrucao[0xBE] = arraylength;
 	// instrucao[0xBF] = athrow;
-	// instrucao[0xC0] = checkcast;
-	// instrucao[0xC1] = instanceof;
+	// instrucao[0xC0] = getcheckcast;
+	// instrucao[0xC1] = getinstanceof;
 	// instrucao[0xC2] = monitorenter;
 	// instrucao[0xC3] = monitorexit;
 	//
 	// // Extended
-	// instrucao[0xC4] = wide;
-	// instrucao[0xC5] = multianewarray;
-	// instrucao[0xC6] = ifnull
-	// instrucao[0xC7] = ifnonull;
-	// instrucao[0xC8] = goto_w;
-	// instrucao[0xC9] = jsr_w;
+	// instrucao[0xC4] = getwide;
+	// instrucao[0xC5] = getmultianewarray;
+	// instrucao[0xC6] = getifnull
+	// instrucao[0xC7] = getifnonull;
+	// instrucao[0xC8] = getgoto_w;
+	// instrucao[0xC9] = getjsr_w;
 }
 
-/*void getInvokeSpecial(Frame* frame) {
-  //
-  //TER CERTEZA QUE FRAME EXAMINADO FOI CRIADO COM init_frame DE pilhaFrames.c
-  //
+void getinvokeSpecial(Frame* frame) {
 	invokespecial(
 		frame,
 		global_pilha,
 		frame->codigo->code.code[++frame->pc],
 		frame->codigo->code.code[++frame->pc]);
-}*/
+}
