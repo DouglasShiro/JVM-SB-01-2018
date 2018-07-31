@@ -23,6 +23,7 @@ typedef struct frame {
 	Pilha_operandos        	*pilha_operandos;
 	u2						constant_pool_count;
 	cp_info 				*constant_pool;
+	ClassFile               *class_file;
 	attribute_info			*codigo;
 } Frame;
 
@@ -38,7 +39,7 @@ typedef struct pilha_frames {
  *  @param cp_info* Ponteiro para o constant pool
  *  @return Frame inicializado
  */
- Frame* init_frame(method_info*, cp_info*);
+ Frame* init_frame(method_info*, ClassFile*);
 
 /**
  *  @fn void init_pilha_operandos(Pilha_operandos **pilha)
@@ -62,6 +63,14 @@ typedef struct pilha_frames {
  */
  void empilha_operando(Pilha_operandos**, u4);
 
+ /**
+*  @fn void empilha_operando_64(Pilha_operandos **pilha, u8 op)
+*  @brief Empilha operando na pilha com base em modelo last-in-first-out.
+*  @param Pilha_operandos Ponteiro para ponteiro de pilha de operandos.
+*  @param u8 Operando a ser empilhado.
+*/
+void empilha_operando_64(Pilha_operandos**, u8);
+
    /**
  *  @fn u4 desempilha_operando(Pilha_operandos **pilha)
  *  @brief Desempilha operando da pilha com base em modelo last-in-first-out.
@@ -69,6 +78,14 @@ typedef struct pilha_frames {
  *  @return Operando desempilhado com base em modelo last-in-first-out.
  */
  u4 desempilha_operando(Pilha_operandos**);
+
+    /**
+  *  @fn u8 desempilha_operando_64(Pilha_operandos **pilha)
+  *  @brief Desempilha operando da pilha com base em modelo last-in-first-out.
+  *  @param Pilha_operandos Ponteiro para ponteiro de pilha de operandos.
+  *  @return Operando desempilhado com base em modelo last-in-first-out.
+  */
+  u8 desempilha_operando_64(Pilha_operandos**);
 
  /**
  *  @fn void init_pilha_frames(Pilha_frames **pilha)

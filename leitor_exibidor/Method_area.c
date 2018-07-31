@@ -46,7 +46,7 @@ void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha){
   	for(int i = 0; i < method->attributes_count; i++) {
 	    if (method->attributes[i].tag == ATTRIBUTE_Code) {
 			if (method->attributes_count > 0) {
-				Frame *frame = init_frame(method, classe->constant_pool); //Ver isso!!!
+				Frame *frame = init_frame(method, classe);
 				empilha_frame(pilha, frame);
 				return;
 			}
@@ -54,7 +54,7 @@ void ready(method_info *method, ClassFile *classe, Pilha_frames **pilha){
 				method->attributes_count++;
 				method->attributes = (attribute_info *) malloc(sizeof(attribute_info));
 				method->attributes[0].code.code_length = 0;
-				Frame *frame = init_frame(method, classe->constant_pool);
+				Frame *frame = init_frame(method, classe);
 				empilha_frame(pilha, frame);
 				return;
 			}
@@ -115,11 +115,11 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0x0D] = fconst_2;
 	instrucao[0x0E] = dconst_0;
 	instrucao[0x0F] = dconst_1;
-	// instrucao[0x10] = getbipush;
-	// instrucao[0x11] = getsipush;
-	// instrucao[0x12] = getldc;
-	// instrucao[0x13] = getldc_w;
-	// instrucao[0x14] = getldc2_w;
+	// instrucao[0x10] = decodebipush;
+	// instrucao[0x11] = decodesipush;
+	// instrucao[0x12] = decodeldc;
+	// instrucao[0x13] = decodeldc_w;
+	// instrucao[0x14] = decodeldc2_w;
 
 	// // Loads
 	// instrucao[0x15] = iload;
@@ -127,10 +127,10 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x17] = fload;
 	// instrucao[0x18] = dload;
 	// instrucao[0x19] = aload;
-	// instrucao[0x1A] = iload_0;
-	// instrucao[0x1B] = iload_1;
-	// instrucao[0x1C] = iload_2;
-	// instrucao[0x1D] = iload_3;
+	instrucao[0x1A] = iload_0;
+	instrucao[0x1B] = iload_1;
+	instrucao[0x1C] = iload_2;
+	instrucao[0x1D] = iload_3;
 	// instrucao[0x1E] = lload_0;
 	// instrucao[0x1F] = lload_1;
 	// instrucao[0x20] = lload_2;
@@ -144,9 +144,9 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x28] = dload_2;
 	// instrucao[0x29] = dload_3;
 	instrucao[0x2A] = aload_0; 				// 42
-	// instrucao[0x2B] = aload_1;
-	// instrucao[0x2C] = aload_2;
-	// instrucao[0x2D] = aload_3;
+	instrucao[0x2B] = aload_1;
+	instrucao[0x2C] = aload_2;
+	instrucao[0x2D] = aload_3;
 	// instrucao[0x2E] = iaload;
 	// instrucao[0x2F] = laload;
 	// instrucao[0x30] = faload;
@@ -162,10 +162,10 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x38] = fstore;
 	// instrucao[0x39] = dstore;
 	// instrucao[0x3A] = astore;
-	// instrucao[0x3B] = istore_0;
-	// instrucao[0x3C] = istore_1;
-	// instrucao[0x3D] = istore_2;
-	// instrucao[0x3E] = istore_3;
+	instrucao[0x3B] = istore_0;
+	instrucao[0x3C] = istore_1;
+	instrucao[0x3D] = istore_2;
+	instrucao[0x3E] = istore_3;
 	// instrucao[0x3F] = lstore_0;
 	// instrucao[0x40] = lstore_1;
 	// instrucao[0x41] = lstore_2;
@@ -239,7 +239,7 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x81] = lor;
 	// instrucao[0x82] = ixor;
 	// instrucao[0x83] = lxor;
-	// instrucao[0x84] = getiinc;
+	// instrucao[0x84] = decodeiinc;
 	//
 	// // Conversion
 	// instrucao[0x85] = i2l;
@@ -275,14 +275,14 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xA1] = if_icmplt;
 	// instrucao[0xA2] = if_icmpge;
 	// instrucao[0xA3] = if_icmpgt;
-	// instrucao[0xA4] = if_icmple;
+	instrucao[0xA4] = if_icmple;
 	// instrucao[0xA5] = if_acmpeq;
 	// instrucao[0xA6] = if_if_acmpne;
 	//
 	// // Control
-	// instrucao[0xA7] = getgoto_;
-	// instrucao[0xA8] = getjsr;
-	// instrucao[0xA9] = getret;
+	// instrucao[0xA7] = decodegoto_;
+	// instrucao[0xA8] = decodejsr;
+	// instrucao[0xA9] = decoderet;
 	// instrucao[0xAA] = tableswtich;
 	// instrucao[0xAB] = lookupswitch;
 	// instrucao[0xAC] = ireturn;
@@ -293,38 +293,56 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0xB1] = return_;				// 177
 
 	// // References
-	// instrucao[0xB2] = getstatic;
+	instrucao[0xB2] = decodegetstatic;
 	// instrucao[0xB3] = putstatic;
-	// instrucao[0xB4] = getfield;
-	// instrucao[0xB5] = getputfield;
-	// instrucao[0xB6] = getinvokevirtual;
-	instrucao[0xB7] = getinvokeSpecial; 		// 183
-	// instrucao[0xB8] = getinvokestatic;
-	// instrucao[0xB9] = getinvokeinterface;
+	// instrucao[0xB4] = decodegetfield;
+	// instrucao[0xB5] = decodegetputfield;
+	instrucao[0xB6] = decodeinvokevirtual;
+	instrucao[0xB7] = decodeinvokeSpecial; 		// 183
+	// instrucao[0xB8] = decodeinvokestatic;
+	// instrucao[0xB9] = decodeinvokeinterface;
 	// instrucao[0xBA] = invokedynamic;
-	// instrucao[0xBB] = getnew_;
-	// instrucao[0xBC] = getnewarray;
-	// instrucao[0xBD] = getanewarray;
+	// instrucao[0xBB] = decodenew_;
+	// instrucao[0xBC] = decodenewarray;
+	// instrucao[0xBD] = decodeanewarray;
 	// instrucao[0xBE] = arraylength;
 	// instrucao[0xBF] = athrow;
-	// instrucao[0xC0] = getcheckcast;
-	// instrucao[0xC1] = getinstanceof;
+	// instrucao[0xC0] = decodecheckcast;
+	// instrucao[0xC1] = decodeinstanceof;
 	// instrucao[0xC2] = monitorenter;
 	// instrucao[0xC3] = monitorexit;
 	//
 	// // Extended
-	// instrucao[0xC4] = getwide;
-	// instrucao[0xC5] = getmultianewarray;
-	// instrucao[0xC6] = getifnull
-	// instrucao[0xC7] = getifnonull;
-	// instrucao[0xC8] = getgoto_w;
-	// instrucao[0xC9] = getjsr_w;
+	// instrucao[0xC4] = decodewide;
+	// instrucao[0xC5] = decodemultianewarray;
+	// instrucao[0xC6] = decodeifnull
+	// instrucao[0xC7] = decodeifnonull;
+	// instrucao[0xC8] = decodegoto_w;
+	// instrucao[0xC9] = decodejsr_w;
 }
 
-void getinvokeSpecial(Frame* frame) {
+void decodegetstatic(Frame* frame) {
+	getstatic(
+		frame,
+		global_pilha,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+
+void decodeinvokevirtual(Frame* frame) {
+	invokevirtual(
+		frame,
+		global_pilha,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeinvokeSpecial(Frame* frame) {
 	invokespecial(
 		frame,
 		global_pilha,
 		frame->codigo->code.code[++frame->pc],
-		frame->codigo->code.code[++frame->pc]);
+		frame->codigo->code.code[++frame->pc]
+	);
 }

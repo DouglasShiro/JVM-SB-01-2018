@@ -25,7 +25,7 @@
 // void if_icmplt(Frame *);
 // void if_icmpge(Frame *);
 // void if_icmpgt(Frame *);
-// void if_icmple(Frame *);
+void if_icmple(Frame *);
 // void if_acmpeq(Frame *);
 // void if_if_acmpne(Frame *);
 

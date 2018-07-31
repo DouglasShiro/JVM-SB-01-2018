@@ -31,12 +31,10 @@
 // void dload_1(Frame *);
 // void dload_2(Frame *);
 // void dload_3(Frame *);
-
 void aload_0(Frame *);
-
-// void aload_1(Frame *);
-// void aload_2(Frame *);
-// void aload_3(Frame *);
+void aload_1(Frame *);
+void aload_2(Frame *);
+void aload_3(Frame *);
 // void iaload(Frame *);
 // void faload(Frame *);
 // void daload(Frame *);

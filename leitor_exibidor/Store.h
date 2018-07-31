@@ -14,10 +14,10 @@
 // void fstore(Frame *);
 // void dstore(Frame *);
 // void astore(Frame *);
-// void istore_0(Frame *);
-// void istore_1(Frame *);
-// void istore_2(Frame *);
-// void istore_3(Frame *);
+void istore_0(Frame *);
+void istore_1(Frame *);
+void istore_2(Frame *);
+void istore_3(Frame *);
 // void lstore_0(Frame *);
 // void lstore_1(Frame *);
 // void lstore_2(Frame *);

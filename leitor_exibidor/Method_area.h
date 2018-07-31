@@ -74,11 +74,11 @@ void inicializa_Conj_Instrucoes();
 // void getjsr(Frame* frame);
 // void getjsr_w(Frame* frame);
 // references
-// void getstatic(Frame* frame);
+void decodegetstatic(Frame* frame);
 // void getfield(Frame* frame);
 // void getputfield(Frame* frame);
-// void getinvokevirtual(Frame* frame);
-void getinvokeSpecial(Frame* frame);
+void decodeinvokevirtual(Frame* frame);
+void decodeinvokeSpecial(Frame* frame);
 // void getinvokestatic(Frame* frame);
 // void getinvokeinterface(Frame* frame);
 // void getnew_(Frame* frame);

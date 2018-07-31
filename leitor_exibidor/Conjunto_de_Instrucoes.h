@@ -12,16 +12,17 @@
 # include <stdio.h>
 
 # include "classfile.h"
-# include "Method_area.h"
-# include "Constants.h"
-# include "Load.h"
-# include "Store.h"
-# include "Stack.h"
-# include "Logic_Arit.h"
-# include "Conversion.h"
 # include "Comparision.h"
 # include "Control.h"
-# include "Reference.h"
+# include "Constants.h"
+# include "Conversion.h"
 # include "Extended.h"
+# include "heap.h"
+# include "Load.h"
+# include "Logic_Arit.h"
+# include "Method_area.h"
+# include "Reference.h"
+# include "Stack.h"
+# include "Store.h"
 
 # endif

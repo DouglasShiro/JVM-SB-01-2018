@@ -6,7 +6,7 @@
 
 #include "pilhaFrames.h"
 
-Frame* init_frame(method_info* method, cp_info* constant_pool) {
+Frame* init_frame(method_info* method, ClassFile* classe) {
     Frame *frame;
 
     frame = (Frame*)malloc(sizeof(Frame));
@@ -16,7 +16,8 @@ Frame* init_frame(method_info* method, cp_info* constant_pool) {
     frame->tamanho_variaveis_locais = method->attributes->code.max_locals;
     frame->variaveis_locais = (u4*)malloc(frame->tamanho_variaveis_locais*sizeof(u4));
 	frame->pilha_operandos = NULL;
-	frame->constant_pool = constant_pool;
+	frame->constant_pool = classe->constant_pool;
+	frame->class_file = classe;
 
     for (int i = 0; i < method->attributes_count; i++) {
         if (method->attributes[i].tag == ATTRIBUTE_Code) {
@@ -81,14 +82,12 @@ u4 desempilha_operando(Pilha_operandos **pilha) {
 }
 
 u8 desempilha_operando_64(Pilha_operandos **pilha) {
-    u4 op_4;
+    u4 op_4a, op_4b;
     u8 op_8;
 
-    op_4 = desempilha_operando(pilha);
-	op_8 = op_4;
-	op_8 = (op_8 << 32);
-    op_4 = desempilha_operando(pilha);
-    op_8 += (u8) (op_4 & 0x00000000FFFFFFFF);
+    op_4a = desempilha_operando(pilha);
+    op_4b = desempilha_operando(pilha);
+    op_8 = (u8) op_4a << 32 | (u8) op_4b;
 
     return op_8;
 }

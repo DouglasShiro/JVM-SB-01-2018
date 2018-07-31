@@ -5,3 +5,7 @@
 **/
 
 #include "Comparision.h"
+
+void if_icmple(Frame *) {
+	return
+}
