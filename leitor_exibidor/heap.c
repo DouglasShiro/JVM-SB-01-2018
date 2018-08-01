@@ -83,7 +83,7 @@ void addFieldList(StaticFieldList **field_list, staticField *data) {
 //         list = list->next;
 //     }
 //     return NULL;
-}
+// }
 
 void freeFieldList(StaticFieldList *field_list) {
 	StaticFieldList* first = field_list;
