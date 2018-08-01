@@ -136,7 +136,7 @@ void freeClassList(ClassList *class_list);
  /**
   *  @fn void initFieldList(FieldList **field_list)
   *  @brief Inicializa lista de fields carregados na heap.
-  *  @param field_list Estrutura filed_list que conterá a lista.
+  *  @param field_list Estrutura field_list que conterá a lista.
   */
 void initFieldList(StaticFieldList *field_list);
 
@@ -147,6 +147,8 @@ void initFieldList(StaticFieldList *field_list);
   *  @param data Elemento a ser inserido.
   */
 void addFieldList(StaticFieldList **field_list, staticField *data);
+
+// staticFieldList *getfield(char *name, staticFieldList **field_list)
 
  /**
   *  @fn void freeFieldList(StaticFieldList **field_list)

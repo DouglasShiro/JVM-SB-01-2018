@@ -74,6 +74,17 @@ void addFieldList(StaticFieldList **field_list, staticField *data) {
 	*field_list = field_list_new;
 }
 
+// staticFieldList *getfield(char *name, staticFieldList **field_list) {
+//     staticFieldList *list;
+//     list = *field_list;
+//     while (list != NULL) {
+//         if (!strcmp(name, list->data->class_name))
+//             return list->data;
+//         list = list->next;
+//     }
+//     return NULL;
+// }
+
 void freeFieldList(StaticFieldList *field_list) {
 	StaticFieldList* first = field_list;
 	while(first != NULL) {
