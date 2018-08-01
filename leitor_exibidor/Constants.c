@@ -5,6 +5,7 @@
 **/
 
 # include "Constants.h"
+# include <string.h>
 
 
 void nop (){
@@ -75,10 +76,10 @@ void iconst_5(Frame *frame){
 }
 
 void lconst_0(Frame *frame){
-	u4 operando = 0;
+	u4 operando_Inferior = 0, operando_Superior = 0;
 
-	empilha_operando(&(frame->pilha_operandos), operando);
-	empilha_operando(&(frame->pilha_operandos), operando);
+	empilha_operando(&(frame->pilha_operandos), operando_Inferior);
+	empilha_operando(&(frame->pilha_operandos), operando_Superior);
 
 	return;
 }
@@ -170,7 +171,7 @@ void decodebipush(Frame *frame){
 }
 
 void decodesipush(Frame *frame){
-	u1 indice_1 = 0, indice_2 = 0;
+	u1 indice_1, indice_2;
 	u2 cast_op;
 	u4 pont_cast_op;
 	
@@ -187,7 +188,107 @@ void decodesipush(Frame *frame){
 }
 
 void decodeldc(Frame *frame){
+	u1 indice;
+	u1 Tag;
+	u4 dado;
+	cp_info *Const_Pool = frame->constant_pool;
 	
+	indice = frame->codigo->code.code[++frame->pc];
+	Tag = Const_Pool[indice - 1].tag;
+	
+	switch(Tag){
+		case CONSTANT_Integer:
+			empilha_operando(&(frame->pilha_operandos), &Const_Pool[indice - 1].integer_info.bytes);
+			break;
+			
+		case CONSTANT_Float:
+			dado = Const_Pool[indice - 1].float_info.bytes;
+			
+			empilha_operando(&(frame->pilha_operandos), &dado);
+			break;
+			
+		case CONSTANT_String:
+			dado = Const_Pool[indice - 1].string_info.bytes;
+			
+			empilha_operando(&(frame->pilha_operandos), &dado);
+			break;
+	}
+	
+	return;
+}
+
+void decodeldc_w(Frame *frame){
+	u1 indice_1, indice_2, indice_3;
+	cp_info *Const_Pool;
+	u1 Tag;
+	u4 dado;
+	
+	indice_1 = frame->codigo->code.code[++frame->pc];
+	indice_2 = frame->codigo->code.code[++frame->pc];
+	
+	indice_3 = (indice_1 << 8 | indice_2);
+	
+	Const_Pool = frame->constant_pool;
+	Tag = Const_Pool[indice_3 - 1].tag;
+	
+	switch(Tag){
+		case CONSTANT_Integer:
+			empilha_operando(&(frame->pilha_operandos), &Const_Pool[indice_3 - 1].integer_info.bytes);
+			
+			break;
+			
+		case CONSTANT_Float:
+			dado = Const_Pool[indice_3 - 1].float_info.bytes;
+			
+			empilha_operando(&(frame->pilha_operandos), &dado);
+			break;
+			
+		case CONSTANT_String:
+			dado = Const_Pool[indice_3 - 1].string_info.bytes;
+			
+			empilha_operando(&(frame->pilha_operandos), &dado);
+			break;
+		
+	}
+	
+	return;
+}
+
+void decodeldc2_w(Frame *frame){
+	u1 indice_1, indice_2, indice_3;
+	cp_info *Const_Pool;
+	u1 Tag;
+	u8 dado;
+	
+	indice_1 = frame->codigo->code.code[++frame->pc];
+	indice_2 = frame->codigo->code.code[++frame->pc];
+	
+	indice_3 = (indice_1 << 8 | indice_2);
+	
+	Const_Pool = frame->constant_pool;
+	Tag = Const_Pool[indice_3 - 1].tag;
+	
+	switch(Tag){
+		case CONSTANT_Long:
+			dado = (u8)Const_Pool[indice_3 - 1].long_info.high_bytes;
+			empilha_operando(&(frame->pilha_operandos), &dado);
+			
+			dado = (u8)Const_Pool[indece_3 - 1].long_info.low_bytes;
+			empilha_operando(&(frame->pilha_operandos), &dado);
+			
+			break;
+			
+		case CONSTANT_Double:
+			dado = (u8)Const_Pool[indice_3 - 1].double_info.high_bytes;
+			empilha_operando(&(frame->pilha_operandos), &dado);
+			
+			dado = (u8)Const_Pool[indece_3 - 1].double_info.low_bytes;
+			empilha_operando(&(frame->pilha_operandos), &dado);
+			
+			
+			break;
+		
+	}
 	
 	return;
 }
