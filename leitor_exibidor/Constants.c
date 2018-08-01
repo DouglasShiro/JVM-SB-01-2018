@@ -156,3 +156,9 @@ void dconst_1(Frame *frame){
 
 	return;
 }
+
+void bipush(Frame *frame){
+	u1 index = 0;
+	
+	index = frame->codigo->info.CodeAttribute.code[++frame->pc];
+}

@@ -46,10 +46,10 @@ void dconst_0(Frame *);
 
 void dconst_1(Frame *);
 
-// void bipush(Frame *);
-// void sipush(Frame *);
-// void ldc(Frame *);
-// void ldc_w(Frame *);
-// void ldc2_2(Frame *);
+void decodebipush(Frame *);
+// void decodesipush(Frame *);
+// void decodeldc(Frame *);
+// void decodeldc_w(Frame *);
+// void decodeldc2_w(Frame *);
 
 # endif
