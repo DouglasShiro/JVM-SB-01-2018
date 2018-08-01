@@ -69,7 +69,7 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) 
 
     while(!execucao) {
         Frame *metodoAtual = desempilha_frame(&pilha);
-        execucao = executarInstrucoes(metodo, metodoAtual, pilha);; // TODO: Função que executa intruções
+        execucao = executarInstrucoes(metodo, metodoAtual, pilha); // TODO: Função que executa intruções
         if(execucao == 45) { // Definir o que é ERRO_INSTRUCAO
             printf("ERRO: Instrucao nao pode ser executada.\n");
             desaloca_frame(metodoAtual);
