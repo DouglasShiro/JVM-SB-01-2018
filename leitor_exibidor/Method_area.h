@@ -68,7 +68,7 @@ void inicializa_Conj_Instrucoes();
 // void decodeldc_w(Frame* frame);
 // void decodeldc2_w(Frame* frame);
 // logic arit
-// void decodeiinc(Frame* frame);
+void decodeiinc(Frame* frame);
 // comparisions
 void decodeifeq(Frame* frame);
 void decodeifne(Frame* frame);

@@ -87,6 +87,7 @@ int executarMetodo(method_info *metodo, ClassFile *classe, Pilha_frames *pilha) 
 
 int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha){
 	printf("Executando instrucoes metodo\n");
+	// printf("%d\n", frame->codigo->code.code_length);
 	while(frame->pc < frame->codigo->code.code_length) {
         opcode = frame->codigo->code.code[frame->pc];
 		printf("%d: %x\n", frame->pc, opcode);
@@ -225,21 +226,21 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0x73] = drem;
 	instrucao[0x74] = ineg;
 	instrucao[0x75] = lneg;
-	// instrucao[0x76] = fneg;
-	// instrucao[0x77] = dneg;
-	// instrucao[0x78] = ishl
-	// instrucao[0x79] = lshl;
-	// instrucao[0x7A] = ishr;
-	// instrucao[0x7B] = lshr;
-	// instrucao[0x7C] = iushr;
-	// instrucao[0x7D] = lushr;
-	// instrucao[0x7E] = iand;
-	// instrucao[0x7F] = land;
-	// instrucao[0x80] = ior;
-	// instrucao[0x81] = lor;
-	// instrucao[0x82] = ixor;
-	// instrucao[0x83] = lxor;
-	// instrucao[0x84] = decodeiinc;
+	instrucao[0x76] = fneg;
+	instrucao[0x77] = dneg;
+	instrucao[0x78] = ishl;
+	instrucao[0x79] = lshl;
+	instrucao[0x7A] = ishr;
+	instrucao[0x7B] = lshr;
+	instrucao[0x7C] = iushr;
+	instrucao[0x7D] = lushr;
+	instrucao[0x7E] = iand;
+	instrucao[0x7F] = land;
+	instrucao[0x80] = ior;
+	instrucao[0x81] = lor;
+	instrucao[0x82] = ixor;
+	instrucao[0x83] = lxor;
+	instrucao[0x84] = decodeiinc;
 	//
 	// // Conversion
 	// instrucao[0x85] = i2l;
@@ -294,7 +295,7 @@ void inicializa_Conj_Instrucoes(){
 
 	// // References
 	instrucao[0xB2] = decodegetstatic;
-	// instrucao[0xB3] = putstatic;
+	// instrucao[0xB3] = decodeputstatic;
 	// instrucao[0xB4] = decodegetfield;
 	// instrucao[0xB5] = decodegetputfield;
 	instrucao[0xB6] = decodeinvokevirtual;
@@ -319,6 +320,14 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xC7] = decodeifnonull;
 	// instrucao[0xC8] = decodegoto_w;
 	// instrucao[0xC9] = decodejsr_w;
+}
+
+void decodeiinc(Frame* frame) {
+	iinc(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
 }
 
 void decodeifeq(Frame* frame) {

@@ -76,7 +76,8 @@ void if_icmpge(Frame *frame, u1 branchbyte1, u1 branchbyte2) {
 	int32_t value2 = desempilha_operando(&(frame->pilha_operandos));
 	int32_t value1 = desempilha_operando(&(frame->pilha_operandos));
 	if (value1 >= value2) {
-		int16_t offset = (((u2) branchbyte1) << 8) + branchbyte2;
+		int16_t offset = (((u2) branchbyte2) << 8) + branchbyte1;
+		printf("%d\n", offset);
 		frame->pc += (offset - 3);
 	}
 }
@@ -93,7 +94,7 @@ void if_icmple(Frame *frame, u1 branchbyte1, u1 branchbyte2) {
 	int32_t value2 = desempilha_operando(&(frame->pilha_operandos));
     int32_t value1 = desempilha_operando(&(frame->pilha_operandos));
     if(value1 <= value2){
-		int16_t offset = (((u2) branchbyte1) << 8) + branchbyte2;
+		int16_t offset = (((u2) branchbyte2) << 8) + branchbyte1;
 		frame->pc += (offset - 3);
     }
 }

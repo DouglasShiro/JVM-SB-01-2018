@@ -13,6 +13,7 @@
 #include "classfile.h"
 #include <math.h>
 #include <stdint.h>
+#include <string.h>
 
 void iadd(Frame *);
 
@@ -58,21 +59,34 @@ void ineg(Frame *);
 
 void lneg(Frame *);
 
-//void fneg(Frame *);
+void fneg(Frame *);
 
-//void dneg(Frame *);
-// void ishl(Frame *);
-// void lshl(Frame *);
-// void ishr(Frame *);
-// void lshr(Frame *);
-// void iushr(Frame *);
-// void lushr(Frame *);
-// void iand(Frame *);
-// void land(Frame *);
-// void ior(Frame *);
-// void lor(Frame *);
-// void ixor(Frame *);
-// void lxor(Frame *);
-// void iinc(Frame *);
+void dneg(Frame *);
+
+void ishl(Frame *);
+
+void lshl(Frame *);
+
+void ishr(Frame *);
+
+void lshr(Frame *);
+
+void iushr(Frame *);
+
+void lushr(Frame *);
+
+void iand(Frame *);
+
+void land(Frame *);
+
+void ior(Frame *);
+
+void lor(Frame *);
+
+void ixor(Frame *);
+
+void lxor(Frame *);
+
+void iinc(Frame *, u1, u1);
 
 # endif

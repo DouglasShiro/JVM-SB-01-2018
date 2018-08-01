@@ -196,13 +196,13 @@ void invokevirtual(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 i
 	u4 *args = NULL;
 	ClassFile *class_file = NULL;
 
-	index = (u2) indexbyte1 << 8 | (u2) indexbyte2;
+	index = (u2) indexbyte2 << 8 | (u2) indexbyte1;
 
-	index_class = frame->constant_pool[index - 1].methodref_info.class_index - 1;
+	index_class = frame->constant_pool[index -1].methodref_info.class_index;
 	index_class = frame->constant_pool[index_class].class_info.name_index - 1;
-	index_desc = frame->constant_pool[index - 1].methodref_info.name_and_type_index - 1;
-	index_desc = frame->constant_pool[index_desc].nameAndType_info.descriptor_index - 1;
-	index_method = frame->constant_pool[index_desc].nameAndType_info.name_index - 1;
+	index_desc = frame->constant_pool[index - 1].methodref_info.name_and_type_index -1;
+	index_method = frame->constant_pool[index_desc].nameAndType_info.name_index;
+	index_desc = frame->constant_pool[index_desc].nameAndType_info.descriptor_index;
 
 	class_name = getConstantUTF8CP(frame->constant_pool, index_class);
 	method_name = getConstantUTF8CP(frame->constant_pool, index_method);
@@ -255,7 +255,7 @@ void invokevirtual(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 i
 		else if (strstr(method_desc, "Ljava/lang/String") != NULL) {
 			op_4 = desempilha_operando(&(frame->pilha_operandos));
 			if (op_4 != 0) {
-				char *cpointer = getConstantUTF8CP(frame->class_file->constant_pool, (u2) op_4 - 1);
+				char *cpointer = getConstantUTF8CP(frame->class_file->constant_pool, (u2) op_4);
 				printf("%s", cpointer);
 			} else {
 				printf("%s", (char *)op_4);
@@ -271,7 +271,6 @@ void invokevirtual(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 i
 		}
 	} else {
 		u4 numparam = 0;
-		printf("aqui erou de novo\n");
 		// class_file = RecuperaClassePorNome(class_name, &listadeclasses);
 		// if (class_file == NULL)
 		// {

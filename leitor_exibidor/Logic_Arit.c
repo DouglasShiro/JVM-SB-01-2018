@@ -284,7 +284,10 @@ void idiv(Frame *frame){
 	operando2 = desempilha_operando(&(frame->pilha_operandos));
 	operando1 = desempilha_operando(&(frame->pilha_operandos));
 
-	temp = operando1 / operando2;
+	if (operando2 != 0)
+		temp = operando1 / operando2;
+	else
+		temp = 0;
 
 	memcpy(&resultado, &temp, sizeof(u4));
 
@@ -493,4 +496,182 @@ void lneg(Frame *frame){
 	empilha_operando(&(frame->pilha_operandos), resultado_Superior);
 
 	return;
+}
+
+void fneg (Frame* frame) {
+	float op_f, result_f;
+	u4 result;
+    u4 aux = desempilha_operando(&(frame->pilha_operandos));
+
+    memcpy(&op_f, &aux, sizeof(u4));
+
+	result_f = op_f * (-1);
+
+	memcpy(&result, &result_f, sizeof(u4));
+
+    empilha_operando(&(frame->pilha_operandos), result);
+}
+
+void dneg (Frame* frame) {
+	double op_f, result_f;
+	u8 result;
+    u8 aux = desempilha_operando_64(&(frame->pilha_operandos));
+
+    memcpy(&op_f, &aux, sizeof(u8));
+
+	result_f = op_f * (-1);
+
+	memcpy(&result, &result_f, sizeof(u8));
+
+    empilha_operando(&(frame->pilha_operandos), result);
+}
+
+void ishl (Frame* frame) {
+	int32_t value;
+	u4 shift;
+	u4 result;
+
+	value = desempilha_operando(&(frame->pilha_operandos));
+    shift = desempilha_operando(&(frame->pilha_operandos)) & 0x1F;
+    value = (value << shift);
+
+	memcpy(&result, &value, sizeof(u4));
+    empilha_operando(&(frame->pilha_operandos), result);
+}
+
+void lshl (Frame* frame) {
+	int64_t value;
+	u4 shift;
+	u8 result;
+
+	value = desempilha_operando(&(frame->pilha_operandos));
+    shift = desempilha_operando(&(frame->pilha_operandos)) & 0x1F;
+    value = (value << shift);
+
+	memcpy(&result, &value, sizeof(u8));
+    empilha_operando_64(&(frame->pilha_operandos), result);
+}
+
+void ishr (Frame* frame) {
+	int32_t value;
+	u4 shift;
+	u4 result;
+
+	value = desempilha_operando(&(frame->pilha_operandos));
+    shift = desempilha_operando(&(frame->pilha_operandos)) & 0x1F;
+    value = (value >> shift);
+
+	memcpy(&result, &value, sizeof(u4));
+    empilha_operando(&(frame->pilha_operandos), result);
+}
+
+void lshr (Frame* frame) {
+	int32_t value;
+	u4 shift;
+	u8 result;
+
+	value = desempilha_operando(&(frame->pilha_operandos));
+    shift = desempilha_operando(&(frame->pilha_operandos)) & 0x1F;
+    value = (value >> shift);
+
+	memcpy(&result, &value, sizeof(u8));
+    empilha_operando_64(&(frame->pilha_operandos), result);
+}
+
+void iushr (Frame* frame) {
+	u4 value;
+	u4 shift;
+
+	value = desempilha_operando(&(frame->pilha_operandos));
+    shift = desempilha_operando(&(frame->pilha_operandos)) & 0x1F;
+    value = (value >> shift);
+
+    empilha_operando(&(frame->pilha_operandos), value);
+}
+
+void lushr (Frame* frame) {
+	u4 value;
+	u4 shift;
+
+	value = desempilha_operando(&(frame->pilha_operandos));
+    shift = desempilha_operando(&(frame->pilha_operandos)) & 0x1F;
+    value = (value >> shift);
+
+    empilha_operando_64(&(frame->pilha_operandos), value);
+}
+
+void iand (Frame* frame) {
+	u4 value1;
+	u4 value2;
+	u4 result;
+
+	value2 = desempilha_operando(&(frame->pilha_operandos));
+    value1 = desempilha_operando(&(frame->pilha_operandos));
+    result = (value1 & value2);
+
+    empilha_operando(&(frame->pilha_operandos), result);
+}
+
+void land (Frame* frame) {
+	u8 value1;
+	u8 value2;
+	u8 result;
+
+	value2 = desempilha_operando_64(&(frame->pilha_operandos));
+    value1 = desempilha_operando_64(&(frame->pilha_operandos));
+    result = (value1 & value2);
+
+    empilha_operando_64(&(frame->pilha_operandos), result);
+}
+
+void ior (Frame* frame) {
+	u4 value1;
+	u4 value2;
+	u4 result;
+
+	value2 = desempilha_operando(&(frame->pilha_operandos));
+    value1 = desempilha_operando(&(frame->pilha_operandos));
+    result = (value1 | value2);
+
+    empilha_operando(&(frame->pilha_operandos), result);
+}
+
+void lor (Frame* frame) {
+	u8 value1;
+	u8 value2;
+	u8 result;
+
+	value2 = desempilha_operando_64(&(frame->pilha_operandos));
+    value1 = desempilha_operando_64(&(frame->pilha_operandos));
+    result = (value1 | value2);
+
+    empilha_operando_64(&(frame->pilha_operandos), result);
+}
+
+void ixor (Frame* frame) {
+	u4 value1;
+	u4 value2;
+	u4 result;
+
+	value2 = desempilha_operando(&(frame->pilha_operandos));
+    value1 = desempilha_operando(&(frame->pilha_operandos));
+    result = (value1 ^ value2);
+
+    empilha_operando(&(frame->pilha_operandos), result);
+}
+
+void lxor (Frame* frame) {
+	u8 value1;
+	u8 value2;
+	u8 result;
+
+	value2 = desempilha_operando_64(&(frame->pilha_operandos));
+    value1 = desempilha_operando_64(&(frame->pilha_operandos));
+    result = (value1 ^ value2);
+
+    empilha_operando_64(&(frame->pilha_operandos), result);
+}
+
+void iinc (Frame* frame, u1 index, u1 inc) {
+	frame->variaveis_locais[index] += inc;
 }
