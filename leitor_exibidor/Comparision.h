@@ -12,11 +12,11 @@
 # include "Method_area.h"
 # include "classfile.h"
 
-// void lcmp(Frame *);
-// void fcmp(Frame *);
-// void fcmpg(Frame *);
-// void dcmpl(Frame *);
-// void dcmpg(Frame *);
+void lcmp(Frame *);
+void fcmp(Frame *);
+void fcmpg(Frame *);
+void dcmpl(Frame *);
+void dcmpg(Frame *);
 void if_eq(Frame *, u1, u1);
 void if_ne(Frame *, u1, u1);
 void if_lt(Frame *, u1, u1);

@@ -5,3 +5,27 @@
 **/
 
 #include "Extended.h"
+
+void wide(Frame * frame) {
+
+}
+
+void multianewarray(Frame * frame) {
+
+}
+
+void ifnull(Frame * frame) {
+
+}
+
+void ifnonull(Frame * frame) {
+
+}
+
+void goto_w(Frame * frame) {
+
+}
+
+void jsr_w(Frame * frame) {
+
+}

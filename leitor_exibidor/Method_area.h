@@ -67,6 +67,18 @@ void inicializa_Conj_Instrucoes();
 // void decodeldc(Frame* frame);
 // void decodeldc_w(Frame* frame);
 // void decodeldc2_w(Frame* frame);
+// Loads
+void decodeiload(Frame* frame);
+void decodelload(Frame* frame);
+void decodefload(Frame* frame);
+void decodedload(Frame* frame);
+void decodeaload(Frame* frame);
+// stores
+void decodeistore(Frame* frame);
+void decodelstore(Frame* frame);
+void decodefstore(Frame* frame);
+void decodedstore(Frame* frame);
+void decodeastore(Frame* frame);
 // logic arit
 void decodeiinc(Frame* frame);
 // comparisions
@@ -98,7 +110,7 @@ void decodeinvokeSpecial(Frame* frame);
 // void decodeinvokestatic(Frame* frame);
 // void decodeinvokeinterface(Frame* frame);
 // void decodenew_(Frame* frame);
-// void decodenewarray(Frame* frame);
+void decodenewarray(Frame* frame);
 // void decodecheckcast(Frame* frame);
 // void decodeinstanceof(Frame* frame);
 // extended
