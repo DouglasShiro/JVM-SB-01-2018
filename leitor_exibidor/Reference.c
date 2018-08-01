@@ -6,7 +6,7 @@
 
 #include "Reference.h"
 
-void getstatic(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1) {
+void getstatic(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 indexbyte2) {
     char *type = NULL;
 	char *name = NULL;
 	char *class_name = NULL;
@@ -18,19 +18,28 @@ void getstatic(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1)
 	u8 op_8 = 0;
 	ClassFile *class_file = NULL;
 	staticField *field = NULL;
-
-    index = (u2) index_0 << 8 | (u2) index_1;
-
+    index = (u2) indexbyte2 << 8 | (u2) indexbyte1;
+	printf("%d\n", index);
     index_class = frame->constant_pool[index - 1].fieldref_info.class_index - 1;
     index_class = frame->constant_pool[index_class].class_info.name_index - 1;
+	printf("%d\n", index_class);
     index_type = frame->constant_pool[index - 1].fieldref_info.name_and_type_index - 1;
 	index_type = frame->constant_pool[index_type].nameAndType_info.descriptor_index - 1;
+	printf("%d\n", index_type);
     index_name = frame->constant_pool[index_type].nameAndType_info.name_index - 1;
+	printf("%d\n", index_name);
 
 	class_name = getConstantUTF8CP(frame->constant_pool, index_class);
     type = getConstantUTF8CP(frame->constant_pool, index_type);
     name = getConstantUTF8CP(frame->constant_pool, index_name);
+	printf("class: %s\n", class_name);
+	printf("type: %s\n", type);
+	printf("name: %s\n", name);
 
+    if (!strcmp(class_name, "java/lang/System")) {
+	    op_4 = 0;
+	    empilha_operando(&(frame->pilha_operandos), op_4);
+	}
     // class_file = RecuperaClassePorNome(class_name, &listadeclasses);
     // if(!class_file) {
     //     if(!strcmp(class_name, "java/lang/System")) {
@@ -67,10 +76,13 @@ void getstatic(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1)
     //     free(type);
     //     free(name);
 	// }
+    free(type);
+    free(name);
+
 	return;
 }
 
-void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1) {
+void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 indexbyte2) {
 	// int i = 0;
 	// char *class_name = NULL;
 	// char *method_name = NULL;
@@ -86,7 +98,7 @@ void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 inde
     // u4 numparam = 0, *args = NULL;
 	// ClassFile *class_file = NULL;
 	//
-    // index = (u2) index_0 << 8 | (u2) index_1;
+    // index = (u2) indexbyte1 << 8 | (u2) indexbyte2;
 	//
     // index_class = frame->constant_pool[index - 1].info.methodref_info.class_index - 1;
     // index_class = frame->constant_pool[index_class].info.class_info.name_index - 1;
@@ -173,7 +185,7 @@ void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 inde
     return;
 }
 
-void invokevirtual(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1) {
+void invokevirtual(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 indexbyte2) {
 	int i = 0;
 	float op_f = 0;
 	char *class_name = NULL;
@@ -190,7 +202,7 @@ void invokevirtual(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 inde
 	u4 *args = NULL;
 	ClassFile *class_file = NULL;
 
-	index = (u2) index_0 << 8 | (u2) index_1;
+	index = (u2) indexbyte1 << 8 | (u2) indexbyte2;
 
 	index_class = frame->constant_pool[index - 1].methodref_info.class_index - 1;
 	index_class = frame->constant_pool[index_class].class_info.name_index - 1;

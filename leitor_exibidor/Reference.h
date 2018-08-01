@@ -9,12 +9,12 @@
 
 # include "Conjunto_de_Instrucoes.h"
 
-void getstatic(Frame *, Pilha_frames* pilha_frames, u1 index_0, u1 index_1);
+void getstatic(Frame *, Pilha_frames* pilha_frames, u1 indexbyte1, u1 indexbyte2);
 // void putstatic(Frame *);
 // void getfield(Frame *);
 // void putfield(Frame *);
-void invokevirtual(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1);
-void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1);
+void invokevirtual(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 indexbyte2);
+void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 indexbyte2);
 // void invokestatic(Frame *);
 // void invokeinterface(Frame *);
 // void invokedynamic(Frame *);

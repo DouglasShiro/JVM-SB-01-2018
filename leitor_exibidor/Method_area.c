@@ -89,9 +89,9 @@ int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha){
 	printf("Executando instrucoes metodo\n");
 	while(frame->pc < frame->codigo->code.code_length) {
         opcode = frame->codigo->code.code[frame->pc];
-		printf("opcode: %x\n", opcode);
+		printf("%d: %x\n", frame->pc, opcode);
 		global_pilha = pilha;
-		// instrucao[opcode](frame);
+		instrucao[opcode](frame);
 		frame->pc++;
     }
     return 1;
@@ -264,21 +264,21 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0x96] = fcmpg;
 	// instrucao[0x97] = dcmpl;
 	// instrucao[0x98] = dcmpg;
-	// instrucao[0x99] = ifeq;
-	// instrucao[0x9A] = ifne;
-	// instrucao[0x9B] = iflt;
-	// instrucao[0x9C] = ifge;
-	// instrucao[0x9D] = ifgt;
-	// instrucao[0x9E] = ifle;
-	// instrucao[0x9F] = if_icmpeq;
-	// instrucao[0xA0] = if_icmpne;
-	// instrucao[0xA1] = if_icmplt;
-	// instrucao[0xA2] = if_icmpge;
-	// instrucao[0xA3] = if_icmpgt;
-	instrucao[0xA4] = if_icmple;
-	// instrucao[0xA5] = if_acmpeq;
-	// instrucao[0xA6] = if_if_acmpne;
-	//
+	instrucao[0x99] = decodeifeq;
+	instrucao[0x9A] = decodeifne;
+	instrucao[0x9B] = decodeiflt;
+	instrucao[0x9C] = decodeifge;
+	instrucao[0x9D] = decodeifgt;
+	instrucao[0x9E] = decodeifle;
+	instrucao[0x9F] = decodeif_icmpeq;
+	instrucao[0xA0] = decodeif_icmpne;
+	instrucao[0xA1] = decodeif_icmplt;
+	instrucao[0xA2] = decodeif_icmpge;
+	instrucao[0xA3] = decodeif_icmpgt;
+	instrucao[0xA4] = decodeif_icmple;
+	instrucao[0xA5] = decodeif_acmpeq;
+	instrucao[0xA6] = decodeif_acmpne;
+
 	// // Control
 	// instrucao[0xA7] = decodegoto_;
 	// instrucao[0xA8] = decodejsr;
@@ -319,6 +319,105 @@ void inicializa_Conj_Instrucoes(){
 	// instrucao[0xC7] = decodeifnonull;
 	// instrucao[0xC8] = decodegoto_w;
 	// instrucao[0xC9] = decodejsr_w;
+}
+
+void decodeifeq(Frame* frame) {
+	if_eq(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeifne(Frame* frame) {
+	if_ne(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeiflt(Frame* frame) {
+	if_lt(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeifge(Frame* frame) {
+	if_ge(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeifgt(Frame* frame) {
+	if_gt(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeifle(Frame* frame) {
+	if_le(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeif_icmpeq(Frame* frame) {
+	if_icmpeq(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeif_icmpne(Frame* frame) {
+	if_icmpne(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeif_icmplt(Frame* frame) {
+	if_icmplt(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeif_icmpge(Frame* frame) {
+	if_icmpge(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeif_icmpgt(Frame* frame) {
+	if_icmpgt(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeif_icmple(Frame* frame) {
+	if_icmple(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeif_acmpeq(Frame* frame) {
+	if_acmpeq(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
+}
+void decodeif_acmpne(Frame* frame) {
+	if_acmpne(
+		frame,
+		frame->codigo->code.code[++frame->pc],
+		frame->codigo->code.code[++frame->pc]
+	);
 }
 
 void decodegetstatic(Frame* frame) {

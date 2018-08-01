@@ -69,6 +69,22 @@ void inicializa_Conj_Instrucoes();
 // void decodeldc2_w(Frame* frame);
 // logic arit
 // void decodeiinc(Frame* frame);
+// comparisions
+void decodeifeq(Frame* frame);
+void decodeifne(Frame* frame);
+void decodeiflt(Frame* frame);
+void decodeifge(Frame* frame);
+void decodeifgt(Frame* frame);
+void decodeifle(Frame* frame);
+void decodeif_icmpeq(Frame* frame);
+void decodeif_icmpne(Frame* frame);
+void decodeif_icmplt(Frame* frame);
+void decodeif_icmpge(Frame* frame);
+void decodeif_icmpgt(Frame* frame);
+void decodeif_icmple(Frame* frame);
+void decodeif_acmpeq(Frame* frame);
+void decodeif_acmpne(Frame* frame);
+
 //conotrol
 // void decodegoto(Frame* frame);
 // void decodejsr(Frame* frame);
