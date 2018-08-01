@@ -47,8 +47,10 @@ void dconst_0(Frame *);
 void dconst_1(Frame *);
 
 void decodebipush(Frame *);
-// void decodesipush(Frame *);
-// void decodeldc(Frame *);
+
+void decodesipush(Frame *);
+
+void decodeldc(Frame *);
 // void decodeldc_w(Frame *);
 // void decodeldc2_w(Frame *);
 

@@ -157,8 +157,37 @@ void dconst_1(Frame *frame){
 	return;
 }
 
-void bipush(Frame *frame){
-	u1 index = 0;
+void decodebipush(Frame *frame){
+	u1 indice = 0;
+	u4 cast_op;
 	
-	index = frame->codigo->info.CodeAttribute.code[++frame->pc];
+	indice = frame->codigo->code.code[++frame->pc];
+	cast_op = (u4)indice;
+	
+	empilha_operando(&(frame->pilha_operandos), cast_op);
+	
+	return;
+}
+
+void decodesipush(Frame *frame){
+	u1 indice_1 = 0, indice_2 = 0;
+	u2 cast_op;
+	u4 pont_cast_op;
+	
+	indice_1 = frame->codigo->code.code[++frame->pc];
+	indice_2 = frame->codigo->code.code[++frame->pc];
+	
+	cast_op = (u2) (indice_1 << 8 | indice_2);
+	
+	pont_cast_op = &cast_op;
+	
+	empilha_operando(&(frame->pilha_operandos), &pont_cast_op);
+	
+	return;
+}
+
+void decodeldc(Frame *frame){
+	
+	
+	return;
 }
