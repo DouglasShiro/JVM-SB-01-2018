@@ -115,8 +115,8 @@ void inicializa_Conj_Instrucoes(){
 	instrucao[0x0D] = fconst_2;
 	instrucao[0x0E] = dconst_0;
 	instrucao[0x0F] = dconst_1;
-	// instrucao[0x10] = decodebipush;
-	// instrucao[0x11] = decodesipush;
+	instrucao[0x10] = decodebipush;
+	instrucao[0x11] = decodesipush;
 	// instrucao[0x12] = decodeldc;
 	// instrucao[0x13] = decodeldc_w;
 	// instrucao[0x14] = decodeldc2_w;
