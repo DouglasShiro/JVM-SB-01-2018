@@ -15,26 +15,20 @@ void getstatic(Frame* frame, Pilha_frames* pilha_frames, u1 indexbyte1, u1 index
 	u2 index_name = 0;
 	u2 index_class = 0;
     u4 op_4 = 0;
-	u8 op_8 = 0;
-	ClassFile *class_file = NULL;
-	staticField *field = NULL;
+	// u8 op_8 = 0;
+
+	// ClassFile *class_file = NULL;
+	// staticField *field = NULL;
     index = (u2) indexbyte2 << 8 | (u2) indexbyte1;
-	printf("%d\n", index);
     index_class = frame->constant_pool[index - 1].fieldref_info.class_index - 1;
     index_class = frame->constant_pool[index_class].class_info.name_index - 1;
-	printf("%d\n", index_class);
     index_type = frame->constant_pool[index - 1].fieldref_info.name_and_type_index - 1;
 	index_type = frame->constant_pool[index_type].nameAndType_info.descriptor_index - 1;
-	printf("%d\n", index_type);
     index_name = frame->constant_pool[index_type].nameAndType_info.name_index - 1;
-	printf("%d\n", index_name);
 
 	class_name = getConstantUTF8CP(frame->constant_pool, index_class);
     type = getConstantUTF8CP(frame->constant_pool, index_type);
     name = getConstantUTF8CP(frame->constant_pool, index_name);
-	printf("class: %s\n", class_name);
-	printf("type: %s\n", type);
-	printf("name: %s\n", name);
 
     if (!strcmp(class_name, "java/lang/System")) {
 	    op_4 = 0;

@@ -106,7 +106,7 @@ void if_acmpeq(Frame *frame, u1 branchbyte1, u1 branchbyte2) {
 		frame->pc += (offset - 3);
 	}
 }
-void if_if_acmpne(Frame *frame, u1 branchbyte1, u1 branchbyte2) {
+void if_acmpne(Frame *frame, u1 branchbyte1, u1 branchbyte2) {
 	int32_t value2 = desempilha_operando(&(frame->pilha_operandos));
 	int32_t value1 = desempilha_operando(&(frame->pilha_operandos));
 	if (value1 != value2) {
