@@ -9,7 +9,7 @@
 void iload_0(Frame *frame){
    empilha_operando(
 	   &(frame->pilha_operandos),
-	   &(frame->variaveis_locais[0])
+	   (frame->variaveis_locais[0])
    );
    return;
 }
@@ -17,15 +17,15 @@ void iload_0(Frame *frame){
 void iload_1(Frame *frame){
    empilha_operando(
 	   &(frame->pilha_operandos),
-	   &(frame->variaveis_locais[1])
+	   (frame->variaveis_locais[1])
    );
    return;
 }
 
 void iload_2(Frame *frame){
-   empilha_operando(
+	empilha_operando(
 	   &(frame->pilha_operandos),
-	   &(frame->variaveis_locais[2])
+	   (frame->variaveis_locais[2])
    );
    return;
 }
@@ -33,7 +33,7 @@ void iload_2(Frame *frame){
 void iload_3(Frame *frame){
    empilha_operando(
 	   &(frame->pilha_operandos),
-	   &(frame->variaveis_locais[3])
+	   (frame->variaveis_locais[3])
    );
    return;
 }

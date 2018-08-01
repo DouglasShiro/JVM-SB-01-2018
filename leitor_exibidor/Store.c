@@ -6,22 +6,22 @@
 
 #include "Store.h"
 
-void istore_0(Frame *) {
+void istore_0(Frame * frame) {
 	u4 value = desempilha_operando(&(frame->pilha_operandos));
     frame->variaveis_locais[0] = value;
 }
 
-void istore_1(Frame *) {
+void istore_1(Frame * frame) {
 	u4 value = desempilha_operando(&(frame->pilha_operandos));
     frame->variaveis_locais[1] = value;
 }
 
-void istore_2(Frame *) {
+void istore_2(Frame * frame) {
 	u4 value = desempilha_operando(&(frame->pilha_operandos));
     frame->variaveis_locais[1] = value;
 }
 
-void istore_3(Frame *) {
+void istore_3(Frame * frame) {
 	u4 value = desempilha_operando(&(frame->pilha_operandos));
-    frame->variaveis_locais[3] = value;	
+    frame->variaveis_locais[3] = value;
 }

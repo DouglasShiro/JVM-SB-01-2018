@@ -14,10 +14,10 @@
 // void fload(Frame *);
 // void dload(Frame *);
 // void aload(Frame *);
-// void iload_0(Frame *);
-// void iload_1(Frame *);
-// void iload_2(Frame *);
-// void iload_3(Frame *);
+void iload_0(Frame *);
+void iload_1(Frame *);
+void iload_2(Frame *);
+void iload_3(Frame *);
 // void lload_0(Frame *);
 // void lload_1(Frame *);
 // void lload_2(Frame *);

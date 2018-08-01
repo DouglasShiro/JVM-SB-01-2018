@@ -4,10 +4,13 @@
 * @brief  Arquivo com as estruturas das instruções de comparação.
 **/
 
-# ifndef COMPARISION_H
-# define COMPARISION_H
+#ifndef COMPARISION_H
+#define COMPARISION_H
 
-# include "Conjunto_de_Instrucoes.h"
+#include "Conjunto_de_Instrucoes.h"
+# include "pilhaFrames.h"
+# include "Method_area.h"
+# include "classfile.h"
 
 // void lcmp(Frame *);
 // void fcmp(Frame *);

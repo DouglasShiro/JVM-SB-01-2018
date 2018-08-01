@@ -62,35 +62,35 @@ int executarInstrucoes (method_info *metodo, Frame *frame, Pilha_frames *pilha);
 void inicializa_Conj_Instrucoes();
 
 // constants
-// void getbipush(Frame* frame);
-// void getsipush(Frame* frame);
-// void getldc(Frame* frame);
-// void getldc_w(Frame* frame);
-// void getldc2_w(Frame* frame);
+// void decodebipush(Frame* frame);
+// void decodesipush(Frame* frame);
+// void decodeldc(Frame* frame);
+// void decodeldc_w(Frame* frame);
+// void decodeldc2_w(Frame* frame);
 // logic arit
-// void getiinc(Frame* frame);
+// void decodeiinc(Frame* frame);
 //conotrol
-// void getgoto(Frame* frame);
-// void getjsr(Frame* frame);
-// void getjsr_w(Frame* frame);
+// void decodegoto(Frame* frame);
+// void decodejsr(Frame* frame);
+// void decodejsr_w(Frame* frame);
 // references
 void decodegetstatic(Frame* frame);
-// void getfield(Frame* frame);
-// void getputfield(Frame* frame);
+// void decodegetfield(Frame* frame);
+// void decodeputfield(Frame* frame);
 void decodeinvokevirtual(Frame* frame);
 void decodeinvokeSpecial(Frame* frame);
-// void getinvokestatic(Frame* frame);
-// void getinvokeinterface(Frame* frame);
-// void getnew_(Frame* frame);
-// void getnewarray(Frame* frame);
-// void getcheckcast(Frame* frame);
-// void getinstanceof(Frame* frame);
+// void decodeinvokestatic(Frame* frame);
+// void decodeinvokeinterface(Frame* frame);
+// void decodenew_(Frame* frame);
+// void decodenewarray(Frame* frame);
+// void decodecheckcast(Frame* frame);
+// void decodeinstanceof(Frame* frame);
 // extended
-// void getwide(Frame* frame);
-// void getmultianewarray(Frame* frame);
-// void getifnull(Frame* frame);
-// void getifnonull(Frame* frame);
-// void getgoto_w(Frame* frame);
-// void getjsr_w(Frame* frame);
+// void decodewide(Frame* frame);
+// void decodemultianewarray(Frame* frame);
+// void decodeifnull(Frame* frame);
+// void decodeifnonull(Frame* frame);
+// void decodegoto_w(Frame* frame);
+// void decodejsr_w(Frame* frame);
 
 #endif

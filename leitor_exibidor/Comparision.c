@@ -6,6 +6,6 @@
 
 #include "Comparision.h"
 
-void if_icmple(Frame *) {
-	return
+void if_icmple(Frame *frame) {
+	printf("if_icmple\n");
 }

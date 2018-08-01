@@ -7,60 +7,60 @@
 #include "Reference.h"
 
 void getstatic(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1) {
-	ClassFile *class_file = NULL;
-    staticField *field = NULL;
-    char *tipo = NULL, *name = NULL, *nomeclasse = NULL, *nome = NULL;
-    u8 valoru8 = 0;
-    u4 valoru4 = 0;
-    u2 index = 0, tipoindex = 0, nameindex = 0, fieldindex = 0, nomeclasseindex = 0;
-    index = (u2) indexbyte1 << 8 | (u2)indexbyte2;
-    nomeclasseindex = frame->constant_pool[index - 1].info.Fieldref.class_index - 1;
-    nomeclasseindex = frame->constant_pool[nomeclasseindex].info.Class.name_index - 1;
-    tipoindex = frame->constant_pool[index - 1].info.Fieldref.name_and_type_index - 1;
-    nameindex = frame->constant_pool[tipoindex].info.NameAndType.name_index - 1;
-    tipoindex = frame->constant_pool[tipoindex].info.NameAndType.descriptor_index - 1;
-    tipo = dereferencia_instrucao(tipoindex, frame->constant_pool);
-    name = dereferencia_instrucao(nameindex, frame->constant_pool);
-    nomeclasse = dereferencia_instrucao(nomeclasseindex, frame->constant_pool);
-    class_file = RecuperaClassePorNome(nomeclasse, &listadeclasses);
-    if(!class_file) {
-        if(!strcmp(nomeclasse, "java/lang/System")) {
-            if (tipo[0] == 'J' || tipo[0] == 'D')
-            {
-                valoru8 = 0;
-                EmpilhaOperando64bits(&(frame->pilhaDeOperandos), &valoru8);
-            }
-            else
-            {
-                valoru4 = 0;
-                EmpilhaOperando32bits(&(frame->pilhaDeOperandos), &valoru4);
-            }
-            free(tipo);
-            free(name);
-            free(nome);
-            return;
-        }
-        else {
-            exit(-1);
-        }
-    }
-    field = recupera_field(nomeclasse, &listadefields);
-    if(!field) {
-        if (tipo[0] == 'J' || tipo[0] == 'D')
-        {
-            valoru8 = 0;
-            EmpilhaOperando64bits(&(frame->pilhaDeOperandos), &valoru8);
-        }
-        else
-        {
-            valoru4 = 0;
-            EmpilhaOperando32bits(&(frame->pilhaDeOperandos), &valoru4);
-        }
-        free(tipo);
-        free(name);
-        free(nome);
+	// ClassFile *class_file = NULL;
+    // staticField *field = NULL;
+    // char *tipo = NULL, *name = NULL, *nomeclasse = NULL, *nome = NULL;
+    // u8 valoru8 = 0;
+    // u4 valoru4 = 0;
+    // u2 index = 0, tipoindex = 0, nameindex = 0, fieldindex = 0, nomeclasseindex = 0;
+    // index = (u2) indexbyte1 << 8 | (u2)indexbyte2;
+    // nomeclasseindex = frame->constant_pool[index - 1].info.Fieldref.class_index - 1;
+    // nomeclasseindex = frame->constant_pool[nomeclasseindex].info.Class.name_index - 1;
+    // tipoindex = frame->constant_pool[index - 1].info.Fieldref.name_and_type_index - 1;
+    // nameindex = frame->constant_pool[tipoindex].info.NameAndType.name_index - 1;
+    // tipoindex = frame->constant_pool[tipoindex].info.NameAndType.descriptor_index - 1;
+    // tipo = dereferencia_instrucao(tipoindex, frame->constant_pool);
+    // name = dereferencia_instrucao(nameindex, frame->constant_pool);
+    // nomeclasse = dereferencia_instrucao(nomeclasseindex, frame->constant_pool);
+    // class_file = RecuperaClassePorNome(nomeclasse, &listadeclasses);
+    // if(!class_file) {
+    //     if(!strcmp(nomeclasse, "java/lang/System")) {
+    //         if (tipo[0] == 'J' || tipo[0] == 'D')
+    //         {
+    //             valoru8 = 0;
+    //             EmpilhaOperando64bits(&(frame->pilhaDeOperandos), &valoru8);
+    //         }
+    //         else
+    //         {
+    //             valoru4 = 0;
+    //             EmpilhaOperando32bits(&(frame->pilhaDeOperandos), &valoru4);
+    //         }
+    //         free(tipo);
+    //         free(name);
+    //         free(nome);
+    //         return;
+    //     }
+    //     else {
+    //         exit(-1);
+    //     }
+    // }
+    // field = recupera_field(nomeclasse, &listadefields);
+    // if(!field) {
+    //     if (tipo[0] == 'J' || tipo[0] == 'D')
+    //     {
+    //         valoru8 = 0;
+    //         EmpilhaOperando64bits(&(frame->pilhaDeOperandos), &valoru8);
+    //     }
+    //     else
+    //     {
+    //         valoru4 = 0;
+    //         EmpilhaOperando32bits(&(frame->pilhaDeOperandos), &valoru4);
+    //     }
+    //     free(tipo);
+    //     free(name);
+    //     free(nome);
 
-	return
+	return;
 }
 
 void invokespecial(Frame* frame, Pilha_frames* pilha_frames, u1 index_0, u1 index_1) {
