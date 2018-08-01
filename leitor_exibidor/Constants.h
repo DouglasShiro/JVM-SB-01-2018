@@ -51,7 +51,9 @@ void decodebipush(Frame *);
 void decodesipush(Frame *);
 
 void decodeldc(Frame *);
-// void decodeldc_w(Frame *);
-// void decodeldc2_w(Frame *);
+
+void decodeldc_w(Frame *);
+
+void decodeldc2_w(Frame *);
 
 # endif
